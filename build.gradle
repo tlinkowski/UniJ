@@ -15,6 +15,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+plugins {
+  // https://github.com/ben-manes/gradle-versions-plugin
+  id "com.github.ben-manes.versions" version "0.20.0"
+}
+
 wrapper {
   gradleVersion = "4.10.3"
 }
@@ -50,4 +55,5 @@ subprojects {
 
 }
 
+apply from: "$rootDir/gradle/dependency-updates.gradle"
 apply from: "$rootDir/gradle/ide.gradle"

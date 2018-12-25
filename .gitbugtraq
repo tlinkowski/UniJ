@@ -1,0 +1,4 @@
+[bugtraq]
+  url = https://github.com/tlinkowski/UniJ/issues/%BUGID%
+  loglinkregex = "#\\d+"
+  logregex = \\d+

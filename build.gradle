@@ -18,6 +18,9 @@
 plugins {
   // https://github.com/ben-manes/gradle-versions-plugin
   id "com.github.ben-manes.versions" version "0.20.0"
+
+  // https://github.com/melix/jmh-gradle-plugin
+  id "me.champeau.gradle.jmh" version "0.4.7" apply false
 }
 
 wrapper {
@@ -31,6 +34,7 @@ subprojects {
 
   apply plugin: "java"
   apply plugin: "groovy"
+  apply plugin: "me.champeau.gradle.jmh"
 
   apply from: "$rootDir/gradle/configure-compile-tasks.gradle"
 

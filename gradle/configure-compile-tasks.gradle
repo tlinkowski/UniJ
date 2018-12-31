@@ -42,4 +42,5 @@ def setJavacReleaseOption = { JavaCompile task, String releaseArg ->
 ext.javaRelease = { String mainReleaseArg ->
   setJavacReleaseOption(compileJava, mainReleaseArg)
   setJavacReleaseOption(compileTestJava, "11")
+  setJavacReleaseOption(compileJmhJava, "11")
 }

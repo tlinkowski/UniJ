@@ -22,7 +22,7 @@ import pl.tlinkowski.unij.test.provider.AbstractUnmodifiableListFactorySpec
 /**
  * @author Tomasz Linkowski
  */
-class Jdk11UnmodifiableListFactorySpec extends AbstractUnmodifiableListFactorySpec {
+final class Jdk11UnmodifiableListFactorySpec extends AbstractUnmodifiableListFactorySpec {
 
   def setupSpec() {
     factory = new Jdk11UnmodifiableListFactory()

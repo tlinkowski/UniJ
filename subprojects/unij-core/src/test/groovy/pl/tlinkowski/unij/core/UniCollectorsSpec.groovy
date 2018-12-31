@@ -15,9 +15,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-javaRelease "8"
 
-dependencies {
-  testImplementation project(":unij-test")
-  testImplementation project(":unij-jdk11")
+package pl.tlinkowski.unij.core
+
+import spock.lang.Specification
+
+/**
+ * @author Tomasz Linkowski
+ */
+final class UniCollectorsSpec extends Specification {
+
+  def "toUnmodifiableList"(List<Integer> list) {
+    expect:
+      list.stream().collect(UniCollectors.toUnmodifiableList()) == list
+    where:
+      list      | _
+      []        | _
+      [1]       | _
+      [1, 2]    | _
+      [1, 2, 3] | _
+  }
+
 }

@@ -24,8 +24,22 @@ tasks.withType(JavaCompile) {
   options.compilerArgs.add("-Xlint:unchecked")
 }
 
-ext.javaRelease = { String releaseArg ->
-  tasks.withType(JavaCompile) {
-    options.compilerArgs.addAll(["--release", releaseArg])
-  }
+/**
+ * For the given Java compile task, sets javac --release option to the given value.
+ *
+ * https://docs.oracle.com/en/java/javase/11/tools/javac.html
+ */
+def setJavacReleaseOption = { JavaCompile task, String releaseArg ->
+  assert !task.options.compilerArgs.contains("--release"): "--release option specified more than once for " + task
+  task.options.compilerArgs.addAll(["--release", releaseArg])
+}
+
+/**
+ * Sets javac --release option:
+ * - to the given value, for the "main/java" compile task,
+ * - to "11", for all other Java compile tasks.
+ */
+ext.javaRelease = { String mainReleaseArg ->
+  setJavacReleaseOption(compileJava, mainReleaseArg)
+  setJavacReleaseOption(compileTestJava, "11")
 }

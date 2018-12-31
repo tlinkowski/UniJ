@@ -48,9 +48,6 @@ subprojects {
 
     compileOnly group: "com.google.code.findbugs", name: "jsr305", version: "3.0.2"
     compileOnly group: "org.jetbrains.kotlin", name: "kotlin-annotations-jvm", version: "1.3.11"
-
-    testImplementation localGroovy()
-    testImplementation group: "org.spockframework", name: "spock-core", version: "1.2-groovy-2.5"
   }
 
 }

@@ -15,9 +15,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-javaRelease "11"
-
-dependencies {
-  compile project(":unij-core")
-  testImplementation project(":unij-test")
-}
+/**
+ * Test classes (specifications) for UniJ service providers.
+ *
+ * @author Tomasz Linkowski
+ * @see java.util.ServiceLoader
+ */
+package pl.tlinkowski.unij.test.provider;

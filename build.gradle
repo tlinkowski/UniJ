@@ -39,7 +39,7 @@ subprojects {
   }
 
   configurations {
-    testImplementation.extendsFrom compileOnly
+    testCompileOnly.extendsFrom compileOnly
   }
 
   dependencies {

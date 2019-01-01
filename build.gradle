@@ -54,6 +54,21 @@ subprojects {
     compileOnly group: "org.jetbrains.kotlin", name: "kotlin-annotations-jvm", version: "1.3.11"
   }
 
+  /**
+   * BENCHMARKS
+   * http://openjdk.java.net/projects/code-tools/jmh/
+   */
+  jmh {
+    /*
+     * Note that when using "separateClasspathJAR" option and running the benchmark on Windows,
+     * the following four resources must be on the same drive (otherwise, "'other' has different root" is thrown):
+     * 1) this project
+     * 2) JDK
+     * 3) Gradle user home dir (can be set using GRADLE_USER_HOME environment variable)
+     * 4) TEMP dir (can be set using System properties through "java.io.tmpdir")
+     */
+    jvmArgsAppend = ["-Djmh.separateClasspathJAR=true"] // https://bugs.openjdk.java.net/browse/CODETOOLS-7902106
+  }
 }
 
 apply from: "$rootDir/gradle/dependency-updates.gradle"

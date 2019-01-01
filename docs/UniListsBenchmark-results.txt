@@ -1,0 +1,25 @@
+# VM version: JDK 11.0.1, OpenJDK 64-Bit Server VM, 11.0.1+13
+# Warmup: 5 iterations, 10 s each
+# Measurement: 5 iterations, 10 s each
+
+Benchmark                       Mode  Cnt   Score   Error  Units
+
+UniListsBenchmark.listOf        avgt   25   3,690 ± 0,243  ns/op
+UniListsBenchmark.uniListsOf    avgt   25   3,880 ± 0,176  ns/op
+
+UniListsBenchmark.listOf1       avgt   25   5,527 ± 0,073  ns/op
+UniListsBenchmark.uniListsOf1   avgt   25   6,259 ± 0,139  ns/op
+
+UniListsBenchmark.listOf2       avgt   25   5,982 ± 0,034  ns/op
+UniListsBenchmark.uniListsOf2   avgt   25   6,944 ± 0,442  ns/op
+
+UniListsBenchmark.listOf3       avgt   25  14,634 ± 0,059  ns/op
+UniListsBenchmark.uniListsOf3   avgt   25  16,273 ± 0,173  ns/op
+
+UniListsBenchmark.listOf10      avgt   25  39,240 ± 0,153  ns/op
+UniListsBenchmark.uniListsOf10  avgt   25  38,438 ± 0,104  ns/op
+
+UniListsBenchmark.listOf20      avgt   25  74,388 ± 0,226  ns/op
+UniListsBenchmark.uniListsOf20  avgt   25  71,040 ± 0,209  ns/op
+
+# Run complete. Total time: 01:40:40

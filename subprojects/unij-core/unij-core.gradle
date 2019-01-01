@@ -20,4 +20,6 @@ javaRelease "8"
 dependencies {
   testImplementation project(":unij-test")
   testImplementation project(":unij-jdk11")
+
+  jmh project(":unij-jdk11")
 }

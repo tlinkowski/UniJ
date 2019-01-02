@@ -30,7 +30,7 @@ wrapper {
 ext.lombokVersion = "1.18.4"
 
 subprojects {
-  group = "pl.tlinkowski"
+  group = "pl.tlinkowski.unij"
 
   apply plugin: "java"
   apply plugin: "groovy"

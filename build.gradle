@@ -17,10 +17,10 @@
  */
 plugins {
   // https://github.com/ben-manes/gradle-versions-plugin
-  id "com.github.ben-manes.versions" version "0.20.0"
+  id "com.github.ben-manes.versions" version "0.21.0"
 
   // https://github.com/melix/jmh-gradle-plugin
-  id "me.champeau.gradle.jmh" version "0.4.7" apply false
+  id "me.champeau.gradle.jmh" version "0.4.8" apply false
 }
 
 wrapper {
@@ -28,7 +28,7 @@ wrapper {
   distributionType = Wrapper.DistributionType.ALL
 }
 
-ext.lombokVersion = "1.18.4"
+ext.lombokVersion = "1.18.6"
 
 subprojects {
   group = "pl.tlinkowski.unij"
@@ -52,7 +52,7 @@ subprojects {
     annotationProcessor group: "org.projectlombok", name: "lombok", version: lombokVersion
 
     compileOnly group: "com.google.code.findbugs", name: "jsr305", version: "3.0.2"
-    compileOnly group: "org.jetbrains.kotlin", name: "kotlin-annotations-jvm", version: "1.3.11"
+    compileOnly group: "org.jetbrains.kotlin", name: "kotlin-annotations-jvm", version: "1.3.21"
   }
 
   /**

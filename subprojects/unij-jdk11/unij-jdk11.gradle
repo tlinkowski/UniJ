@@ -19,5 +19,6 @@ javaRelease "11"
 
 dependencies {
   compile project(":unij-core")
+
   testImplementation project(":unij-test")
 }

@@ -105,6 +105,18 @@ subprojects {
   }
   check.dependsOn jacocoTestReport
 
+  jacocoTestCoverageVerification {
+    violationRules {
+      rule {
+        limit {
+          counter = 'LINE'
+          minimum = 0.99
+        }
+      }
+    }
+  }
+  check.dependsOn jacocoTestCoverageVerification
+
   /**
    * BENCHMARKS
    * http://openjdk.java.net/projects/code-tools/jmh/

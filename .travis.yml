@@ -1,2 +1,11 @@
 language: java
 jdk: openjdk11
+
+sudo: false # faster builds
+
+before_install:
+  - chmod +x gradlew
+  - pip install --user codecov
+
+after_success:
+  - codecov

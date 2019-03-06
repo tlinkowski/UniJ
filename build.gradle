@@ -74,9 +74,9 @@ allprojects {
 subprojects {
   group = "pl.tlinkowski.unij"
 
-  apply plugin: "java"
-  apply plugin: "groovy"
-  apply plugin: "jacoco"
+  apply plugin: "java" // https://docs.gradle.org/current/userguide/java_plugin.html
+  apply plugin: "groovy" // https://docs.gradle.org/current/userguide/groovy_plugin.html
+  apply plugin: "jacoco" // https://docs.gradle.org/current/userguide/jacoco_plugin.html
   apply plugin: "me.champeau.gradle.jmh"
 
   apply from: "$rootDir/gradle/configure-compile-tasks.gradle"

@@ -76,6 +76,7 @@ subprojects {
 
   apply plugin: "java"
   apply plugin: "groovy"
+  apply plugin: "jacoco"
   apply plugin: "me.champeau.gradle.jmh"
 
   apply from: "$rootDir/gradle/configure-compile-tasks.gradle"
@@ -91,6 +92,12 @@ subprojects {
     compileOnly group: "com.google.code.findbugs", name: "jsr305", version: "3.0.2"
     compileOnly group: "org.jetbrains.kotlin", name: "kotlin-annotations-jvm", version: "1.3.21"
   }
+
+  /**
+   * Code Coverage (JaCoCo)
+   * https://github.com/jacoco/jacoco
+   */
+  check.dependsOn jacocoTestReport
 
   /**
    * BENCHMARKS

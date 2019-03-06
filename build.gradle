@@ -19,6 +19,9 @@ plugins {
   // https://github.com/ben-manes/gradle-versions-plugin
   id "com.github.ben-manes.versions" version "0.21.0"
 
+  // https://aalmiray.github.io/kordamp-gradle-plugins/
+  id "org.kordamp.gradle.base" version "0.14.0"
+
   // https://github.com/melix/jmh-gradle-plugin
   id "me.champeau.gradle.jmh" version "0.4.8" apply false
 }
@@ -26,6 +29,38 @@ plugins {
 wrapper {
   gradleVersion = "5.2.1"
   distributionType = Wrapper.DistributionType.ALL
+}
+
+config {
+  info {
+    name = "UniJ"
+    vendor = "Tomasz Linkowski"
+    inceptionYear = "2018"
+    description = "Universal cross-JDK API provider for immutable collections"
+
+    links {
+      website = "https://github.com/tlinkowski/UniJ"
+      issueTracker = "https://github.com/tlinkowski/UniJ/issues"
+      scm = "https://github.com/tlinkowski/UniJ.git"
+    }
+
+    people {
+      person {
+        id = "tlinkowski"
+        name = "Tomasz Linkowski"
+        url = "https://tlinkowski.pl/"
+        roles = ["developer"]
+      }
+    }
+  }
+
+  license {
+    licenses {
+      license {
+        id = "Apache-2.0"
+      }
+    }
+  }
 }
 
 ext.lombokVersion = "1.18.6"

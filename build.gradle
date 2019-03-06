@@ -97,6 +97,12 @@ subprojects {
    * Code Coverage (JaCoCo)
    * https://github.com/jacoco/jacoco
    */
+  jacocoTestReport {
+    reports {
+      xml.enabled = true
+    }
+  }
+
   check.dependsOn jacocoTestReport
 
   /**

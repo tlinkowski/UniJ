@@ -22,6 +22,7 @@ import java.util.*;
 import lombok.Getter;
 import lombok.experimental.UtilityClass;
 
+import pl.tlinkowski.unij.annotation.VisibleForTesting;
 import pl.tlinkowski.unij.core.provider.UnmodifiableListFactory;
 
 /**
@@ -34,7 +35,8 @@ final class UniJ {
   private static final UnmodifiableListFactory listFactory = load(UnmodifiableListFactory.class);
 
   //region LOAD
-  private static <T> T load(Class<T> serviceClass) {
+  @VisibleForTesting
+  static <T> T load(Class<T> serviceClass) {
     List<T> services = new ArrayList<>();
     ServiceLoader.load(serviceClass).forEach(services::add);
     validateLoadedServices(services, serviceClass);

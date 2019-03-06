@@ -39,7 +39,7 @@ config {
     description = "Universal cross-JDK API provider for immutable collections"
 
     links {
-      website = "https://github.com/tlinkowski/UniJ"
+      website = "https://unij.tlinkowski.pl/"
       issueTracker = "https://github.com/tlinkowski/UniJ/issues"
       scm = "https://github.com/tlinkowski/UniJ.git"
     }

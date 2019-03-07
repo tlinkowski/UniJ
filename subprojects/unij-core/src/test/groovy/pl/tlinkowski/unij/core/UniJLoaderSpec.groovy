@@ -27,13 +27,17 @@ import pl.tlinkowski.unij.exception.UniJException
  */
 class UniJLoaderSpec extends Specification {
 
+  //region SERVICE WITHOUT IMPLEMENTATION
   def "load() throws when service implementation is missing"() {
     when:
-      UniJLoader.load(ServiceWithoutImpl)
+      UniJLoader.load(NoImplService)
     then:
-      thrown(UniJException)
+      UniJException ex = thrown()
+      ex.message.contains(NoImplService.name)
+      ex.message.contains("service implementation not found")
   }
 
-  private static interface ServiceWithoutImpl {
+  interface NoImplService {
   }
+  //endregion
 }

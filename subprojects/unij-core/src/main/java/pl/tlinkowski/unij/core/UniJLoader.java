@@ -46,7 +46,8 @@ final class UniJLoader {
   private static <T> void validateLoadedServices(Collection<T> services, Class<T> serviceClass) {
     if (services.isEmpty()) {
       throw new UniJException(String.format(
-              "No %s service found. Ensure proper unij-* module is on the classpath/modulepath", serviceClass.getName()
+              "%s service implementation not found. Ensure proper unij-* module is on the classpath/modulepath",
+              serviceClass.getName()
       ));
     }
     log.debug("{} service: found {}", serviceClass.getName(), services);

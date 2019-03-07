@@ -113,6 +113,7 @@ public interface UnmodifiableListFactory {
   /**
    * Equivalent of {@link List#of(Object, Object, Object, Object, Object, Object, Object, Object, Object, Object)}.
    */
+  @SuppressWarnings("PMD.ExcessiveParameterList")
   @ReadOnly
   <E> List<E> of(E e1, E e2, E e3, E e4, E e5, E e6, E e7, E e8, E e9, E e10);
 

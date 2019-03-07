@@ -127,6 +127,7 @@ public final class UniLists {
   /**
    * Equivalent of {@link List#of(Object, Object, Object, Object, Object, Object, Object, Object, Object, Object)}.
    */
+  @SuppressWarnings("PMD.ExcessiveParameterList")
   @ReadOnly
   public static <E> List<E> of(E e1, E e2, E e3, E e4, E e5, E e6, E e7, E e8, E e9, E e10) {
     return UniJ.listFactory().of(e1, e2, e3, e4, e5, e6, e7, e8, e9, e10);

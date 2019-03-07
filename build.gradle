@@ -63,7 +63,8 @@ config {
   }
 }
 
-ext.lombokVersion = "1.18.6"
+ext.lombokVersion = "1.18.6" // https://projectlombok.org/changelog
+ext.slf4jVersion = "1.7.26" // https://www.slf4j.org/
 
 allprojects {
   repositories {

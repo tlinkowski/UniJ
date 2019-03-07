@@ -20,6 +20,7 @@ package pl.tlinkowski.unij.core
 
 import spock.lang.Specification
 
+import pl.tlinkowski.unij.core.annotation.UniJService
 import pl.tlinkowski.unij.exception.UniJException
 
 /**
@@ -38,6 +39,66 @@ class UniJLoaderSpec extends Specification {
   }
 
   interface NoImplService {
+  }
+  //endregion
+
+  //region MISSING @UniJService ANNOTATION
+  def "load() throws when @UniJService annotation is missing"() {
+    when:
+      UniJLoader.load(UnannotatedService)
+    then:
+      UniJException ex = thrown()
+      ex.message.contains(UnannotatedServiceImpl.name)
+      ex.message.contains("not annotated with")
+  }
+
+  interface UnannotatedService {
+  }
+
+  static class UnannotatedServiceImpl implements UnannotatedService {
+  }
+  //endregion
+
+  //region DUPLICATE PRIORITY
+  def "load() throws when two service implementations have the same priority"() {
+    when:
+      UniJLoader.load(DuplicatePriorityService)
+    then:
+      UniJException ex = thrown()
+      ex.message.contains(DuplicatePriorityServiceImpl1.name)
+      ex.message.contains(DuplicatePriorityServiceImpl2.name)
+      ex.message.contains("same priority")
+  }
+
+  interface DuplicatePriorityService {
+  }
+
+  @UniJService(priority = 10)
+  static class DuplicatePriorityServiceImpl1 implements DuplicatePriorityService {
+  }
+
+  @UniJService(priority = 10)
+  static class DuplicatePriorityServiceImpl2 implements DuplicatePriorityService {
+  }
+  //endregion
+
+  //region DIFFERENT PRIORITY
+  def "load() selects implementation with a higher priority"() {
+    when:
+      def service = UniJLoader.load(DifferentPriorityService)
+    then:
+      service instanceof DifferentPriorityServiceImpl2
+  }
+
+  interface DifferentPriorityService {
+  }
+
+  @UniJService(priority = 10)
+  static class DifferentPriorityServiceImpl1 implements DifferentPriorityService {
+  }
+
+  @UniJService(priority = -10)
+  static class DifferentPriorityServiceImpl2 implements DifferentPriorityService {
   }
   //endregion
 }

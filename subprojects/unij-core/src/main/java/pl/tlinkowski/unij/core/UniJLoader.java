@@ -36,14 +36,14 @@ import pl.tlinkowski.unij.exception.UniJException;
 @Slf4j
 final class UniJLoader {
 
-  static <T> T load(Class<T> serviceClass) {
-    List<T> services = new ArrayList<>(4);
+  static <S> S load(Class<S> serviceClass) {
+    List<S> services = new ArrayList<>(4);
     ServiceLoader.load(serviceClass).forEach(services::add);
     validateLoadedServices(services, serviceClass);
     return selectService(services, serviceClass);
   }
 
-  private static <T> void validateLoadedServices(Collection<T> services, Class<T> serviceClass) {
+  private static <S> void validateLoadedServices(Collection<S> services, Class<S> serviceClass) {
     if (services.isEmpty()) {
       throw new UniJException(String.format(
               "%s service implementation not found. Ensure proper unij-* module is on the classpath/modulepath",
@@ -53,13 +53,13 @@ final class UniJLoader {
     log.debug("{} service: found {}", serviceClass.getName(), services);
   }
 
-  private static <T> T selectService(Collection<T> services, Class<T> serviceClass) {
+  private static <S> S selectService(Collection<S> services, Class<S> serviceClass) {
     return selectService(buildPriorityServiceMap(services), serviceClass);
   }
 
-  private static <T> T selectService(SortedMap<Integer, T> priorityServiceMap, Class<T> serviceClass) {
+  private static <S> S selectService(SortedMap<Integer, S> priorityServiceMap, Class<S> serviceClass) {
     Integer highestPriority = priorityServiceMap.firstKey();
-    T highestPriorityService = priorityServiceMap.get(highestPriority);
+    S highestPriorityService = priorityServiceMap.get(highestPriority);
 
     log.info(
             "{} service: selected {} (priority={})",
@@ -68,7 +68,7 @@ final class UniJLoader {
     return highestPriorityService;
   }
 
-  private static <T> SortedMap<Integer, T> buildPriorityServiceMap(Collection<T> services) {
+  private static <S> SortedMap<Integer, S> buildPriorityServiceMap(Collection<S> services) {
     return services.stream().collect(Collectors.toMap(
             UniJLoader::detectPriority, Function.identity(), UniJLoader::throwOnDuplicatePriority, TreeMap::new
     ));
@@ -84,7 +84,7 @@ final class UniJLoader {
     return uniJServiceAnn.priority();
   }
 
-  private static <T> T throwOnDuplicatePriority(T service1, T service2) {
+  private static <S> S throwOnDuplicatePriority(S service1, S service2) {
     throw new UniJException(String.format(
             "%s and %s have the same priority", className(service1), className(service2)
     ));

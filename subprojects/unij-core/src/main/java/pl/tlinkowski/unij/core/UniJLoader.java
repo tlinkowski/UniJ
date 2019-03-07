@@ -18,10 +18,13 @@
 package pl.tlinkowski.unij.core;
 
 import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
+import pl.tlinkowski.unij.core.annotation.UniJService;
 import pl.tlinkowski.unij.exception.UniJException;
 
 /**
@@ -49,9 +52,44 @@ final class UniJLoader {
     log.debug("{} service: found {}", serviceClass.getName(), services);
   }
 
-  private static <T> T selectService(List<T> services, Class<T> serviceClass) {
-    T loadedService = services.get(0); // TODO: https://github.com/tlinkowski/UniJ/issues/21
-    log.info("{} service: selected {}", serviceClass.getName(), loadedService.getClass().getName());
-    return loadedService;
+  private static <T> T selectService(Collection<T> services, Class<T> serviceClass) {
+    return selectService(buildPriorityServiceMap(services), serviceClass);
+  }
+
+  private static <T> T selectService(SortedMap<Integer, T> priorityServiceMap, Class<T> serviceClass) {
+    Integer highestPriority = priorityServiceMap.firstKey();
+    T highestPriorityService = priorityServiceMap.get(highestPriority);
+
+    log.info(
+            "{} service: selected {} (priority={})",
+            serviceClass.getName(), className(highestPriorityService), highestPriority
+    );
+    return highestPriorityService;
+  }
+
+  private static <T> SortedMap<Integer, T> buildPriorityServiceMap(Collection<T> services) {
+    return services.stream().collect(Collectors.toMap(
+            UniJLoader::detectPriority, Function.identity(), UniJLoader::throwOnDuplicatePriority, TreeMap::new
+    ));
+  }
+
+  private static int detectPriority(Object service) {
+    UniJService uniJServiceAnn = service.getClass().getAnnotation(UniJService.class);
+    if (uniJServiceAnn == null) {
+      throw new UniJException(String.format(
+              "Service implementation %s not annotated with @%s", className(service), UniJService.class.getSimpleName()
+      ));
+    }
+    return uniJServiceAnn.priority();
+  }
+
+  private static <T> T throwOnDuplicatePriority(T service1, T service2) {
+    throw new UniJException(String.format(
+            "%s and %s have the same priority", className(service1), className(service2)
+    ));
+  }
+
+  private static String className(Object object) {
+    return object.getClass().getName();
   }
 }

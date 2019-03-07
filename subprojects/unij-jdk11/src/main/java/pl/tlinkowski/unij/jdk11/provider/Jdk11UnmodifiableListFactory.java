@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+import pl.tlinkowski.unij.core.annotation.UniJService;
 import pl.tlinkowski.unij.core.provider.UnmodifiableListFactory;
 
 /**
@@ -30,6 +31,7 @@ import pl.tlinkowski.unij.core.provider.UnmodifiableListFactory;
  *
  * @author Tomasz Linkowski
  */
+@UniJService(priority = 10)
 public final class Jdk11UnmodifiableListFactory implements UnmodifiableListFactory {
 
   //region COLLECTOR

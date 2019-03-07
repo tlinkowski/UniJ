@@ -17,48 +17,17 @@
  */
 package pl.tlinkowski.unij.core;
 
-import java.util.*;
-
 import lombok.Getter;
 import lombok.experimental.UtilityClass;
-import lombok.extern.slf4j.Slf4j;
 
-import pl.tlinkowski.unij.annotation.VisibleForTesting;
 import pl.tlinkowski.unij.core.provider.UnmodifiableListFactory;
-import pl.tlinkowski.unij.exception.UniJException;
 
 /**
  * @author Tomasz Linkowski
  */
 @UtilityClass
-@Slf4j
 final class UniJ {
 
   @Getter(lazy = true)
-  private static final UnmodifiableListFactory listFactory = load(UnmodifiableListFactory.class);
-
-  //region LOAD
-  @VisibleForTesting
-  static <T> T load(Class<T> serviceClass) {
-    List<T> services = new ArrayList<>(4);
-    ServiceLoader.load(serviceClass).forEach(services::add);
-    validateLoadedServices(services, serviceClass);
-    return selectService(services, serviceClass);
-  }
-
-  private static <T> void validateLoadedServices(Collection<T> services, Class<T> serviceClass) {
-    if (services.isEmpty()) {
-      throw new UniJException(String.format(
-              "No %s service found. Ensure proper unij-* module is on the classpath/modulepath", serviceClass.getName()
-      ));
-    }
-    log.debug("{} service: found {}", serviceClass.getName(), services);
-  }
-
-  private static <T> T selectService(List<T> services, Class<T> serviceClass) {
-    T loadedService = services.get(0); // TODO: https://github.com/tlinkowski/UniJ/issues/21
-    log.info("{} service: selected {}", serviceClass.getName(), loadedService.getClass().getName());
-    return loadedService;
-  }
-  //endregion
+  private static final UnmodifiableListFactory listFactory = UniJLoader.load(UnmodifiableListFactory.class);
 }

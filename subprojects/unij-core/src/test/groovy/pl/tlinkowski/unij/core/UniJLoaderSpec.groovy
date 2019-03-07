@@ -25,11 +25,11 @@ import pl.tlinkowski.unij.exception.UniJException
 /**
  * @author Tomasz Linkowski
  */
-class UniJSpec extends Specification {
+class UniJLoaderSpec extends Specification {
 
   def "load() throws when service implementation is missing"() {
     when:
-      UniJ.load(ServiceWithoutImpl)
+      UniJLoader.load(ServiceWithoutImpl)
     then:
       thrown(UniJException)
   }

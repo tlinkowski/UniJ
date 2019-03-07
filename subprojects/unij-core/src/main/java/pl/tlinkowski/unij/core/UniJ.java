@@ -25,6 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import pl.tlinkowski.unij.annotation.VisibleForTesting;
 import pl.tlinkowski.unij.core.provider.UnmodifiableListFactory;
+import pl.tlinkowski.unij.exception.UniJException;
 
 /**
  * @author Tomasz Linkowski
@@ -47,8 +48,8 @@ final class UniJ {
 
   private static <T> void validateLoadedServices(Collection<T> services, Class<T> serviceClass) {
     if (services.isEmpty()) {
-      throw new IllegalStateException(String.format(
-              "No %s service found. Ensure proper unij-* module is on the classpath/modulepath", serviceClass
+      throw new UniJException(String.format(
+              "No %s service found. Ensure proper unij-* module is on the classpath/modulepath", serviceClass.getName()
       ));
     }
     log.debug("{} service: found {}", serviceClass.getName(), services);

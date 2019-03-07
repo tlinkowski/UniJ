@@ -15,25 +15,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package pl.tlinkowski.unij.core
-
-import spock.lang.Specification
-
-import pl.tlinkowski.unij.exception.UniJException
+package pl.tlinkowski.unij.exception;
 
 /**
+ * Dedicated unchecked exception for UniJ.
+ *
  * @author Tomasz Linkowski
  */
-class UniJSpec extends Specification {
+public class UniJException extends RuntimeException {
 
-  def "load() throws when service implementation is missing"() {
-    when:
-      UniJ.load(ServiceWithoutImpl)
-    then:
-      thrown(UniJException)
-  }
-
-  private static interface ServiceWithoutImpl {
+  public UniJException(String message) {
+    super(message);
   }
 }

@@ -98,7 +98,7 @@ public final class Jdk10UnmodifiableSetFactory implements UnmodifiableSetFactory
     return Set.of(e1, e2, e3, e4, e5, e6, e7, e8, e9);
   }
 
-  @SuppressWarnings("PMD.ExcessiveParameterSet")
+  @SuppressWarnings("PMD.ExcessiveParameterList")
   @Override
   public <E> Set<E> of(E e1, E e2, E e3, E e4, E e5, E e6, E e7, E e8, E e9, E e10) {
     return Set.of(e1, e2, e3, e4, e5, e6, e7, e8, e9, e10);

@@ -17,7 +17,7 @@
  */
 package pl.tlinkowski.unij.service.collect.jdk10
 
-import pl.tlinkowski.unij.test.provider.AbstractUnmodifiableListFactorySpec
+import pl.tlinkowski.unij.service.collect.test.AbstractUnmodifiableListFactorySpec
 
 /**
  * @author Tomasz Linkowski

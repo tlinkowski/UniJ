@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: Apache-2.0
  *
- * Copyright 2018 Tomasz Linkowski.
+ * Copyright 2019 Tomasz Linkowski.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package pl.tlinkowski.unij.test.provider
+package pl.tlinkowski.unij.service.collect.test
 
 import spock.lang.Shared
 import spock.lang.Specification

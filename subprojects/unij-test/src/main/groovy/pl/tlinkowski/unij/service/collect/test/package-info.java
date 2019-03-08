@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: Apache-2.0
  *
- * Copyright 2018 Tomasz Linkowski.
+ * Copyright 2019 Tomasz Linkowski.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,8 +16,9 @@
  * limitations under the License.
  */
 /**
- * Test classes (specifications) for UniJ.
+ * Test classes (specifications) for UniJ {@link java.util.Collection}-factory services.
  *
  * @author Tomasz Linkowski
+ * @see java.util.ServiceLoader
  */
-package pl.tlinkowski.unij.test;
+package pl.tlinkowski.unij.service.collect.test;

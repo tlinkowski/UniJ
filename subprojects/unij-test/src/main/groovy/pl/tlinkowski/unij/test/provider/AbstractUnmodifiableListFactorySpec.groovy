@@ -33,6 +33,13 @@ abstract class AbstractUnmodifiableListFactorySpec extends Specification {
   @Shared
   protected UnmodifiableListFactory factory
 
+  def "proper service is registered"() {
+    when:
+      def registered = ServiceLoader.load(UnmodifiableListFactory).first()
+    then:
+      registered.class == factory.class
+  }
+
   def "collector"(List<Integer> list) {
     expect:
       list.stream().collect(factory.collector()) == list

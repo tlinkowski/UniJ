@@ -33,6 +33,13 @@ abstract class AbstractUnmodifiableSetFactorySpec extends Specification {
   @Shared
   protected UnmodifiableSetFactory factory
 
+  def "proper service is registered"() {
+    when:
+      def registered = ServiceLoader.load(UnmodifiableSetFactory).first()
+    then:
+      registered.class == factory.class
+  }
+
   def "collector"(Set<Integer> set) {
     expect:
       set.stream().collect(factory.collector()) == set

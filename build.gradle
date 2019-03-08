@@ -101,7 +101,7 @@ subprojects {
   jacocoTestReport {
     reports {
       xml.enabled = true
-      html.enabled = false
+      html.enabled = project.hasProperty("generateHtmlJacocoReport")
     }
   }
   check.dependsOn jacocoTestReport

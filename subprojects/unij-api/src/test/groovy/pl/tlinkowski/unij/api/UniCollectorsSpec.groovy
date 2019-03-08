@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: Apache-2.0
  *
- * Copyright 2018 Tomasz Linkowski.
+ * Copyright 2019 Tomasz Linkowski.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,4 +36,14 @@ final class UniCollectorsSpec extends Specification {
       [1, 2, 3] | _
   }
 
+  def "toUnmodifiableSet"(Set<Integer> set) {
+    expect:
+      set.stream().collect(UniCollectors.toUnmodifiableSet()) == set
+    where:
+      set       | _
+      []        | _
+      [1]       | _
+      [1, 2]    | _
+      [1, 2, 3] | _
+  }
 }

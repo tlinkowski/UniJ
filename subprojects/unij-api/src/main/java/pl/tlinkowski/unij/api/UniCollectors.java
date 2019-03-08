@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: Apache-2.0
  *
- * Copyright 2018 Tomasz Linkowski.
+ * Copyright 2019 Tomasz Linkowski.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 package pl.tlinkowski.unij.api;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collector;
 
 import lombok.experimental.UtilityClass;
@@ -35,5 +36,12 @@ public final class UniCollectors {
    */
   public static <T> Collector<T, ?, /*@ReadOnly*/ List<T>> toUnmodifiableList() {
     return UniJ.listFactory().collector();
+  }
+
+  /**
+   * Equivalent of {@link java.util.stream.Collectors#toUnmodifiableSet()}.
+   */
+  public static <T> Collector<T, ?, /*@ReadOnly*/ Set<T>> toUnmodifiableSet() {
+    return UniJ.setFactory().collector();
   }
 }

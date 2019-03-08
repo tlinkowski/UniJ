@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: Apache-2.0
  *
- * Copyright 2018 Tomasz Linkowski.
+ * Copyright 2019 Tomasz Linkowski.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ import lombok.Getter;
 import lombok.experimental.UtilityClass;
 
 import pl.tlinkowski.unij.service.collect.api.UnmodifiableListFactory;
+import pl.tlinkowski.unij.service.collect.api.UnmodifiableSetFactory;
 
 /**
  * @author Tomasz Linkowski
@@ -30,4 +31,6 @@ final class UniJ {
 
   @Getter(lazy = true)
   private static final UnmodifiableListFactory listFactory = UniJLoader.load(UnmodifiableListFactory.class);
+  @Getter(lazy = true)
+  private static final UnmodifiableSetFactory setFactory = UniJLoader.load(UnmodifiableSetFactory.class);
 }

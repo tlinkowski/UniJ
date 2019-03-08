@@ -15,10 +15,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-javaRelease "8"
+/**
+ * UniJ API.
+ *
+ * @author Tomasz Linkowski
+ */
+@AllNonnullByDefault
+package pl.tlinkowski.unij.api;
 
-dependencies {
-  compile project(":unij-api")
-
-  testImplementation project(":unij-test")
-}
+import pl.tlinkowski.unij.annotation.AllNonnullByDefault;

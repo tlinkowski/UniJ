@@ -15,10 +15,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-javaRelease "8"
+/**
+ * UniJ service provider interfaces.
+ *
+ * @author Tomasz Linkowski
+ * @see java.util.ServiceLoader
+ */
+package pl.tlinkowski.unij.api.provider;
 
-dependencies {
-  compile project(":unij-api")
-
-  testImplementation project(":unij-test")
-}

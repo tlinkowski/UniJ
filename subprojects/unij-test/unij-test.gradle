@@ -18,7 +18,7 @@
 javaRelease "11"
 
 dependencies {
-  compile project(":unij-core")
+  compile project(":unij-api")
   compile group: "org.slf4j", name: "slf4j-simple", version: slf4jVersion
 
   compile group: "org.codehaus.groovy", name: "groovy-all", version: "2.5.6"

@@ -15,10 +15,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-javaRelease "8"
+package pl.tlinkowski.unij.api;
 
-dependencies {
-  compile project(":unij-api")
+import lombok.Getter;
+import lombok.experimental.UtilityClass;
 
-  testImplementation project(":unij-test")
+import pl.tlinkowski.unij.api.provider.UnmodifiableListFactory;
+
+/**
+ * @author Tomasz Linkowski
+ */
+@UtilityClass
+final class UniJ {
+
+  @Getter(lazy = true)
+  private static final UnmodifiableListFactory listFactory = UniJLoader.load(UnmodifiableListFactory.class);
 }

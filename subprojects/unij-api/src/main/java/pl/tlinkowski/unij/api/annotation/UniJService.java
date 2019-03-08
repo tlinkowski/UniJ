@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: Apache-2.0
  *
- * Copyright 2018 Tomasz Linkowski.
+ * Copyright 2019 Tomasz Linkowski.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,10 +15,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-javaRelease "8"
+package pl.tlinkowski.unij.api.annotation;
 
-dependencies {
-  compile project(":unij-api")
+import java.lang.annotation.*;
 
-  testImplementation project(":unij-test")
+/**
+ * Annotation that should be present on all implementations of UniJ services.
+ *
+ * @author Tomasz Linkowski
+ */
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+public @interface UniJService {
+
+  /**
+   * Loading priority of this service. Smaller numbers mean higher priority (priority may be negative).
+   */
+  int priority();
 }

@@ -15,10 +15,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-javaRelease "8"
+package pl.tlinkowski.unij.api;
 
-dependencies {
-  compile project(":unij-api")
+import java.util.List;
+import java.util.stream.Collector;
 
-  testImplementation project(":unij-test")
+import lombok.experimental.UtilityClass;
+
+/**
+ * Provides some {@link Collector} factory methods present in {@link java.util.stream.Collectors} class.
+ *
+ * @author Tomasz Linkowski
+ */
+@UtilityClass
+public final class UniCollectors {
+
+  /**
+   * Equivalent of {@link java.util.stream.Collectors#toUnmodifiableList()}.
+   */
+  public static <T> Collector<T, ?, /*@ReadOnly*/ List<T>> toUnmodifiableList() {
+    return UniJ.listFactory().collector();
+  }
 }

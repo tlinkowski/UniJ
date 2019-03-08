@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package pl.tlinkowski.unij.service.collect.jdk11;
+package pl.tlinkowski.unij.service.collect.jdk10;
 
 import java.util.Collection;
 import java.util.List;
@@ -27,12 +27,12 @@ import pl.tlinkowski.unij.service.collect.api.UnmodifiableListFactory;
 
 /**
  * Implementation of {@link UnmodifiableListFactory} that returns <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/List.html#unmodifiable">unmodifiable
- * lists</a> introduced in JDK 11.
+ * lists</a> introduced in JDK 10.
  *
  * @author Tomasz Linkowski
  */
 @UniJService(priority = 10)
-public final class Jdk11UnmodifiableListFactory implements UnmodifiableListFactory {
+public final class Jdk10UnmodifiableListFactory implements UnmodifiableListFactory {
 
   //region COLLECTOR
   @Override

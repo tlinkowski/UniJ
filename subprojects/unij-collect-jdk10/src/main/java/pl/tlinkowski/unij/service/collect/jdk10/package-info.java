@@ -16,12 +16,12 @@
  * limitations under the License.
  */
 /**
- * UniJ {@link java.util.Collection}-factory service implementations based on JDK 11.
+ * UniJ {@link java.util.Collection}-factory service implementations based on JDK 10.
  *
  * @author Tomasz Linkowski
  * @see java.util.ServiceLoader
  */
 @AllNonnullByDefault
-package pl.tlinkowski.unij.service.collect.jdk11;
+package pl.tlinkowski.unij.service.collect.jdk10;
 
 import pl.tlinkowski.unij.annotation.AllNonnullByDefault;

@@ -15,16 +15,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package pl.tlinkowski.unij.service.collect.jdk11
+package pl.tlinkowski.unij.service.collect.jdk10
 
 import pl.tlinkowski.unij.test.provider.AbstractUnmodifiableListFactorySpec
 
 /**
  * @author Tomasz Linkowski
  */
-final class Jdk11UnmodifiableListFactorySpec extends AbstractUnmodifiableListFactorySpec {
+final class Jdk10UnmodifiableListFactorySpec extends AbstractUnmodifiableListFactorySpec {
 
   def setupSpec() {
-    factory = new Jdk11UnmodifiableListFactory()
+    factory = new Jdk10UnmodifiableListFactory()
   }
 }

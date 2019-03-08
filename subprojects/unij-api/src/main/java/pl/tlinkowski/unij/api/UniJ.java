@@ -20,7 +20,7 @@ package pl.tlinkowski.unij.api;
 import lombok.Getter;
 import lombok.experimental.UtilityClass;
 
-import pl.tlinkowski.unij.api.provider.UnmodifiableListFactory;
+import pl.tlinkowski.unij.service.collect.api.UnmodifiableListFactory;
 
 /**
  * @author Tomasz Linkowski

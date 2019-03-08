@@ -20,8 +20,8 @@ package pl.tlinkowski.unij.api
 
 import spock.lang.Specification
 
-import pl.tlinkowski.unij.api.annotation.UniJService
 import pl.tlinkowski.unij.exception.UniJException
+import pl.tlinkowski.unij.service.UniJService
 
 /**
  * @author Tomasz Linkowski

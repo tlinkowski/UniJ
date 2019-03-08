@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 /**
- * UniJ API.
+ * UniJ consumer API.
  *
  * @author Tomasz Linkowski
  */

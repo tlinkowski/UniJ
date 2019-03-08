@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: Apache-2.0
  *
- * Copyright 2018 Tomasz Linkowski.
+ * Copyright 2019 Tomasz Linkowski.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,16 +15,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package pl.tlinkowski.unij.jdk11.provider
-
-import pl.tlinkowski.unij.test.provider.AbstractUnmodifiableListFactorySpec
-
 /**
+ * UniJ {@link java.util.Collection}-factory service implementations based on JDK 11.
+ *
  * @author Tomasz Linkowski
+ * @see java.util.ServiceLoader
  */
-final class Jdk11UnmodifiableListFactorySpec extends AbstractUnmodifiableListFactorySpec {
+@AllNonnullByDefault
+package pl.tlinkowski.unij.service.collect.jdk11;
 
-  def setupSpec() {
-    factory = new Jdk11UnmodifiableListFactory()
-  }
-}
+import pl.tlinkowski.unij.annotation.AllNonnullByDefault;

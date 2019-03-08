@@ -18,9 +18,10 @@
 
 package pl.tlinkowski.unij.test.provider
 
-import pl.tlinkowski.unij.api.provider.UnmodifiableListFactory
 import spock.lang.Shared
 import spock.lang.Specification
+
+import pl.tlinkowski.unij.service.collect.api.UnmodifiableListFactory
 
 /**
  * Base specification for {@link UnmodifiableListFactory}.

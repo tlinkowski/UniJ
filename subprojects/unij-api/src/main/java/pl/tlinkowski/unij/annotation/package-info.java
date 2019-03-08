@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 /**
- * Annotations for UniJ.
+ * Generic annotations for UniJ.
  *
  * @author Tomasz Linkowski
  */

@@ -19,7 +19,7 @@ javaRelease "8"
 
 dependencies {
   compile project(":unij-api")
-  compileOnly group: "com.google.guava", name: "guava", version: "27.0.1-android"
+  compileOnly group: "com.google.guava", name: "guava", version: "27.1-android"
 
   testImplementation project(":unij-test")
 }

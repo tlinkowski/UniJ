@@ -19,6 +19,6 @@ javaRelease "8"
 
 dependencies {
   compile project(":unij-api")
-  implementation project(":unij-collect-guava")
-  implementation project(":unij-misc-jdk8")
+  runtimeOnly project(":unij-collect-guava")
+  runtimeOnly project(":unij-misc-jdk8")
 }

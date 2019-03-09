@@ -19,6 +19,6 @@ javaRelease "11"
 
 dependencies {
   compile project(":unij-api")
-  implementation project(":unij-collect-jdk10")
-  implementation project(":unij-misc-jdk11")
+  runtimeOnly project(":unij-collect-jdk10")
+  runtimeOnly project(":unij-misc-jdk11")
 }

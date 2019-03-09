@@ -21,7 +21,7 @@ dependencies {
   implementation group: "org.slf4j", name: "slf4j-api", version: slf4jVersion
 
   testImplementation project(":unij-test")
-  testImplementation project(":unij-bundle-jdk11")
+  testRuntimeOnly project(":unij-bundle-jdk11")
 
-  jmh project(":unij-bundle-jdk11")
+  jmhRuntimeOnly project(":unij-bundle-jdk11")
 }

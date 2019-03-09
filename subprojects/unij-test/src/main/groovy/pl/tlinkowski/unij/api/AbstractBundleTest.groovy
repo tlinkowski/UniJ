@@ -15,12 +15,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-javaRelease "8"
 
-dependencies {
-  compile project(":unij-api")
-  runtimeOnly project(":unij-collect-guava")
-  runtimeOnly project(":unij-misc-jdk8")
+package pl.tlinkowski.unij.api
 
-  testImplementation project(":unij-test")
+import spock.lang.Specification
+
+/**
+ * Test that should be extended by every bundle.
+ *
+ * This test verifies that a bundle has proper runtime dependencies.
+ *
+ * @author Tomasz Linkowski
+ */
+abstract class AbstractBundleTest extends Specification {
+
+  def "UnmodifiableListFactory implementation found"() {
+    when:
+      UniLists.of()
+    then:
+      noExceptionThrown()
+  }
+
+  def "UnmodifiableSetFactory implementation found"() {
+    when:
+      UniSets.of()
+    then:
+      noExceptionThrown()
+  }
 }

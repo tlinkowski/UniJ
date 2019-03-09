@@ -15,12 +15,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-javaRelease "8"
 
-dependencies {
-  compile project(":unij-api")
-  runtimeOnly project(":unij-collect-guava")
-  runtimeOnly project(":unij-misc-jdk8")
+package pl.tlinkowski.unij.api
 
-  testImplementation project(":unij-test")
+/**
+ * @author Tomasz Linkowski
+ */
+final class Jdk11BundleTest extends AbstractBundleTest {
 }

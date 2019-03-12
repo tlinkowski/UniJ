@@ -15,6 +15,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-rootProject.name = "UniJ"
+buildscript {
+  repositories {
+    gradlePluginPortal()
+  }
+  dependencies {
+    classpath group: "org.kordamp.gradle", name: "settings-gradle-plugin", version: "0.15.0"
+  }
+}
+apply plugin: "org.kordamp.gradle.settings"
 
-apply from: "gradle/include-docs-and-subprojects.gradle"
+projects {
+  directories = ["docs", "subprojects"]
+}
+
+rootProject.name = "UniJ"

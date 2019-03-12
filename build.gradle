@@ -20,7 +20,7 @@ plugins {
   id "com.github.ben-manes.versions" version "0.21.0"
 
   // https://aalmiray.github.io/kordamp-gradle-plugins/
-  id "org.kordamp.gradle.base" version "0.14.0"
+  id "org.kordamp.gradle.base" version "0.15.0"
 
   // https://github.com/melix/jmh-gradle-plugin
   id "me.champeau.gradle.jmh" version "0.4.8" apply false
@@ -54,7 +54,7 @@ config {
     }
   }
 
-  license {
+  licensing {
     licenses {
       license {
         id = "Apache-2.0"

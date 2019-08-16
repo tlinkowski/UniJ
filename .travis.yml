@@ -1,11 +1,28 @@
 language: java
-jdk: openjdk11
+jdk: openjdk12
 
 sudo: false # faster builds
 
+branches:
+  except:
+    - /^\d+\.\d+\.\d+$/ # skip builds related to addTemporaryVersionTag
+
 before_install:
-  - chmod +x gradlew
-  - pip install --user codecov
+  - chmod +x gradlew # https://stackoverflow.com/questions/33820638/travis-yml-gradlew-permission-denied/33820642#33820642
+  - pip install --user codecov # https://github.com/codecov/codecov-python#configuration
+
+#region https://docs.travis-ci.com/user/languages/java/#caching
+before_cache:
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+cache:
+  directories:
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
+#endregion
+
+script:
+  - ./gradlew check --stacktrace
 
 after_success:
-  - codecov
+  - codecov # https://github.com/codecov/codecov-python#configuration

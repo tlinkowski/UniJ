@@ -15,8 +15,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-javaRelease "11"
-
 dependencies {
   compile project(":unij-api")
   runtimeOnly group: "org.slf4j", name: "slf4j-simple", version: slf4jVersion

@@ -1,0 +1,39 @@
+# reference: https://www.appveyor.com/docs/appveyor-yml/
+
+image: Visual Studio 2017 # https://www.appveyor.com/docs/windows-images-software/
+
+version: "#{build} ({branch})"
+
+branches:
+  except:
+    - /^\d+\.\d+\.\d+$/ # skip builds related to addTemporaryVersionTag
+
+#region JAVA
+environment:
+  matrix:
+  - JAVA_HOME: C:\Program Files\Java\jdk12
+
+install:
+  - SET PATH=%JAVA_HOME%\bin;%PATH
+  - java --version
+#endregion
+
+#region GRADLE
+build_script:
+  - gradlew.bat assemble
+
+test_script:
+  - gradlew.bat check --stacktrace
+
+cache:
+  - C:\Users\appveyor\.gradle
+
+on_finish:
+  # upload test results via REST-api: https://github.com/appveyor/ci/issues/92#issuecomment-307242316
+  - ps: |
+      $wc = New-Object 'System.Net.WebClient'
+      Get-ChildItem . -Name -Recurse 'TEST-*.xml'  |
+      Foreach-Object {
+          $wc.UploadFile("https://ci.appveyor.com/api/testresults/junit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path $_))
+      }
+#endregion

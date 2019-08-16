@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-javaRelease "8"
+modularity.mixedJavaRelease "8"
 
 dependencies {
   compile project(":unij-api")

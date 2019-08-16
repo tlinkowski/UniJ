@@ -40,3 +40,8 @@ out/
 # Other
 /compiler.xml
 /misc.xml
+
+# SuperPOM
+/codeStyles/
+/copyright/
+/inspectionProfiles/

@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-javaRelease "8"
+modularity.mixedJavaRelease "8"
 
 dependencies {
   implementation group: "org.slf4j", name: "slf4j-api", version: slf4jVersion

@@ -38,3 +38,16 @@ gradle-app.setting
 # IntelliJ
 #
 *.iml
+
+#
+# Node.js
+#
+/node_modules/
+/package-lock.json
+
+#
+# SuperPOM
+#
+/.grenrc.yml
+/package.json
+/release.bat

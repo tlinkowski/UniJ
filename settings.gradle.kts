@@ -17,16 +17,14 @@
  */
 buildscript {
   repositories {
-    gradlePluginPortal()
+    mavenCentral()
   }
   dependencies {
-    classpath group: "org.kordamp.gradle", name: "settings-gradle-plugin", version: "0.15.0"
+    // https://github.com/tlinkowski/tlinkowski-superpom
+    val mySuperpomVersion: String by settings
+    classpath(group = "pl.tlinkowski.gradle.my", name = "my-settings-gradle-plugin", version = mySuperpomVersion)
   }
 }
-apply plugin: "org.kordamp.gradle.settings"
-
-projects {
-  directories = ["docs", "subprojects"]
-}
+apply(plugin = "pl.tlinkowski.gradle.my.settings")
 
 rootProject.name = "UniJ"

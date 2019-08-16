@@ -26,11 +26,6 @@ plugins {
   id "me.champeau.gradle.jmh" version "0.4.8" apply false
 }
 
-wrapper {
-  gradleVersion = "5.2.1"
-  distributionType = Wrapper.DistributionType.ALL
-}
-
 config {
   info {
     name = "UniJ"

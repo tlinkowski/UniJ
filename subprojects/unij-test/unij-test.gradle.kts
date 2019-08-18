@@ -15,6 +15,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+config {
+  groovydoc {
+    enabled = true
+    replaceJavadoc = true
+  }
+}
+
 dependencies {
   compile(project(":unij-api"))
 

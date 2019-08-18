@@ -21,4 +21,7 @@
  * @author Tomasz Linkowski
  * @see java.util.ServiceLoader
  */
+@NonNullPackage
 package pl.tlinkowski.unij.service.collect.test;
+
+import pl.tlinkowski.annotation.basic.NonNullPackage;

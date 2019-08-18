@@ -15,13 +15,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-modularity.mixedJavaRelease "8"
+//modularity.mixedJavaRelease("8")
 
 dependencies {
-  implementation group: "org.slf4j", name: "slf4j-api", version: slf4jVersion
+  // https://www.slf4j.org/download.html
+  val slf4jVersion: String by project
+  implementation(group = "org.slf4j", name = "slf4j-api", version = slf4jVersion)
 
-  testImplementation project(":unij-test")
-  testRuntimeOnly project(":unij-bundle-jdk11")
+  testImplementation(project(":unij-test"))
+  testRuntimeOnly(project(":unij-bundle-jdk11"))
 
-  jmhRuntimeOnly project(":unij-bundle-jdk11")
+  jmhRuntimeOnly(project(":unij-bundle-jdk11"))
 }

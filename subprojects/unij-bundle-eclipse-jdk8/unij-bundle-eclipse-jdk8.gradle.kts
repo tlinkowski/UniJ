@@ -15,12 +15,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-modularity.mixedJavaRelease "8"
+//modularity.mixedJavaRelease("8")
 
 dependencies {
-  compile project(":unij-api")
-  runtimeOnly project(":unij-collect-eclipse")
-  runtimeOnly project(":unij-misc-jdk8")
+  compile(project(":unij-api"))
+  runtimeOnly(project(":unij-collect-eclipse"))
+  runtimeOnly(project(":unij-misc-jdk8"))
 
-  testImplementation project(":unij-test")
+  testImplementation(project(":unij-test"))
 }

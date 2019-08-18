@@ -15,12 +15,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-modularity.standardJavaRelease "11"
+//modularity.standardJavaRelease("11")
 
 dependencies {
-  compile project(":unij-api")
-  runtimeOnly project(":unij-collect-jdk10")
-  runtimeOnly project(":unij-misc-jdk11")
+  compile(project(":unij-api"))
+  runtimeOnly(project(":unij-collect-jdk10"))
+  runtimeOnly(project(":unij-misc-jdk11"))
 
-  testImplementation project(":unij-test")
+  testImplementation(project(":unij-test"))
 }

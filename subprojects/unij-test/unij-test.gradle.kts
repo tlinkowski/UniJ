@@ -16,9 +16,14 @@
  * limitations under the License.
  */
 dependencies {
-  compile project(":unij-api")
-  runtimeOnly group: "org.slf4j", name: "slf4j-simple", version: slf4jVersion
+  compile(project(":unij-api"))
 
-  compile group: "org.codehaus.groovy", name: "groovy-all", version: "2.5.6"
-  compile group: "org.spockframework", name: "spock-core", version: "1.3-groovy-2.5"
+  val slf4jVersion: String by project
+  runtimeOnly(group = "org.slf4j", name = "slf4j-simple", version = slf4jVersion)
+
+  val groovyVersion: String by project
+  compile(group = "org.codehaus.groovy", name = "groovy-all", version = groovyVersion)
+
+  val spockVersion: String by project
+  compile(group = "org.spockframework", name = "spock-core", version = spockVersion)
 }

@@ -15,11 +15,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-modularity.mixedJavaRelease "8"
+//modularity.mixedJavaRelease("8")
 
 dependencies {
-  compile project(":unij-api")
-  compileOnly group: "org.eclipse.collections", name: "eclipse-collections", version: "9.2.0"
+  compile(project(":unij-api"))
+  compileOnly(group = "org.eclipse.collections", name = "eclipse-collections", version = "9.2.0")
 
-  testImplementation project(":unij-test")
+  testImplementation(project(":unij-test"))
 }

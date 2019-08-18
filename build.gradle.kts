@@ -64,6 +64,10 @@ subprojects {
     compileOnly(group = "org.jetbrains.kotlin", name = "kotlin-annotations-jvm", version = "1.3.21")
   }
 
+  config {
+    javadoc.autoLinks.excludes.add("kotlin-annotations-jvm-1.3.21")
+  }
+
   /**
    * BENCHMARKS
    * http://openjdk.java.net/projects/code-tools/jmh/

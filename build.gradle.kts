@@ -66,6 +66,7 @@ subprojects {
 
   config {
     javadoc.autoLinks.excludes.add("kotlin-annotations-jvm-1.3.21")
+    javadoc.autoLinks.excludes.add("unij-.*")
   }
 
   /**

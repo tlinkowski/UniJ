@@ -18,7 +18,7 @@
 //modularity.standardJavaRelease("11")
 
 dependencies {
-  compile(project(":unij-api"))
+  api(project(":unij-api"))
   runtimeOnly(project(":unij-collect-jdk10"))
   runtimeOnly(project(":unij-misc-jdk11"))
 

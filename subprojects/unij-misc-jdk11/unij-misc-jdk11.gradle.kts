@@ -18,7 +18,7 @@
 //modularity.standardJavaRelease("11")
 
 dependencies {
-  compile(project(":unij-api"))
+  api(project(":unij-api"))
 
   testImplementation(project(":unij-test"))
 }

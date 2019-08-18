@@ -23,14 +23,14 @@ config {
 }
 
 dependencies {
-  compile(project(":unij-api"))
+  api(project(":unij-api"))
+
+  val groovyVersion: String by project
+  api(group = "org.codehaus.groovy", name = "groovy-all", version = groovyVersion)
+
+  val spockVersion: String by project
+  api(group = "org.spockframework", name = "spock-core", version = spockVersion)
 
   val slf4jVersion: String by project
   runtimeOnly(group = "org.slf4j", name = "slf4j-simple", version = slf4jVersion)
-
-  val groovyVersion: String by project
-  compile(group = "org.codehaus.groovy", name = "groovy-all", version = groovyVersion)
-
-  val spockVersion: String by project
-  compile(group = "org.spockframework", name = "spock-core", version = spockVersion)
 }

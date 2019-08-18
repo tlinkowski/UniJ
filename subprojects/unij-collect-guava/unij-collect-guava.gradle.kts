@@ -18,7 +18,7 @@
 //modularity.mixedJavaRelease("8")
 
 dependencies {
-  compile(project(":unij-api"))
+  api(project(":unij-api"))
   compileOnly(group = "com.google.guava", name = "guava", version = "27.1-android")
 
   testImplementation(project(":unij-test"))

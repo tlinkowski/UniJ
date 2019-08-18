@@ -18,7 +18,7 @@
 //modularity.mixedJavaRelease("8")
 
 dependencies {
-  compile(project(":unij-api"))
+  api(project(":unij-api"))
 
   testImplementation(project(":unij-test"))
 }

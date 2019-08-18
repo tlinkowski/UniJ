@@ -43,6 +43,10 @@ config {
 
 subprojects {
   apply {
+    // https://docs.gradle.org/current/userguide/java_library_plugin.html
+    plugin(JavaLibraryPlugin::class)
+
+    // https://github.com/melix/jmh-gradle-plugin
     plugin(JMHPlugin::class)
   }
 

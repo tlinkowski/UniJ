@@ -20,7 +20,7 @@
  *
  * @author Tomasz Linkowski
  */
-@AllNonnullByDefault
+@NonNullPackage
 package pl.tlinkowski.unij.api;
 
-import pl.tlinkowski.unij.annotation.AllNonnullByDefault;
+import pl.tlinkowski.annotation.basic.NonNullPackage;

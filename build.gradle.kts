@@ -60,12 +60,10 @@ subprojects {
     compileOnly(group = "org.projectlombok", name = "lombok", version = lombokVersion)
     annotationProcessor(group = "org.projectlombok", name = "lombok", version = lombokVersion)
 
-    compileOnly(group = "com.google.code.findbugs", name = "jsr305", version = "3.0.2")
-    compileOnly(group = "org.jetbrains.kotlin", name = "kotlin-annotations-jvm", version = "1.3.21")
+    compileOnly(group = "pl.tlinkowski.annotation", name = "basic-annotations", version = "0.1.0")
   }
 
   config {
-    javadoc.autoLinks.excludes.add("kotlin-annotations-jvm-1.3.21")
     javadoc.autoLinks.excludes.add("unij-.*")
   }
 

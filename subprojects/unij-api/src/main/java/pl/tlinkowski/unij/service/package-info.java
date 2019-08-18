@@ -23,7 +23,7 @@
  * @author Tomasz Linkowski
  * @see java.util.ServiceLoader
  */
-@AllNonnullByDefault
+@NonNullPackage
 package pl.tlinkowski.unij.service;
 
-import pl.tlinkowski.unij.annotation.AllNonnullByDefault;
+import pl.tlinkowski.annotation.basic.NonNullPackage;

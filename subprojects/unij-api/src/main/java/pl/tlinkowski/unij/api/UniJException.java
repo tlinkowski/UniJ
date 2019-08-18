@@ -15,13 +15,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package pl.tlinkowski.unij.api;
 
 /**
- * UniJ exceptions.
+ * Dedicated unchecked exception for UniJ.
  *
  * @author Tomasz Linkowski
  */
-@NonNullPackage
-package pl.tlinkowski.unij.exception;
+public class UniJException extends RuntimeException {
 
-import pl.tlinkowski.annotation.basic.NonNullPackage;
+  public UniJException(String message) {
+    super(message);
+  }
+}

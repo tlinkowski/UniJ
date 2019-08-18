@@ -16,9 +16,12 @@
  * limitations under the License.
  */
 
-package pl.tlinkowski.unij.api
+package pl.tlinkowski.unij.test.api
 
 import spock.lang.Specification
+
+import pl.tlinkowski.unij.api.UniLists
+import pl.tlinkowski.unij.api.UniSets
 
 /**
  * Test that should be extended by every bundle.

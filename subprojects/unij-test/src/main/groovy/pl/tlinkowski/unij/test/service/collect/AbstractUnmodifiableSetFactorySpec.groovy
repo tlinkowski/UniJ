@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package pl.tlinkowski.unij.service.collect.test
+package pl.tlinkowski.unij.test.service.collect
 
 import spock.lang.Shared
 import spock.lang.Specification

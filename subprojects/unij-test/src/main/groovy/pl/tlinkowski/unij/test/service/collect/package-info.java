@@ -16,9 +16,12 @@
  * limitations under the License.
  */
 /**
+ * Test classes (specifications) for UniJ {@link java.util.Collection}-factory services.
+ *
  * @author Tomasz Linkowski
+ * @see java.util.ServiceLoader
  */
 @NonNullPackage
-package pl.tlinkowski.unij.api;
+package pl.tlinkowski.unij.test.service.collect;
 
 import pl.tlinkowski.annotation.basic.NonNullPackage;

@@ -18,6 +18,8 @@
 
 package pl.tlinkowski.unij.api
 
+import pl.tlinkowski.unij.test.api.AbstractBundleTest
+
 /**
  * @author Tomasz Linkowski
  */

@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package pl.tlinkowski.unij.test.api
+package pl.tlinkowski.unij.test.bundle
 
 import spock.lang.Specification
 

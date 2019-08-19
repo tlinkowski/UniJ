@@ -16,10 +16,12 @@
  * limitations under the License.
  */
 
+package pl.tlinkowski.unij.bundle.jdk11
+
+import pl.tlinkowski.unij.test.bundle.AbstractBundleTest
+
 /**
  * @author Tomasz Linkowski
  */
-@NonNullPackage
-package pl.tlinkowski.unij.test.api;
-
-import pl.tlinkowski.annotation.basic.NonNullPackage;
+final class Jdk11BundleTest extends AbstractBundleTest {
+}

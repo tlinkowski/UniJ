@@ -16,14 +16,6 @@
  * limitations under the License.
  */
 
-/**
- * UniJ service interfaces and implementations.
- *
- * <p>Note that all implementations must be annotated with {@link pl.tlinkowski.unij.service.UniJService} annotation.
- *
- * @author Tomasz Linkowski
- * @see java.util.ServiceLoader
- */
 @NonNullPackage
 package pl.tlinkowski.unij.service;
 

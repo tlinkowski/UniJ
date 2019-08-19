@@ -35,3 +35,17 @@ dependencies {
   val slf4jVersion: String by project
   runtimeOnly(group = "org.slf4j", name = "slf4j-simple", version = slf4jVersion)
 }
+
+//region JAVA PLATFORM MODULE SYSTEM
+val moduleName by extra("pl.tlinkowski.unij.test")
+
+tasks {
+  jar {
+    inputs.property("moduleName", moduleName)
+
+    manifest {
+      attributes["Automatic-Module-Name"] = moduleName
+    }
+  }
+}
+//endregion

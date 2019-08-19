@@ -15,11 +15,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-modularity.mixedJavaRelease(8)
 
-dependencies {
-  implementation(project(":unij-service-api"))
-  compileOnly(group = "org.eclipse.collections", name = "eclipse-collections", version = "9.2.0")
-
-  testImplementation(project(":unij-test"))
+/**
+ * A bundle of bindings for UniJ:
+ * <ul>
+ *   <li>unmodifiable-{@link java.util.Collection}-related
+ *   <a href="https://www.eclipse.org/collections/">Eclipse</a>-based bindings</li>
+ *   <li>miscellaneous JDK-8-based bindings</li>
+ * </ul>
+ *
+ * @author Tomasz Linkowski
+ */
+@SuppressWarnings("JavaModuleNaming")
+module pl.tlinkowski.unij.bundle.eclipse_jdk8 {
+  requires transitive pl.tlinkowski.unij.api;
 }

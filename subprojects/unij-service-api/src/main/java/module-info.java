@@ -15,11 +15,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-modularity.mixedJavaRelease(8)
 
-dependencies {
-  implementation(project(":unij-service-api"))
-  compileOnly(group = "org.eclipse.collections", name = "eclipse-collections", version = "9.2.0")
+/**
+ * UniJ service interfaces and implementations.
+ *
+ * <p>Note that all implementations must be annotated with {@link pl.tlinkowski.unij.service.UniJService} annotation.
+ *
+ * @author Tomasz Linkowski
+ * @see java.util.ServiceLoader
+ */
+module pl.tlinkowski.unij.service {
+  exports pl.tlinkowski.unij.service;
+  exports pl.tlinkowski.unij.service.collect.api;
 
-  testImplementation(project(":unij-test"))
+  requires static pl.tlinkowski.annotation.basic;
 }

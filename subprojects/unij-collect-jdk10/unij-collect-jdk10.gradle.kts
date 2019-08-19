@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-//modularity.standardJavaRelease("10")
+modularity.standardJavaRelease(10)
 
 dependencies {
   implementation(project(":unij-service-api"))

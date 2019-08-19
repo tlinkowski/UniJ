@@ -16,4 +16,4 @@
  * limitations under the License.
  */
 
-//modularity.mixedJavaRelease("8")
+modularity.mixedJavaRelease(8)

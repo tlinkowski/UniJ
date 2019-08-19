@@ -28,7 +28,7 @@ import pl.tlinkowski.unij.service.collect.jdk10.Jdk10UnmodifiableSetFactory;
  */
 @SuppressWarnings("JavaModuleNaming")
 module pl.tlinkowski.unij.service.collect.jdk10 {
-  requires pl.tlinkowski.unij.service;
+  requires pl.tlinkowski.unij.service.api;
   requires static pl.tlinkowski.annotation.basic;
 
   provides UnmodifiableListFactory with Jdk10UnmodifiableListFactory;

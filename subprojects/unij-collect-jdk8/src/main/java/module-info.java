@@ -23,6 +23,6 @@
  */
 @SuppressWarnings("JavaModuleNaming")
 module pl.tlinkowski.unij.service.collect.jdk8 {
-  requires pl.tlinkowski.unij.service;
+  requires pl.tlinkowski.unij.service.api;
   requires static pl.tlinkowski.annotation.basic;
 }

@@ -25,7 +25,7 @@ import pl.tlinkowski.unij.service.api.collect.UnmodifiableSetFactory;
 module pl.tlinkowski.unij.api {
   exports pl.tlinkowski.unij.api;
 
-  requires pl.tlinkowski.unij.service;
+  requires pl.tlinkowski.unij.service.api;
   requires static pl.tlinkowski.annotation.basic;
   requires static lombok;
 

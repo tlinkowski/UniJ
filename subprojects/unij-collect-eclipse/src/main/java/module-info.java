@@ -24,6 +24,6 @@
  */
 module pl.tlinkowski.unij.service.collect.eclipse {
   requires org.eclipse.collections.api;
-  requires pl.tlinkowski.unij.service;
+  requires pl.tlinkowski.unij.service.api;
   requires static pl.tlinkowski.annotation.basic;
 }

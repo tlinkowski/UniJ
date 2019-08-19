@@ -82,6 +82,12 @@ subprojects {
       testImplementation(project(":unij-test"))
     }
   }
+  if (name.startsWith("unij-collect-") || name.startsWith("unij-misc-")) {
+    dependencies {
+      implementation(project(":unij-service-api"))
+      testImplementation(project(":unij-test"))
+    }
+  }
   //endregion
 
   /**

@@ -16,9 +16,3 @@
  * limitations under the License.
  */
 modularity.mixedJavaRelease(8)
-
-dependencies {
-  implementation(project(":unij-service-api"))
-
-  testImplementation(project(":unij-test"))
-}

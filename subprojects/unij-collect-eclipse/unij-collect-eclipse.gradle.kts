@@ -18,10 +18,6 @@
 modularity.mixedJavaRelease(8)
 
 dependencies {
-  implementation(project(":unij-service-api"))
-
   val eclipseCollectionsVersion: String by project
   compileOnly(group = "org.eclipse.collections", name = "eclipse-collections", version = eclipseCollectionsVersion)
-
-  testImplementation(project(":unij-test"))
 }

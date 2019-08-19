@@ -16,9 +16,3 @@
  * limitations under the License.
  */
 modularity.standardJavaRelease(11)
-
-dependencies {
-  implementation(project(":unij-service-api"))
-
-  testImplementation(project(":unij-test"))
-}

@@ -15,11 +15,5 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 //modularity.mixedJavaRelease("8")
-
-dependencies {
-  implementation(project(":unij-service-api"))
-  compileOnly(group = "com.google.guava", name = "guava", version = "27.1-android")
-
-  testImplementation(project(":unij-test"))
-}

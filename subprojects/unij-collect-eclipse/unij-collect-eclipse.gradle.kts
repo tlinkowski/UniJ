@@ -18,7 +18,7 @@
 //modularity.mixedJavaRelease("8")
 
 dependencies {
-  api(project(":unij-api"))
+  implementation(project(":unij-service-api"))
   compileOnly(group = "org.eclipse.collections", name = "eclipse-collections", version = "9.2.0")
 
   testImplementation(project(":unij-test"))

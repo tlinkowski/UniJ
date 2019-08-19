@@ -24,6 +24,7 @@ config {
 
 dependencies {
   api(project(":unij-api"))
+  api(project(":unij-service-api"))
 
   val groovyVersion: String by project
   api(group = "org.codehaus.groovy", name = "groovy-all", version = groovyVersion)

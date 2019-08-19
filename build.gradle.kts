@@ -75,6 +75,15 @@ subprojects {
     }
   }
 
+  //region PER-SUBPROJECT-TYPE CONFIGURATION
+  if (name.startsWith("unij-bundle-")) {
+    dependencies {
+      api(project(":unij-api"))
+      testImplementation(project(":unij-test"))
+    }
+  }
+  //endregion
+
   /**
    * BENCHMARKS
    * http://openjdk.java.net/projects/code-tools/jmh/

@@ -18,9 +18,6 @@
 modularity.standardJavaRelease(11)
 
 dependencies {
-  api(project(":unij-api"))
   runtimeOnly(project(":unij-collect-jdk10"))
   runtimeOnly(project(":unij-misc-jdk11"))
-
-  testImplementation(project(":unij-test"))
 }

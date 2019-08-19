@@ -112,3 +112,26 @@ subprojects {
     jvmArgsAppend = listOf("-Djmh.separateClasspathJAR=true") // https://bugs.openjdk.java.net/browse/CODETOOLS-7902106
   }
 }
+
+//region TEMPORARY workaround for: https://github.com/tlinkowski/UniJ/issues/40 (TODO: remove this)
+val namesOfYetEmptyProjects = listOf(
+        "unij-bundle-eclipse-jdk8",
+        "unij-bundle-guava-jdk8",
+        "unij-bundle-jdk8",
+        "unij-bundle-jdk11",
+        "unij-collect-eclipse",
+        "unij-collect-guava",
+        "unij-collect-jdk8",
+        "unij-misc-jdk8",
+        "unij-misc-jdk11"
+)
+namesOfYetEmptyProjects.forEach {
+  project(":$it") {
+    tasks {
+      "javadoc" {
+        enabled = false
+      }
+    }
+  }
+}
+//endregion

@@ -19,7 +19,9 @@ modularity.mixedJavaRelease(8)
 
 dependencies {
   implementation(project(":unij-service-api"))
-  compileOnly(group = "com.google.guava", name = "guava", version = "27.1-android")
+
+  val guavaVersion: String by project
+  compileOnly(group = "com.google.guava", name = "guava", version = guavaVersion)
 
   testImplementation(project(":unij-test"))
 }

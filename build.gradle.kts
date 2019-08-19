@@ -64,7 +64,8 @@ subprojects {
     compileOnly(group = "org.projectlombok", name = "lombok", version = lombokVersion)
     annotationProcessor(group = "org.projectlombok", name = "lombok", version = lombokVersion)
 
-    compileOnly(group = "pl.tlinkowski.annotation", name = "basic-annotations", version = "0.1.0")
+    val basicAnnotationsVersion: String by project
+    compileOnly(group = "pl.tlinkowski.annotation", name = "basic-annotations", version = basicAnnotationsVersion)
   }
 
   config {

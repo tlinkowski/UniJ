@@ -50,9 +50,15 @@ subprojects {
     plugin(JMHPlugin::class)
   }
 
-  val testCompileOnly by configurations
+  //region CONFIGURATION PROPERTIES
+  val api by configurations
+  val implementation by configurations
   val compileOnly by configurations
   val annotationProcessor by configurations
+
+  val testImplementation by configurations
+  val testCompileOnly by configurations
+  //endregion
 
   configurations {
     testCompileOnly.extendsFrom(compileOnly)

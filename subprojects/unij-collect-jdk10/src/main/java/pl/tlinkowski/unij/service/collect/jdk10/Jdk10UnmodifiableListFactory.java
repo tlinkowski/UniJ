@@ -22,8 +22,8 @@ import java.util.List;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-import pl.tlinkowski.unij.service.UniJService;
-import pl.tlinkowski.unij.service.collect.api.UnmodifiableListFactory;
+import pl.tlinkowski.unij.service.api.UniJService;
+import pl.tlinkowski.unij.service.api.collect.UnmodifiableListFactory;
 
 /**
  * Implementation of {@link UnmodifiableListFactory} that returns <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/List.html#unmodifiable">unmodifiable

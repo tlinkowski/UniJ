@@ -16,8 +16,8 @@
  * limitations under the License.
  */
 
-import pl.tlinkowski.unij.service.collect.api.UnmodifiableListFactory;
-import pl.tlinkowski.unij.service.collect.api.UnmodifiableSetFactory;
+import pl.tlinkowski.unij.service.api.collect.UnmodifiableListFactory;
+import pl.tlinkowski.unij.service.api.collect.UnmodifiableSetFactory;
 import pl.tlinkowski.unij.service.collect.jdk10.Jdk10UnmodifiableListFactory;
 import pl.tlinkowski.unij.service.collect.jdk10.Jdk10UnmodifiableSetFactory;
 

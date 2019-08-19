@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
-import pl.tlinkowski.unij.service.UniJService;
+import pl.tlinkowski.unij.service.api.UniJService;
 
 /**
  * Loads UniJ services (used internally by {@link UniJ}).

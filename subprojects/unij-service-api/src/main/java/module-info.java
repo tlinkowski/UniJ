@@ -16,17 +16,19 @@
  * limitations under the License.
  */
 
+import pl.tlinkowski.unij.service.api.UniJService;
+
 /**
- * UniJ service interfaces and implementations.
- *
- * <p>Note that all implementations must be annotated with {@link pl.tlinkowski.unij.service.UniJService} annotation.
+ * UniJ service interfaces.
+ * <p>
+ * Note that all UniJ service implementations must be annotated with {@link UniJService} annotation.
  *
  * @author Tomasz Linkowski
  * @see java.util.ServiceLoader
  */
-module pl.tlinkowski.unij.service {
-  exports pl.tlinkowski.unij.service;
-  exports pl.tlinkowski.unij.service.collect.api;
+module pl.tlinkowski.unij.service.api {
+  exports pl.tlinkowski.unij.service.api;
+  exports pl.tlinkowski.unij.service.api.collect;
 
   requires static pl.tlinkowski.annotation.basic;
 }

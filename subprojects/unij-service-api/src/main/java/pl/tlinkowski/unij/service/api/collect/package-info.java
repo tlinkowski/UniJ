@@ -15,21 +15,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package pl.tlinkowski.unij.service;
-
-import java.lang.annotation.*;
 
 /**
- * Annotation that should be present on all implementations of UniJ services.
+ * UniJ {@link java.util.Collection}-factory service interfaces.
  *
  * @author Tomasz Linkowski
+ * @see java.util.ServiceLoader
  */
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
-public @interface UniJService {
+@NonNullPackage
+package pl.tlinkowski.unij.service.api.collect;
 
-  /**
-   * Loading priority of this service. Smaller numbers mean higher priority (priority may be negative).
-   */
-  int priority();
-}
+import pl.tlinkowski.annotation.basic.NonNullPackage;

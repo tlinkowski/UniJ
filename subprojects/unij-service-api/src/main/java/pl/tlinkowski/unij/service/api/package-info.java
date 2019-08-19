@@ -16,11 +16,7 @@
  * limitations under the License.
  */
 
-/**
- * UniJ {@link java.util.Collection}-factory service interfaces and implementations.
- *
- * @author Tomasz Linkowski
- * @see java.util.ServiceLoader
- */
-package pl.tlinkowski.unij.service.collect;
+@NonNullPackage
+package pl.tlinkowski.unij.service.api;
 
+import pl.tlinkowski.annotation.basic.NonNullPackage;

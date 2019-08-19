@@ -21,8 +21,8 @@ import java.util.*;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-import pl.tlinkowski.unij.service.UniJService;
-import pl.tlinkowski.unij.service.collect.api.UnmodifiableSetFactory;
+import pl.tlinkowski.unij.service.api.UniJService;
+import pl.tlinkowski.unij.service.api.collect.UnmodifiableSetFactory;
 
 /**
  * Implementation of {@link UnmodifiableSetFactory} that returns <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Set.html#unmodifiable">unmodifiable

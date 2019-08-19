@@ -21,7 +21,7 @@ package pl.tlinkowski.unij.test.service.collect
 import spock.lang.Shared
 import spock.lang.Specification
 
-import pl.tlinkowski.unij.service.collect.api.UnmodifiableSetFactory
+import pl.tlinkowski.unij.service.api.collect.UnmodifiableSetFactory
 
 /**
  * Base specification for {@link UnmodifiableSetFactory}.

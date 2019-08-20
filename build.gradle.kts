@@ -78,6 +78,8 @@ subprojects {
   }
 
   config {
+    bintray.enabled = true
+
     javadoc.autoLinks {
       excludes.add("lombok-.*") // https://github.com/tlinkowski/UniJ/issues/38
       excludes.add("unij-.*") // https://github.com/aalmiray/kordamp-gradle-plugins/issues/169

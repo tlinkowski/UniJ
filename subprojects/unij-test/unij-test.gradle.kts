@@ -23,16 +23,14 @@ config {
 }
 
 dependencies {
+  val groovyVersion: String by project // https://groovy-lang.org/
+  val spockVersion: String by project // http://spockframework.org/
+  val slf4jVersion: String by project // https://www.slf4j.org/
+
   api(project(":unij-api"))
   api(project(":unij-service-api"))
-
-  val groovyVersion: String by project
   api(group = "org.codehaus.groovy", name = "groovy-all", version = groovyVersion)
-
-  val spockVersion: String by project
   api(group = "org.spockframework", name = "spock-core", version = spockVersion)
-
-  val slf4jVersion: String by project
   runtimeOnly(group = "org.slf4j", name = "slf4j-simple", version = slf4jVersion)
 }
 

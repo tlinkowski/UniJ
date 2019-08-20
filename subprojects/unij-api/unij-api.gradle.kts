@@ -18,10 +18,9 @@
 modularity.mixedJavaRelease(8)
 
 dependencies {
-  implementation(project(":unij-service-api"))
+  val slf4jVersion: String by project // https://www.slf4j.org/
 
-  // https://www.slf4j.org/download.html
-  val slf4jVersion: String by project
+  implementation(project(":unij-service-api"))
   implementation(group = "org.slf4j", name = "slf4j-api", version = slf4jVersion)
 
   testImplementation(project(":unij-test"))

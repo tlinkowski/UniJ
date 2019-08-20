@@ -18,6 +18,7 @@
 modularity.mixedJavaRelease(8)
 
 dependencies {
-  val guavaVersion: String by project
+  val guavaVersion: String by project // https://github.com/google/guava
+
   compileOnly(group = "com.google.guava", name = "guava", version = guavaVersion)
 }

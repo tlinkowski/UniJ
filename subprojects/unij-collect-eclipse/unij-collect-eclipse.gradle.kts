@@ -18,6 +18,7 @@
 modularity.mixedJavaRelease(8)
 
 dependencies {
-  val eclipseCollectionsVersion: String by project
+  val eclipseCollectionsVersion: String by project // https://www.eclipse.org/collections/
+
   compileOnly(group = "org.eclipse.collections", name = "eclipse-collections", version = eclipseCollectionsVersion)
 }

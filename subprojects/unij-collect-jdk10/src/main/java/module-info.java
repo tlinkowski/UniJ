@@ -30,6 +30,7 @@ import pl.tlinkowski.unij.service.collect.jdk10.Jdk10UnmodifiableSetFactory;
 module pl.tlinkowski.unij.service.collect.jdk10 {
   requires pl.tlinkowski.unij.service.api;
   requires static pl.tlinkowski.annotation.basic;
+  requires static auto.service.annotations;
 
   provides UnmodifiableListFactory with Jdk10UnmodifiableListFactory;
   provides UnmodifiableSetFactory with Jdk10UnmodifiableSetFactory;

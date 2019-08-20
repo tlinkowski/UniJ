@@ -17,9 +17,12 @@
  */
 package pl.tlinkowski.unij.service.collect.jdk10;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Set;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
+
+import com.google.auto.service.AutoService;
 
 import pl.tlinkowski.unij.service.api.UniJService;
 import pl.tlinkowski.unij.service.api.collect.UnmodifiableSetFactory;
@@ -31,6 +34,7 @@ import pl.tlinkowski.unij.service.api.collect.UnmodifiableSetFactory;
  * @author Tomasz Linkowski
  */
 @UniJService(priority = 10)
+@AutoService(UnmodifiableSetFactory.class)
 public final class Jdk10UnmodifiableSetFactory implements UnmodifiableSetFactory {
 
   //region COLLECTOR

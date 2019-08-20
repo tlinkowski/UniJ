@@ -22,6 +22,8 @@ import java.util.List;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+import com.google.auto.service.AutoService;
+
 import pl.tlinkowski.unij.service.api.UniJService;
 import pl.tlinkowski.unij.service.api.collect.UnmodifiableListFactory;
 
@@ -32,6 +34,7 @@ import pl.tlinkowski.unij.service.api.collect.UnmodifiableListFactory;
  * @author Tomasz Linkowski
  */
 @UniJService(priority = 10)
+@AutoService(UnmodifiableListFactory.class)
 public final class Jdk10UnmodifiableListFactory implements UnmodifiableListFactory {
 
   //region COLLECTOR

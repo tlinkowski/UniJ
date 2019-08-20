@@ -19,8 +19,12 @@ package pl.tlinkowski.unij.service.api;
 
 import java.lang.annotation.*;
 
+import com.google.auto.service.AutoService;
+
 /**
  * Annotation that should be present on all implementations of UniJ services.
+ * <p>
+ * Should always be accompanied by an {@link AutoService} annotation.
  *
  * @author Tomasz Linkowski
  */

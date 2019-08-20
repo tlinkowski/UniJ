@@ -72,6 +72,10 @@ subprojects {
 
     val basicAnnotationsVersion: String by project
     compileOnly(group = "pl.tlinkowski.annotation", name = "basic-annotations", version = basicAnnotationsVersion)
+
+    val autoServiceVersion: String by project
+    compileOnly(group = "com.google.auto.service", name = "auto-service-annotations", version = autoServiceVersion)
+    annotationProcessor(group = "com.google.auto.service", name = "auto-service", version = autoServiceVersion)
   }
 
   config {

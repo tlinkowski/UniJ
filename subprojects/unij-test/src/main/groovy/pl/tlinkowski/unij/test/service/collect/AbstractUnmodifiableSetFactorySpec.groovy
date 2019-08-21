@@ -94,31 +94,37 @@ abstract class AbstractUnmodifiableSetFactorySpec extends Specification {
 
   def "of(n=6)"() {
     expect:
-      factory.of(1, 2, 3, 4, 5, 6) == Set.of(1, 2, 3, 4, 5, 6)
+      factory.of(1, 2, 3, 4, 5, 6) ==
+              Set.of(1, 2, 3, 4, 5, 6)
   }
 
   def "of(n=7)"() {
     expect:
-      factory.of(1, 2, 3, 4, 5, 6, 7) == Set.of(1, 2, 3, 4, 5, 6, 7)
+      factory.of(1, 2, 3, 4, 5, 6, 7) ==
+              Set.of(1, 2, 3, 4, 5, 6, 7)
   }
 
   def "of(n=8)"() {
     expect:
-      factory.of(1, 2, 3, 4, 5, 6, 7, 8) == Set.of(1, 2, 3, 4, 5, 6, 7, 8)
+      factory.of(1, 2, 3, 4, 5, 6, 7, 8) ==
+              Set.of(1, 2, 3, 4, 5, 6, 7, 8)
   }
 
   def "of(n=9)"() {
     expect:
-      factory.of(1, 2, 3, 4, 5, 6, 7, 8, 9) == Set.of(1, 2, 3, 4, 5, 6, 7, 8, 9)
+      factory.of(1, 2, 3, 4, 5, 6, 7, 8, 9) ==
+              Set.of(1, 2, 3, 4, 5, 6, 7, 8, 9)
   }
 
   def "of(n=10)"() {
     expect:
-      factory.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10) == Set.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+      factory.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10) ==
+              Set.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
   }
 
   def "of(...)"() {
     expect:
-      factory.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11) == Set.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)
+      factory.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11) ==
+              Set.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)
   }
 }

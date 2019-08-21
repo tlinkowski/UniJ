@@ -24,7 +24,8 @@ import java.util.stream.Collector;
 import kotlin.annotations.jvm.ReadOnly;
 
 /**
- * Proxy for <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/List.html#unmodifiable">unmodifiable</a>
+ * Proxy for
+ * <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/List.html#unmodifiable">unmodifiable</a>
  * factory methods available in the {@link List} interface.
  *
  * @author Tomasz Linkowski

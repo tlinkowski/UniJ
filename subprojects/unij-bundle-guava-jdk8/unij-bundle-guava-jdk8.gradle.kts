@@ -18,6 +18,6 @@
 modularity.mixedJavaRelease(8)
 
 dependencies {
-  runtimeOnly(project(":unij-collect-guava"))
-  runtimeOnly(project(":unij-misc-jdk8"))
+  implementation(project(":unij-collect-guava"))
+  implementation(project(":unij-misc-jdk8"))
 }

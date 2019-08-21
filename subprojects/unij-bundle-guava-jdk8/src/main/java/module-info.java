@@ -29,4 +29,7 @@
 @SuppressWarnings("JavaModuleNaming")
 module pl.tlinkowski.unij.bundle.guava_jdk8 {
   requires transitive pl.tlinkowski.unij.api;
+
+  requires pl.tlinkowski.unij.service.collect.guava;
+  requires pl.tlinkowski.unij.service.misc.jdk8;
 }

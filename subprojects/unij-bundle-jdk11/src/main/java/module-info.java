@@ -28,4 +28,7 @@
 @SuppressWarnings("JavaModuleNaming")
 module pl.tlinkowski.unij.bundle.jdk11 {
   requires transitive pl.tlinkowski.unij.api;
+
+  requires pl.tlinkowski.unij.service.collect.jdk10;
+  requires pl.tlinkowski.unij.service.misc.jdk11;
 }

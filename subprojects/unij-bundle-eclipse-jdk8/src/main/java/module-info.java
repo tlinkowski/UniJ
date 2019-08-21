@@ -29,4 +29,7 @@
 @SuppressWarnings("JavaModuleNaming")
 module pl.tlinkowski.unij.bundle.eclipse_jdk8 {
   requires transitive pl.tlinkowski.unij.api;
+
+  requires pl.tlinkowski.unij.service.collect.eclipse;
+  requires pl.tlinkowski.unij.service.misc.jdk8;
 }

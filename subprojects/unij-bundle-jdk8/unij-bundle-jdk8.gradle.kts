@@ -18,6 +18,6 @@
 modularity.mixedJavaRelease(8)
 
 dependencies {
-  runtimeOnly(project(":unij-collect-jdk8"))
-  runtimeOnly(project(":unij-misc-jdk8"))
+  implementation(project(":unij-collect-jdk8"))
+  implementation(project(":unij-misc-jdk8"))
 }

@@ -28,4 +28,7 @@
 @SuppressWarnings("JavaModuleNaming")
 module pl.tlinkowski.unij.bundle.jdk8 {
   requires transitive pl.tlinkowski.unij.api;
+
+  requires pl.tlinkowski.unij.service.collect.jdk8;
+  requires pl.tlinkowski.unij.service.misc.jdk8;
 }

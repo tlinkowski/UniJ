@@ -20,8 +20,7 @@ package pl.tlinkowski.unij.api;
 import lombok.Getter;
 import lombok.experimental.UtilityClass;
 
-import pl.tlinkowski.unij.service.api.collect.UnmodifiableListFactory;
-import pl.tlinkowski.unij.service.api.collect.UnmodifiableSetFactory;
+import pl.tlinkowski.unij.service.api.collect.*;
 
 /**
  * @author Tomasz Linkowski
@@ -33,4 +32,6 @@ final class UniJ {
   private static final UnmodifiableListFactory listFactory = UniJLoader.load(UnmodifiableListFactory.class);
   @Getter(lazy = true)
   private static final UnmodifiableSetFactory setFactory = UniJLoader.load(UnmodifiableSetFactory.class);
+  @Getter(lazy = true)
+  private static final UnmodifiableMapFactory mapFactory = UniJLoader.load(UnmodifiableMapFactory.class);
 }

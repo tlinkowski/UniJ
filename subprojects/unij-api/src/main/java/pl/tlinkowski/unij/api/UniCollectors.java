@@ -17,8 +17,9 @@
  */
 package pl.tlinkowski.unij.api;
 
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.function.BinaryOperator;
+import java.util.function.Function;
 import java.util.stream.Collector;
 
 import lombok.experimental.UtilityClass;
@@ -43,5 +44,22 @@ public final class UniCollectors {
    */
   public static <T> Collector<T, ?, /*@ReadOnly*/ Set<T>> toUnmodifiableSet() {
     return UniJ.setFactory().collector();
+  }
+
+  /**
+   * Equivalent of {@link java.util.stream.Collectors#toUnmodifiableMap(Function, Function)}.
+   */
+  public static <T, K, V> Collector<T, ?, /*@ReadOnly*/ Map<K, V>> toUnmodifiableMap(
+          Function<? super T, ? extends K> keyMapper, Function<? super T, ? extends V> valueMapper) {
+    return UniJ.mapFactory().collector(keyMapper, valueMapper);
+  }
+
+  /**
+   * Equivalent of {@link java.util.stream.Collectors#toUnmodifiableMap(Function, Function, BinaryOperator)}.
+   */
+  public static <T, K, V> Collector<T, ?, /*@ReadOnly*/ Map<K, V>> toUnmodifiableMap(
+          Function<? super T, ? extends K> keyMapper, Function<? super T, ? extends V> valueMapper,
+          BinaryOperator<V> mergeFunction) {
+    return UniJ.mapFactory().collector(keyMapper, valueMapper, mergeFunction);
   }
 }

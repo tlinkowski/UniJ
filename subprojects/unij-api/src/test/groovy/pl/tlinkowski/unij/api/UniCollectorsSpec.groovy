@@ -46,4 +46,50 @@ final class UniCollectorsSpec extends Specification {
       [1, 2]    | _
       [1, 2, 3] | _
   }
+
+  //region TO UNMODIFIABLE MAP (corresponds to COLLECTOR region of AbstractUnmodifiableMapFactorySpec)
+  def "toUnmodifiableMap(keyMapper,valueMapper)"(Map<String, Integer> map) {
+    given:
+      def entryStream = map.entrySet().stream()
+      def collector = UniCollectors.toUnmodifiableMap({ it.getKey() }, { it.getValue() })
+    expect:
+      entryStream.collect(collector) == map
+    where:
+      map                      | _
+      [:]                      | _
+      ["a": 1]                 | _
+      ["a": 1, "b": 2]         | _
+      ["a": 1, "b": 2, "c": 3] | _
+  }
+
+  def "toUnmodifiableMap(keyMapper,valueMapper,mergeFunction)"(List<Map<String, Integer>> maps,
+          Map<String, Integer> merged) {
+    given:
+      def entryStream = maps.stream().flatMap { it.entrySet().stream() }
+      def collector = UniCollectors.toUnmodifiableMap(
+              { it.getKey() }, { it.getValue() }, { l, r -> l + r }
+      )
+    expect:
+      entryStream.collect(collector) == merged
+    where:
+      maps                         | merged
+      []                           | [:]
+      [["a": 1]]                   | ["a": 1]
+      [["a": 1], ["b": 2]]         | ["a": 1, "b": 2]
+      [["a": 1, "b": 2], ["b": 3]] | ["a": 1, "b": 5]
+  }
+
+  def "toUnmodifiableMap(key,value) throws on merge conflict"(List<Map<String, Integer>> maps) {
+    given:
+      def entryStream = maps.stream().flatMap { it.entrySet().stream() }
+      def collector = UniCollectors.toUnmodifiableMap({ it.getKey() }, { it.getValue() })
+    when:
+      entryStream.collect(collector)
+    then:
+      thrown(IllegalStateException.class)
+    where:
+      maps                         | _
+      [["a": 1, "b": 2], ["b": 3]] | _
+  }
+  //endregion
 }

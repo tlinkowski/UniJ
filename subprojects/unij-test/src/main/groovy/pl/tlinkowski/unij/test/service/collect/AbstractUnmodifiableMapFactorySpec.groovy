@@ -40,7 +40,7 @@ abstract class AbstractUnmodifiableMapFactorySpec extends Specification {
       registered.class == factory.class
   }
 
-  //region COLLECTOR
+  //region COLLECTOR (corresponds to TO UNMODIFIABLE MAP region of UniCollectorsSpec)
   def "collector(keyMapper,valueMapper)"(Map<String, Integer> map) {
     given:
       def entryStream = map.entrySet().stream()
@@ -94,7 +94,7 @@ abstract class AbstractUnmodifiableMapFactorySpec extends Specification {
       ["a": 1, "b": 2, "c": 3] | _
   }
 
-  // region ENTRIES
+  // region ENTRIES (corresponds to ENTRIES region of UniMapsSpec)
   def "ofEntries(...)"() {
     given:
       def expected = Map.ofEntries(

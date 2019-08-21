@@ -36,6 +36,7 @@ abstract class AbstractMiscellaneousApiProviderSpec extends Specification {
   @Shared
   protected MiscellaneousApiProvider provider
 
+  //region COLLECTORS (corresponds to MISCELLANEOUS region of UniCollectorsSpec)
   def "flatMappingCollector"(List<Integer> list, List<Integer> expected) {
     when:
       def collector = provider.flatMappingCollector({ Stream.of(it, -it) }, Collectors.toList())
@@ -63,4 +64,5 @@ abstract class AbstractMiscellaneousApiProviderSpec extends Specification {
       [1, 2]    | [1]
       [1, 2, 3] | [1, 3]
   }
+  //endregion
 }

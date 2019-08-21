@@ -20,6 +20,9 @@ package pl.tlinkowski.unij.api
 
 import spock.lang.Specification
 
+import java.util.stream.Collectors
+import java.util.stream.Stream
+
 /**
  * @author Tomasz Linkowski
  */
@@ -90,6 +93,36 @@ final class UniCollectorsSpec extends Specification {
     where:
       maps                         | _
       [["a": 1, "b": 2], ["b": 3]] | _
+  }
+  //endregion
+
+  //region MISCELLANEOUS (corresponds to COLLECTORS region of AbstractMiscellaneousApiProviderSpec)
+  def "flatMapping(mapper,downstream)"(List<Integer> list, List<Integer> expected) {
+    when:
+      def collector = UniCollectors.flatMapping({ Stream.of(it, -it) }, Collectors.toList())
+    then:
+      list.stream().collect(collector) == expected
+    where:
+      list      | expected
+      []        | []
+      [1]       | [1, -1]
+      [-1]      | [-1, 1]
+      [1, 2]    | [1, -1, 2, -2]
+      [1, 2, 3] | [1, -1, 2, -2, 3, -3]
+  }
+
+  def "filtering(predicate,downstream)"(List<Integer> list, List<Integer> expected) {
+    when:
+      def collector = UniCollectors.filtering({ it % 2 != 0 }, Collectors.toList())
+    then:
+      list.stream().collect(collector) == expected
+    where:
+      list      | expected
+      []        | []
+      [1]       | [1]
+      [2]       | []
+      [1, 2]    | [1]
+      [1, 2, 3] | [1, 3]
   }
   //endregion
 }

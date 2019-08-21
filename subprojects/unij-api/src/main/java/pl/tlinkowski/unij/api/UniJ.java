@@ -21,6 +21,7 @@ import lombok.Getter;
 import lombok.experimental.UtilityClass;
 
 import pl.tlinkowski.unij.service.api.collect.*;
+import pl.tlinkowski.unij.service.api.misc.MiscellaneousApiProvider;
 
 /**
  * @author Tomasz Linkowski
@@ -34,4 +35,7 @@ final class UniJ {
   private static final UnmodifiableSetFactory setFactory = UniJLoader.load(UnmodifiableSetFactory.class);
   @Getter(lazy = true)
   private static final UnmodifiableMapFactory mapFactory = UniJLoader.load(UnmodifiableMapFactory.class);
+
+  @Getter(lazy = true)
+  private static final MiscellaneousApiProvider miscProvider = UniJLoader.load(MiscellaneousApiProvider.class);
 }

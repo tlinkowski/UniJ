@@ -18,9 +18,8 @@
 package pl.tlinkowski.unij.api;
 
 import java.util.*;
-import java.util.function.BinaryOperator;
-import java.util.function.Function;
-import java.util.stream.Collector;
+import java.util.function.*;
+import java.util.stream.*;
 
 import lombok.experimental.UtilityClass;
 
@@ -31,6 +30,8 @@ import lombok.experimental.UtilityClass;
  */
 @UtilityClass
 public final class UniCollectors {
+
+  //region COLLECTIONS
 
   /**
    * Equivalent of {@link java.util.stream.Collectors#toUnmodifiableList()}.
@@ -62,4 +63,24 @@ public final class UniCollectors {
           BinaryOperator<V> mergeFunction) {
     return UniJ.mapFactory().collector(keyMapper, valueMapper, mergeFunction);
   }
+  //endregion
+
+  //region MISCELLANEOUS
+
+  /**
+   * Equivalent of {@link Collectors#flatMapping(Function, Collector)}.
+   */
+  public static <T, U, A, R> Collector<T, ?, R> flatMapping(
+          Function<? super T, ? extends Stream<? extends U>> mapper, Collector<? super U, A, R> downstream) {
+    return UniJ.miscProvider().flatMappingCollector(mapper, downstream);
+  }
+
+  /**
+   * Equivalent of {@link Collectors#filtering(Predicate, Collector)}.
+   */
+  public static <T, A, R> Collector<T, ?, R> filtering(Predicate<? super T> predicate,
+          Collector<? super T, A, R> downstream) {
+    return UniJ.miscProvider().filteringCollector(predicate, downstream);
+  }
+  //endregion
 }

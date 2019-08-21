@@ -28,7 +28,7 @@ import java.util.stream.Stream
  */
 final class UniCollectorsSpec extends Specification {
 
-  def "toUnmodifiableList"(List<Integer> list) {
+  def "toUnmodifiableList()"(List<Integer> list) {
     expect:
       list.stream().collect(UniCollectors.toUnmodifiableList()) == list
     where:
@@ -39,7 +39,7 @@ final class UniCollectorsSpec extends Specification {
       [1, 2, 3] | _
   }
 
-  def "toUnmodifiableSet"(Set<Integer> set) {
+  def "toUnmodifiableSet()"(Set<Integer> set) {
     expect:
       set.stream().collect(UniCollectors.toUnmodifiableSet()) == set
     where:
@@ -82,7 +82,7 @@ final class UniCollectorsSpec extends Specification {
       [["a": 1, "b": 2], ["b": 3]] | ["a": 1, "b": 5]
   }
 
-  def "toUnmodifiableMap(key,value) throws on merge conflict"(List<Map<String, Integer>> maps) {
+  def "toUnmodifiableMap(keyMapper,valueMapper) throws on merge conflict"(List<Map<String, Integer>> maps) {
     given:
       def entryStream = maps.stream().flatMap { it.entrySet().stream() }
       def collector = UniCollectors.toUnmodifiableMap({ it.getKey() }, { it.getValue() })

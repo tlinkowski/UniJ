@@ -21,6 +21,8 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import kotlin.annotations.jvm.Mutable;
+import kotlin.annotations.jvm.ReadOnly;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
@@ -36,13 +38,13 @@ import pl.tlinkowski.unij.service.api.UniJService;
 final class UniJLoader {
 
   static <S> S load(Class<S> serviceClass) {
-    List<S> services = new ArrayList<>(4);
+    @Mutable List<S> services = new ArrayList<>(4);
     ServiceLoader.load(serviceClass).forEach(services::add);
     validateLoadedServices(services, serviceClass);
     return selectService(services, serviceClass);
   }
 
-  private static <S> void validateLoadedServices(Collection<S> services, Class<S> serviceClass) {
+  private static <S> void validateLoadedServices(@ReadOnly Collection<S> services, Class<S> serviceClass) {
     if (services.isEmpty()) {
       throw new UniJException(String.format(
               "%s service implementation not found. Ensure proper unij-* module is on the classpath/modulepath",
@@ -52,11 +54,11 @@ final class UniJLoader {
     log.debug("{} service: found {}", serviceClass.getName(), services);
   }
 
-  private static <S> S selectService(Collection<S> services, Class<S> serviceClass) {
+  private static <S> S selectService(@ReadOnly Collection<S> services, Class<S> serviceClass) {
     return selectService(buildPriorityServiceMap(services), serviceClass);
   }
 
-  private static <S> S selectService(SortedMap<Integer, S> priorityServiceMap, Class<S> serviceClass) {
+  private static <S> S selectService(@ReadOnly SortedMap<Integer, S> priorityServiceMap, Class<S> serviceClass) {
     Integer highestPriority = priorityServiceMap.firstKey();
     S highestPriorityService = priorityServiceMap.get(highestPriority);
 
@@ -67,7 +69,8 @@ final class UniJLoader {
     return highestPriorityService;
   }
 
-  private static <S> SortedMap<Integer, S> buildPriorityServiceMap(Collection<S> services) {
+  @ReadOnly
+  private static <S> SortedMap<Integer, S> buildPriorityServiceMap(@ReadOnly Collection<? extends S> services) {
     return services.stream().collect(Collectors.toMap(
             UniJLoader::detectPriority, Function.identity(), UniJLoader::throwOnDuplicatePriority, TreeMap::new
     ));

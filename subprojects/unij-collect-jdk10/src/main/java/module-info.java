@@ -16,10 +16,8 @@
  * limitations under the License.
  */
 
-import pl.tlinkowski.unij.service.api.collect.UnmodifiableListFactory;
-import pl.tlinkowski.unij.service.api.collect.UnmodifiableSetFactory;
-import pl.tlinkowski.unij.service.collect.jdk10.Jdk10UnmodifiableListFactory;
-import pl.tlinkowski.unij.service.collect.jdk10.Jdk10UnmodifiableSetFactory;
+import pl.tlinkowski.unij.service.api.collect.*;
+import pl.tlinkowski.unij.service.collect.jdk10.*;
 
 /**
  * Unmodifiable-{@link java.util.Collection}-related JDK-10-based bindings for UniJ.
@@ -34,4 +32,5 @@ module pl.tlinkowski.unij.service.collect.jdk10 {
 
   provides UnmodifiableListFactory with Jdk10UnmodifiableListFactory;
   provides UnmodifiableSetFactory with Jdk10UnmodifiableSetFactory;
+  provides UnmodifiableMapFactory with Jdk10UnmodifiableMapFactory;
 }

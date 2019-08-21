@@ -108,9 +108,9 @@ public final class Jdk10UnmodifiableSetFactory implements UnmodifiableSetFactory
     return Set.of(e1, e2, e3, e4, e5, e6, e7, e8, e9, e10);
   }
 
-  @SuppressWarnings("unchecked")
+  @SafeVarargs
   @Override
-  public <E> Set<E> of(E... elements) {
+  public final <E> Set<E> of(E... elements) {
     return Set.of(elements);
   }
   //endregion

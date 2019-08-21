@@ -108,9 +108,9 @@ public final class Jdk10UnmodifiableListFactory implements UnmodifiableListFacto
     return List.of(e1, e2, e3, e4, e5, e6, e7, e8, e9, e10);
   }
 
-  @SuppressWarnings("unchecked")
+  @SafeVarargs
   @Override
-  public <E> List<E> of(E... elements) {
+  public final <E> List<E> of(E... elements) {
     return List.of(elements);
   }
   //endregion

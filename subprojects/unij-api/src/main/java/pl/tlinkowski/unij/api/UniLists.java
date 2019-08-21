@@ -136,7 +136,7 @@ public final class UniLists {
   /**
    * Equivalent of {@link List#of(Object[])}.
    */
-  @SuppressWarnings("unchecked")
+  @SafeVarargs
   @ReadOnly
   public static <E> List<E> of(E... elements) {
     return UniJ.listFactory().of(elements);

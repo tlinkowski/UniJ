@@ -135,7 +135,7 @@ public final class UniSets {
   /**
    * Equivalent of {@link Set#of(Object[])}.
    */
-  @SuppressWarnings("unchecked")
+  @SafeVarargs
   @ReadOnly
   public static <E> Set<E> of(E... elements) {
     return UniJ.setFactory().of(elements);

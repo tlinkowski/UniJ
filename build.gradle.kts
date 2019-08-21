@@ -57,12 +57,7 @@ subprojects {
   val annotationProcessor by configurations
 
   val testImplementation by configurations
-  val testCompileOnly by configurations
   //endregion
-
-  configurations {
-    testCompileOnly.extendsFrom(compileOnly)
-  }
 
   dependencies {
     val basicAnnotationsVersion: String by project // https://github.com/tlinkowski/basic-annotations

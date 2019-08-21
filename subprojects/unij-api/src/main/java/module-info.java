@@ -16,8 +16,7 @@
  * limitations under the License.
  */
 
-import pl.tlinkowski.unij.service.api.collect.UnmodifiableListFactory;
-import pl.tlinkowski.unij.service.api.collect.UnmodifiableSetFactory;
+import pl.tlinkowski.unij.service.api.collect.*;
 
 /**
  * @author Tomasz Linkowski
@@ -31,4 +30,5 @@ module pl.tlinkowski.unij.api {
 
   uses UnmodifiableListFactory;
   uses UnmodifiableSetFactory;
+  uses UnmodifiableMapFactory;
 }

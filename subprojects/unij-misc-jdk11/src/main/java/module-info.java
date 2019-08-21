@@ -16,6 +16,9 @@
  * limitations under the License.
  */
 
+import pl.tlinkowski.unij.service.api.misc.MiscellaneousApiProvider;
+import pl.tlinkowski.unij.service.misc.jdk11.Jdk11MiscellaneousApiProvider;
+
 /**
  * Miscellaneous JDK-11-based bindings for UniJ.
  *
@@ -25,4 +28,7 @@
 module pl.tlinkowski.unij.service.misc.jdk11 {
   requires pl.tlinkowski.unij.service.api;
   requires static pl.tlinkowski.annotation.basic;
+  requires static auto.service.annotations;
+
+  provides MiscellaneousApiProvider with Jdk11MiscellaneousApiProvider;
 }

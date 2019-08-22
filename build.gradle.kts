@@ -121,7 +121,6 @@ val namesOfYetEmptyProjects = listOf(
         "unij-bundle-jdk11",
         "unij-collect-eclipse",
         "unij-collect-guava",
-        "unij-collect-jdk8",
         "unij-misc-jdk8"
 )
 namesOfYetEmptyProjects.forEach {

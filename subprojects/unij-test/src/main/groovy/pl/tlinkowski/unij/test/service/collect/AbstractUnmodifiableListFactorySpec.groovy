@@ -62,6 +62,11 @@ abstract class AbstractUnmodifiableListFactorySpec extends Specification {
       [1, 2, 3] | _
   }
 
+  def "of(n=0) always returns the same instance"() {
+    expect:
+      factory.of().is(factory.of())
+  }
+
   def "of(n=0)"() {
     expect:
       factory.of() == List.of()

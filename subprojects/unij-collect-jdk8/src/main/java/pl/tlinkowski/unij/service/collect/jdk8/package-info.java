@@ -16,20 +16,13 @@
  * limitations under the License.
  */
 
-import pl.tlinkowski.unij.service.api.collect.UnmodifiableListFactory;
-import pl.tlinkowski.unij.service.collect.jdk8.Jdk8UnmodifiableListFactory;
-
 /**
- * Unmodifiable-{@link java.util.Collection}-related JDK-8-based bindings for UniJ.
+ * UniJ {@link java.util.Collection}-factory service implementations based on JDK 8.
  *
  * @author Tomasz Linkowski
+ * @see java.util.ServiceLoader
  */
-@SuppressWarnings("JavaModuleNaming")
-module pl.tlinkowski.unij.service.collect.jdk8 {
-  requires pl.tlinkowski.unij.service.api;
-  requires static pl.tlinkowski.annotation.basic;
-  requires static auto.service.annotations;
-  requires static lombok;
+@NonNullPackage
+package pl.tlinkowski.unij.service.collect.jdk8;
 
-  provides UnmodifiableListFactory with Jdk8UnmodifiableListFactory;
-}
+import pl.tlinkowski.annotation.basic.NonNullPackage;

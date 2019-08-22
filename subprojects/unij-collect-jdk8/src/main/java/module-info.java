@@ -17,7 +17,9 @@
  */
 
 import pl.tlinkowski.unij.service.api.collect.UnmodifiableListFactory;
+import pl.tlinkowski.unij.service.api.collect.UnmodifiableSetFactory;
 import pl.tlinkowski.unij.service.collect.jdk8.Jdk8UnmodifiableListFactory;
+import pl.tlinkowski.unij.service.collect.jdk8.Jdk8UnmodifiableSetFactory;
 
 /**
  * Unmodifiable-{@link java.util.Collection}-related JDK-8-based bindings for UniJ.
@@ -32,4 +34,5 @@ module pl.tlinkowski.unij.service.collect.jdk8 {
   requires static lombok;
 
   provides UnmodifiableListFactory with Jdk8UnmodifiableListFactory;
+  provides UnmodifiableSetFactory with Jdk8UnmodifiableSetFactory;
 }

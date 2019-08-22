@@ -33,7 +33,7 @@ abstract class AbstractUnmodifiableMapFactorySpec extends Specification {
   @Shared
   protected UnmodifiableMapFactory factory
 
-  def "proper service is registered"() {
+  def "proper service is registered on classpath"() {
     when:
       def registered = ServiceLoader.load(UnmodifiableMapFactory).first()
     then:

@@ -33,7 +33,7 @@ abstract class AbstractUnmodifiableSetFactorySpec extends Specification {
   @Shared
   protected UnmodifiableSetFactory factory
 
-  def "proper service is registered"() {
+  def "proper service is registered on classpath"() {
     when:
       def registered = ServiceLoader.load(UnmodifiableSetFactory).first()
     then:

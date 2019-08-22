@@ -118,6 +118,11 @@ abstract class AbstractUnmodifiableMapFactorySpec extends Specification {
   }
   //endregion
 
+  def "of(n=0) always returns the same instance"() {
+    expect:
+      factory.of().is(factory.of())
+  }
+
   def "of(n=0)"() {
     expect:
       factory.of() == Map.of()

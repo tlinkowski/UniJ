@@ -16,22 +16,16 @@
  * limitations under the License.
  */
 
-import pl.tlinkowski.unij.service.api.collect.*;
-import pl.tlinkowski.unij.service.collect.jdk8.*;
+package pl.tlinkowski.unij.service.collect.jdk8
+
+import pl.tlinkowski.unij.test.service.collect.AbstractUnmodifiableMapFactorySpec
 
 /**
- * Unmodifiable-{@link java.util.Collection}-related JDK-8-based bindings for UniJ.
- *
  * @author Tomasz Linkowski
  */
-@SuppressWarnings("JavaModuleNaming")
-module pl.tlinkowski.unij.service.collect.jdk8 {
-  requires pl.tlinkowski.unij.service.api;
-  requires static pl.tlinkowski.annotation.basic;
-  requires static auto.service.annotations;
-  requires static lombok;
+final class Jdk8UnmodifiableMapFactorySpec extends AbstractUnmodifiableMapFactorySpec {
 
-  provides UnmodifiableListFactory with Jdk8UnmodifiableListFactory;
-  provides UnmodifiableSetFactory with Jdk8UnmodifiableSetFactory;
-  provides UnmodifiableMapFactory with Jdk8UnmodifiableMapFactory;
+  def setupSpec() {
+    factory = new Jdk8UnmodifiableMapFactory()
+  }
 }

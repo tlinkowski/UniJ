@@ -26,7 +26,7 @@ import java.util.stream.Stream
 /**
  * @author Tomasz Linkowski
  */
-final class UniCollectorsSpec extends Specification {
+class UniCollectorsSpec extends Specification {
 
   def "toUnmodifiableList()"(List<Integer> list) {
     expect:

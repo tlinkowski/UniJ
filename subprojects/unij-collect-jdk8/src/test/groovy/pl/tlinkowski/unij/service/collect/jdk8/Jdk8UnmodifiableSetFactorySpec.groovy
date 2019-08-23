@@ -23,7 +23,7 @@ import pl.tlinkowski.unij.test.service.collect.AbstractUnmodifiableSetFactorySpe
 /**
  * @author Tomasz Linkowski
  */
-final class Jdk8UnmodifiableSetFactorySpec extends AbstractUnmodifiableSetFactorySpec {
+class Jdk8UnmodifiableSetFactorySpec extends AbstractUnmodifiableSetFactorySpec {
 
   def setupSpec() {
     factory = new Jdk8UnmodifiableSetFactory()

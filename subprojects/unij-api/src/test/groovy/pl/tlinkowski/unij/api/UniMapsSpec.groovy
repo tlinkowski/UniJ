@@ -23,7 +23,7 @@ import spock.lang.Specification
 /**
  * @author Tomasz Linkowski
  */
-final class UniMapsSpec extends Specification {
+class UniMapsSpec extends Specification {
 
   def "copyOf"(Map<String, Integer> map) {
     expect:

@@ -23,7 +23,7 @@ import pl.tlinkowski.unij.test.service.collect.AbstractUnmodifiableMapFactorySpe
 /**
  * @author Tomasz Linkowski
  */
-final class Jdk8UnmodifiableMapFactorySpec extends AbstractUnmodifiableMapFactorySpec {
+class Jdk8UnmodifiableMapFactorySpec extends AbstractUnmodifiableMapFactorySpec {
 
   def setupSpec() {
     factory = new Jdk8UnmodifiableMapFactory()

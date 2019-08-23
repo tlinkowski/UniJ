@@ -23,7 +23,7 @@ import spock.lang.Specification
 /**
  * @author Tomasz Linkowski
  */
-final class UniListsSpec extends Specification {
+class UniListsSpec extends Specification {
 
   def "copyOf"(List<Integer> list) {
     expect:

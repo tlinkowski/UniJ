@@ -23,5 +23,5 @@ import pl.tlinkowski.unij.test.bundle.AbstractBundleTest
 /**
  * @author Tomasz Linkowski
  */
-final class Jdk11BundleTest extends AbstractBundleTest {
+class Jdk11BundleTest extends AbstractBundleTest {
 }

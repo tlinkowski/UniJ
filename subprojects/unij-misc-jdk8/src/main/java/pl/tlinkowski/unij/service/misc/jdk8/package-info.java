@@ -16,19 +16,12 @@
  * limitations under the License.
  */
 
-import pl.tlinkowski.unij.service.api.misc.MiscellaneousApiProvider;
-import pl.tlinkowski.unij.service.misc.jdk8.Jdk8MiscellaneousApiProvider;
-
 /**
- * Miscellaneous JDK-8-based bindings for UniJ.
+ * UniJ miscellaneous service implementations based on JDK 8.
  *
  * @author Tomasz Linkowski
  */
-@SuppressWarnings("JavaModuleNaming")
-module pl.tlinkowski.unij.service.misc.jdk8 {
-  requires pl.tlinkowski.unij.service.api;
-  requires static pl.tlinkowski.annotation.basic;
-  requires static auto.service.annotations;
+@NonNullPackage
+package pl.tlinkowski.unij.service.misc.jdk8;
 
-  provides MiscellaneousApiProvider with Jdk8MiscellaneousApiProvider;
-}
+import pl.tlinkowski.annotation.basic.NonNullPackage;

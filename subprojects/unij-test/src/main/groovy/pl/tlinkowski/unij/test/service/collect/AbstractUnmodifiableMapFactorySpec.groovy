@@ -76,7 +76,8 @@ abstract class AbstractUnmodifiableMapFactorySpec extends Specification {
     when:
       entryStream.collect(collector)
     then:
-      thrown(IllegalStateException.class)
+      RuntimeException ex = thrown()
+      ex.message.contains("key")
     where:
       maps                         | _
       [["a": 1, "b": 2], ["b": 3]] | _

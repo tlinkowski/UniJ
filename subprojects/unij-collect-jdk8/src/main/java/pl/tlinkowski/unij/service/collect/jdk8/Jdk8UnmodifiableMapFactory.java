@@ -269,9 +269,7 @@ public final class Jdk8UnmodifiableMapFactory implements UnmodifiableMapFactory 
   private <K, V> Map<K, V> ofAtLeastTwoEntries(Map.Entry<? extends K, ? extends V>[] entries) {
     Builder<K, V> builder = new Builder<>(entries.length);
     for (Map.Entry<? extends K, ? extends V> entry : entries) {
-      K key = Objects.requireNonNull(entry.getKey(), "key");
-      V value = Objects.requireNonNull(entry.getValue(), "value");
-      builder.put(key, value);
+      builder.putWithNullChecks(entry.getKey(), entry.getValue());
     }
     return builder.build();
   }
@@ -289,7 +287,11 @@ public final class Jdk8UnmodifiableMapFactory implements UnmodifiableMapFactory 
       this.map = new HashMap<>((int) (size / 0.75));
     }
 
-    Builder<K, V> put(@NonNull K key, @NonNull V value) {
+    Builder<K, V> putWithNullChecks(@NonNull K key, @NonNull V value) {
+      return put(key, value);
+    }
+
+    Builder<K, V> put(K key, V value) {
       @NullOr V prevValue = map.put(key, value);
       if (prevValue != null) {
         throw new IllegalArgumentException(String.format(

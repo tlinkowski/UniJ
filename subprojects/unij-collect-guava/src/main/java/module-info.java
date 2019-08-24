@@ -17,7 +17,9 @@
  */
 
 import pl.tlinkowski.unij.service.api.collect.UnmodifiableListFactory;
+import pl.tlinkowski.unij.service.api.collect.UnmodifiableSetFactory;
 import pl.tlinkowski.unij.service.collect.guava.GuavaUnmodifiableListFactory;
+import pl.tlinkowski.unij.service.collect.guava.GuavaUnmodifiableSetFactory;
 
 /**
  * Unmodifiable-{@link java.util.Collection}-related <a href="https://github.com/google/guava">Guava</a>-based bindings
@@ -33,4 +35,5 @@ module pl.tlinkowski.unij.service.collect.guava {
   requires static auto.service.annotations;
 
   provides UnmodifiableListFactory with GuavaUnmodifiableListFactory;
+  provides UnmodifiableSetFactory with GuavaUnmodifiableSetFactory;
 }

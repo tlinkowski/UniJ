@@ -16,24 +16,16 @@
  * limitations under the License.
  */
 
-import pl.tlinkowski.unij.service.api.collect.*;
-import pl.tlinkowski.unij.service.collect.guava.*;
+package pl.tlinkowski.unij.service.collect.guava
+
+import pl.tlinkowski.unij.test.service.collect.AbstractUnmodifiableMapFactorySpec
 
 /**
- * Unmodifiable-{@link java.util.Collection}-related <a href="https://github.com/google/guava">Guava</a>-based bindings
- * for UniJ.
- *
  * @author Tomasz Linkowski
  */
-module pl.tlinkowski.unij.service.collect.guava {
-  requires com.google.common;
+class GuavaUnmodifiableMapFactorySpec extends AbstractUnmodifiableMapFactorySpec {
 
-  requires pl.tlinkowski.unij.service.api;
-  requires static pl.tlinkowski.annotation.basic;
-  requires static auto.service.annotations;
-  requires static lombok;
-
-  provides UnmodifiableListFactory with GuavaUnmodifiableListFactory;
-  provides UnmodifiableSetFactory with GuavaUnmodifiableSetFactory;
-  provides UnmodifiableMapFactory with GuavaUnmodifiableMapFactory;
+  def setupSpec() {
+    factory = new GuavaUnmodifiableMapFactory()
+  }
 }

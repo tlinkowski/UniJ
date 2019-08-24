@@ -119,8 +119,7 @@ val namesOfYetEmptyProjects = listOf(
         "unij-bundle-guava-jdk8",
         "unij-bundle-jdk8",
         "unij-bundle-jdk11",
-        "unij-collect-eclipse",
-        "unij-collect-guava"
+        "unij-collect-eclipse"
 )
 namesOfYetEmptyProjects.forEach {
   project(":$it") {

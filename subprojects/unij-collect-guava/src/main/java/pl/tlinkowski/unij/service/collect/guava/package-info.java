@@ -16,21 +16,14 @@
  * limitations under the License.
  */
 
-import pl.tlinkowski.unij.service.api.collect.UnmodifiableListFactory;
-import pl.tlinkowski.unij.service.collect.guava.GuavaUnmodifiableListFactory;
-
 /**
- * Unmodifiable-{@link java.util.Collection}-related <a href="https://github.com/google/guava">Guava</a>-based bindings
- * for UniJ.
+ * UniJ {@link java.util.Collection}-factory service implementations based on
+ * <a href="https://github.com/google/guava">Guava</a>.
  *
  * @author Tomasz Linkowski
+ * @see java.util.ServiceLoader
  */
-module pl.tlinkowski.unij.service.collect.guava {
-  requires com.google.common;
+@NonNullPackage
+package pl.tlinkowski.unij.service.collect.guava;
 
-  requires pl.tlinkowski.unij.service.api;
-  requires static pl.tlinkowski.annotation.basic;
-  requires static auto.service.annotations;
-
-  provides UnmodifiableListFactory with GuavaUnmodifiableListFactory;
-}
+import pl.tlinkowski.annotation.basic.NonNullPackage;

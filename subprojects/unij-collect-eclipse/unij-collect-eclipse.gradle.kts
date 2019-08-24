@@ -21,4 +21,5 @@ dependencies {
   val eclipseCollectionsVersion: String by project // https://www.eclipse.org/collections/
 
   compileOnly(group = "org.eclipse.collections", name = "eclipse-collections", version = eclipseCollectionsVersion)
+  testRuntimeOnly(group = "org.eclipse.collections", name = "eclipse-collections", version = eclipseCollectionsVersion)
 }

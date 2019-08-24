@@ -21,4 +21,5 @@ dependencies {
   val guavaVersion: String by project // https://github.com/google/guava
 
   compileOnly(group = "com.google.guava", name = "guava", version = guavaVersion)
+  testRuntimeOnly(group = "com.google.guava", name = "guava", version = guavaVersion)
 }

@@ -17,7 +17,9 @@
  */
 
 import pl.tlinkowski.unij.service.api.collect.UnmodifiableListFactory;
+import pl.tlinkowski.unij.service.api.collect.UnmodifiableSetFactory;
 import pl.tlinkowski.unij.service.collect.eclipse.EclipseUnmodifiableListFactory;
+import pl.tlinkowski.unij.service.collect.eclipse.EclipseUnmodifiableSetFactory;
 
 /**
  * Unmodifiable-{@link java.util.Collection}-related <a href="https://www.eclipse.org/collections/">Eclipse</a>-based
@@ -34,4 +36,5 @@ module pl.tlinkowski.unij.service.collect.eclipse {
   requires static auto.service.annotations;
 
   provides UnmodifiableListFactory with EclipseUnmodifiableListFactory;
+  provides UnmodifiableSetFactory with EclipseUnmodifiableSetFactory;
 }

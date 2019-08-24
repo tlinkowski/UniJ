@@ -16,10 +16,8 @@
  * limitations under the License.
  */
 
-import pl.tlinkowski.unij.service.api.collect.UnmodifiableListFactory;
-import pl.tlinkowski.unij.service.api.collect.UnmodifiableSetFactory;
-import pl.tlinkowski.unij.service.collect.eclipse.EclipseUnmodifiableListFactory;
-import pl.tlinkowski.unij.service.collect.eclipse.EclipseUnmodifiableSetFactory;
+import pl.tlinkowski.unij.service.api.collect.*;
+import pl.tlinkowski.unij.service.collect.eclipse.*;
 
 /**
  * Unmodifiable-{@link java.util.Collection}-related <a href="https://www.eclipse.org/collections/">Eclipse</a>-based
@@ -34,7 +32,9 @@ module pl.tlinkowski.unij.service.collect.eclipse {
   requires pl.tlinkowski.unij.service.api;
   requires static pl.tlinkowski.annotation.basic;
   requires static auto.service.annotations;
+  requires static lombok;
 
   provides UnmodifiableListFactory with EclipseUnmodifiableListFactory;
   provides UnmodifiableSetFactory with EclipseUnmodifiableSetFactory;
+  provides UnmodifiableMapFactory with EclipseUnmodifiableMapFactory;
 }

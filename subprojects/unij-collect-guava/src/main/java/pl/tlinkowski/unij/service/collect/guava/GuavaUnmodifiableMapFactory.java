@@ -24,6 +24,7 @@ import java.util.stream.Collector;
 
 import com.google.auto.service.AutoService;
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Maps;
 import lombok.NonNull;
 
 import pl.tlinkowski.unij.service.api.UniJService;
@@ -71,12 +72,9 @@ public final class GuavaUnmodifiableMapFactory implements UnmodifiableMapFactory
     return ImmutableMap.copyOf(Arrays.asList(entries));
   }
 
-  /**
-   * Like package-private {@code ImmutableMap.entryOf}.
-   */
   @Override
   public <K, V> Map.Entry<K, V> entry(@NonNull K k, @NonNull V v) {
-    return new AbstractMap.SimpleImmutableEntry<>(k, v);
+    return Maps.immutableEntry(k, v);
   }
   //endregion
 

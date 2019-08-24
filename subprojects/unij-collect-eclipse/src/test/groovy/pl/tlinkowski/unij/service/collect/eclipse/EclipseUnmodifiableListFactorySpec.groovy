@@ -16,22 +16,16 @@
  * limitations under the License.
  */
 
-import pl.tlinkowski.unij.service.api.collect.UnmodifiableListFactory;
-import pl.tlinkowski.unij.service.collect.eclipse.EclipseUnmodifiableListFactory;
+package pl.tlinkowski.unij.service.collect.eclipse
+
+import pl.tlinkowski.unij.test.service.collect.AbstractUnmodifiableListFactorySpec
 
 /**
- * Unmodifiable-{@link java.util.Collection}-related <a href="https://www.eclipse.org/collections/">Eclipse</a>-based
- * bindings for UniJ.
- *
  * @author Tomasz Linkowski
  */
-module pl.tlinkowski.unij.service.collect.eclipse {
-  requires org.eclipse.collections.api;
-  requires org.eclipse.collections.impl;
+class EclipseUnmodifiableListFactorySpec extends AbstractUnmodifiableListFactorySpec {
 
-  requires pl.tlinkowski.unij.service.api;
-  requires static pl.tlinkowski.annotation.basic;
-  requires static auto.service.annotations;
-
-  provides UnmodifiableListFactory with EclipseUnmodifiableListFactory;
+  def setupSpec() {
+    factory = new EclipseUnmodifiableListFactory()
+  }
 }

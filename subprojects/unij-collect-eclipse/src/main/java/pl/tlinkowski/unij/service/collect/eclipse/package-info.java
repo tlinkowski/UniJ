@@ -16,22 +16,14 @@
  * limitations under the License.
  */
 
-import pl.tlinkowski.unij.service.api.collect.UnmodifiableListFactory;
-import pl.tlinkowski.unij.service.collect.eclipse.EclipseUnmodifiableListFactory;
-
 /**
- * Unmodifiable-{@link java.util.Collection}-related <a href="https://www.eclipse.org/collections/">Eclipse</a>-based
- * bindings for UniJ.
+ * UniJ {@link java.util.Collection}-factory service implementations based on
+ * <a href="https://www.eclipse.org/collections/">Eclipse Collections</a>.
  *
  * @author Tomasz Linkowski
+ * @see java.util.ServiceLoader
  */
-module pl.tlinkowski.unij.service.collect.eclipse {
-  requires org.eclipse.collections.api;
-  requires org.eclipse.collections.impl;
+@NonNullPackage
+package pl.tlinkowski.unij.service.collect.eclipse;
 
-  requires pl.tlinkowski.unij.service.api;
-  requires static pl.tlinkowski.annotation.basic;
-  requires static auto.service.annotations;
-
-  provides UnmodifiableListFactory with EclipseUnmodifiableListFactory;
-}
+import pl.tlinkowski.annotation.basic.NonNullPackage;

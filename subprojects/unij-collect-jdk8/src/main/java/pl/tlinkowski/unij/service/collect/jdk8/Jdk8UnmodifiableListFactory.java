@@ -158,10 +158,18 @@ public final class Jdk8UnmodifiableListFactory implements UnmodifiableListFactor
       case 1:
         return of(elements[0]);
       default:
-        return unmodArrayAsList(trusted ? elements : elements.clone());
+        return ofTwoOrMoreElements(trusted ? elements : elements.clone());
     }
   }
 
+  private <E> List<E> ofTwoOrMoreElements(E[] ownedElements) {
+    for (Object element : ownedElements) {
+      Objects.requireNonNull(element);
+    }
+    return unmodArrayAsList(ownedElements);
+  }
+
+  // assumes elements are owned and non-null
   @SafeVarargs
   private static <E> List<E> unmodArrayAsList(E... ownedElements) {
     return Collections.unmodifiableList(Arrays.asList(ownedElements));

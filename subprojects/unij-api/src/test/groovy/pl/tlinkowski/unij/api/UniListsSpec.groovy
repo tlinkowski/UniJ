@@ -68,31 +68,37 @@ class UniListsSpec extends Specification {
 
   def "of(n=6)"() {
     expect:
-      UniLists.of(1, 2, 3, 4, 5, 6) == List.of(1, 2, 3, 4, 5, 6)
+      UniLists.of(1, 2, 3, 4, 5, 6) ==
+              List.of(1, 2, 3, 4, 5, 6)
   }
 
   def "of(n=7)"() {
     expect:
-      UniLists.of(1, 2, 3, 4, 5, 6, 7) == List.of(1, 2, 3, 4, 5, 6, 7)
+      UniLists.of(1, 2, 3, 4, 5, 6, 7) ==
+              List.of(1, 2, 3, 4, 5, 6, 7)
   }
 
   def "of(n=8)"() {
     expect:
-      UniLists.of(1, 2, 3, 4, 5, 6, 7, 8) == List.of(1, 2, 3, 4, 5, 6, 7, 8)
+      UniLists.of(1, 2, 3, 4, 5, 6, 7, 8) ==
+              List.of(1, 2, 3, 4, 5, 6, 7, 8)
   }
 
   def "of(n=9)"() {
     expect:
-      UniLists.of(1, 2, 3, 4, 5, 6, 7, 8, 9) == List.of(1, 2, 3, 4, 5, 6, 7, 8, 9)
+      UniLists.of(1, 2, 3, 4, 5, 6, 7, 8, 9) ==
+              List.of(1, 2, 3, 4, 5, 6, 7, 8, 9)
   }
 
   def "of(n=10)"() {
     expect:
-      UniLists.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10) == List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+      UniLists.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10) ==
+              List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
   }
 
   def "of(...)"() {
     expect:
-      UniLists.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11) == List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)
+      UniLists.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11) ==
+              List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)
   }
 }

@@ -18,6 +18,7 @@
 package pl.tlinkowski.unij.service.collect.eclipse;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.stream.Collector;
@@ -68,7 +69,12 @@ public final class EclipseUnmodifiableMapFactory implements UnmodifiableMapFacto
   @SuppressWarnings("unchecked")
   @Override
   public <K, V> Map<K, V> copyOf(Map<? extends K, ? extends V> map) {
-    return (Map<K, V>) Maps.immutable.ofAll(map).castToMap();
+    Map<K, V> copy = (Map<K, V>) Maps.immutable.ofAll(map).castToMap();
+    copy.forEach((key, value) -> {
+      Objects.requireNonNull(key, "key");
+      Objects.requireNonNull(value, "value");
+    });
+    return copy;
   }
   //endregion
 

@@ -50,7 +50,7 @@ class UniCollectorsSpec extends Specification {
       [1, 2, 3] | _
   }
 
-  //region TO UNMODIFIABLE MAP (corresponds to COLLECTOR region of AbstractUnmodifiableMapFactorySpec)
+  //region TO UNMODIFIABLE MAP (excerpt from AbstractUnmodifiableMapFactorySpec)
   def "toUnmodifiableMap(keyMapper,valueMapper)"(Map<String, Integer> map) {
     given:
       def entryStream = map.entrySet().stream()

@@ -21,6 +21,8 @@ package pl.tlinkowski.unij.test.service.collect
 import spock.lang.Shared
 import spock.lang.Specification
 
+import java.util.stream.Collector
+
 import pl.tlinkowski.unij.service.api.collect.UnmodifiableMapFactory
 
 /**
@@ -40,88 +42,60 @@ abstract class AbstractUnmodifiableMapFactorySpec extends Specification {
       registered.class == factory.class
   }
 
-  //region COLLECTOR (corresponds to TO UNMODIFIABLE MAP region of UniCollectorsSpec)
+  //region STANDARD CONTRACT
   def "collector(keyMapper,valueMapper)"(Map<String, Integer> map) {
     given:
       def entryStream = map.entrySet().stream()
-      def collector = factory.collector({ it.getKey() }, { it.getValue() })
     expect:
-      entryStream.collect(collector) == map
+      entryStream.collect(collector()) == map
     where:
-      map                      | _
-      [:]                      | _
-      ["a": 1]                 | _
-      ["a": 1, "b": 2]         | _
-      ["a": 1, "b": 2, "c": 3] | _
+      map                | _
+      [:]                | _
+      [a: 1]             | _
+      [a: 1, b: 2]       | _
+      [a: 1, b: 2, c: 3] | _
   }
 
   def "collector(keyMapper,valueMapper,mergeFunction)"(List<Map<String, Integer>> maps, Map<String, Integer> merged) {
     given:
       def entryStream = maps.stream().flatMap { it.entrySet().stream() }
-      def collector = factory.collector({ it.getKey() }, { it.getValue() }, { l, r -> l + r })
     expect:
-      entryStream.collect(collector) == merged
+      entryStream.collect(summingCollector()) == merged
     where:
-      maps                         | merged
-      []                           | [:]
-      [["a": 1]]                   | ["a": 1]
-      [["a": 1], ["b": 2]]         | ["a": 1, "b": 2]
-      [["a": 1, "b": 2], ["b": 3]] | ["a": 1, "b": 5]
+      maps                   | merged
+      []                     | [:]
+      [[a: 1]]               | [a: 1]
+      [[a: 1], [b: 2]]       | [a: 1, b: 2]
+      [[a: 1, b: 2], [b: 3]] | [a: 1, b: 5]
   }
-
-  def "collector(key,value) throws on merge conflict"(List<Map<String, Integer>> maps) {
-    given:
-      def entryStream = maps.stream().flatMap { it.entrySet().stream() }
-      def collector = factory.collector({ it.getKey() }, { it.getValue() })
-    when:
-      entryStream.collect(collector)
-    then:
-      RuntimeException ex = thrown()
-      ex.message.contains("key")
-    where:
-      maps                         | _
-      [["a": 1, "b": 2], ["b": 3]] | _
-  }
-  //endregion
 
   def "copyOf"(Map<String, Integer> map) {
     expect:
       factory.copyOf(map) == Map.copyOf(map)
     where:
-      map                      | _
-      [:]                      | _
-      ["a": 1]                 | _
-      ["a": 1, "b": 2]         | _
-      ["a": 1, "b": 2, "c": 3] | _
+      map                | _
+      [:]                | _
+      [a: 1]             | _
+      [a: 1, b: 2]       | _
+      [a: 1, b: 2, c: 3] | _
   }
 
-  // region ENTRIES (corresponds to ENTRIES region of UniMapsSpec)
-  def "ofEntries(...)"() {
+  def "ofEntries(...)"(Map<String, Integer> map) {
     given:
-      def expected = Map.ofEntries(
-              Map.entry("a", 1),
-              Map.entry("b", 2),
-              Map.entry("c", 3)
-      )
-    when:
-      def actual = factory.ofEntries(
-              factory.entry("a", 1),
-              factory.entry("b", 2),
-              factory.entry("c", 3)
-      )
-    then:
-      actual == expected
+      Map.Entry<String, Integer>[] entries = map.entrySet()
+    expect:
+      factory.ofEntries(entries) == Map.ofEntries(entries)
+    where:
+      map                | _
+      [:]                | _
+      [a: 1]             | _
+      [a: 1, b: 2]       | _
+      [a: 1, b: 2, c: 3] | _
   }
 
   def "entry"() {
     expect:
       factory.entry("a", 1) == Map.entry("a", 1)
-  }
-  //endregion
-
-  def "of(n=0) always returns the same instance"() {
-    expect:
-      factory.of().is(factory.of())
   }
 
   def "of(n=0)"() {
@@ -185,5 +159,29 @@ abstract class AbstractUnmodifiableMapFactorySpec extends Specification {
     expect:
       factory.of("a", 1, "b", 2, "c", 3, "d", 4, "e", 5, "f", 6, "g", 7, "h", 8, "i", 9, "j", 10) ==
               Map.of("a", 1, "b", 2, "c", 3, "d", 4, "e", 5, "f", 6, "g", 7, "h", 8, "i", 9, "j", 10)
+  }
+  //endregion
+
+  //region DUPLICATION CONTRACT
+  def "collector(key,value) throws on merge conflict"(List<Map<String, Integer>> maps) {
+    given:
+      def entryStream = maps.stream().flatMap { it.entrySet().stream() }
+    when:
+      entryStream.collect(collector())
+    then:
+      RuntimeException ex = thrown()
+      ex.message.contains("key")
+    where:
+      maps                   | _
+      [[a: 1, b: 2], [b: 3]] | _
+  }
+  //endregion
+
+  private Collector<Map.Entry<String, Integer>, ?, Map<String, Integer>> collector() {
+    factory.collector({ it.getKey() }, { it.getValue() })
+  }
+
+  private Collector<Map.Entry<String, Integer>, ?, Map<String, Integer>> summingCollector() {
+    factory.collector({ it.getKey() }, { it.getValue() }, { l, r -> l + r })
   }
 }

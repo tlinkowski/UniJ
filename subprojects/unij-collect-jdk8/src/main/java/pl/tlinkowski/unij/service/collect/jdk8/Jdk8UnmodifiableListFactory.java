@@ -158,11 +158,11 @@ public final class Jdk8UnmodifiableListFactory implements UnmodifiableListFactor
       case 1:
         return of(elements[0]);
       default:
-        return ofTwoOrMoreElements(trusted ? elements : elements.clone());
+        return ofAtLeastTwoElements(trusted ? elements : elements.clone());
     }
   }
 
-  private <E> List<E> ofTwoOrMoreElements(E[] ownedElements) {
+  private <E> List<E> ofAtLeastTwoElements(E[] ownedElements) {
     for (Object element : ownedElements) {
       Objects.requireNonNull(element);
     }

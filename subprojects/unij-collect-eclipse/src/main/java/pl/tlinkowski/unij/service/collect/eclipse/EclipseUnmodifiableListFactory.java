@@ -119,10 +119,10 @@ public final class EclipseUnmodifiableListFactory implements UnmodifiableListFac
   public final <E> List<E> of(E... elements) {
     return castToListWithNullChecks(Lists.immutable.of(elements));
   }
+  //endregion
 
   private <E> List<E> castToListWithNullChecks(ImmutableList<E> list) {
     list.forEach(Objects::requireNonNull);
     return list.castToList();
   }
-  //endregion
 }

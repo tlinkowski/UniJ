@@ -17,7 +17,7 @@
  */
 
 /**
- * UniJ consumer API.
+ * UniJ API for the end users.
  *
  * @author Tomasz Linkowski
  */

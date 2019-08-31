@@ -16,10 +16,16 @@
  * limitations under the License.
  */
 
+import pl.tlinkowski.unij.api.*;
 import pl.tlinkowski.unij.service.api.collect.*;
 import pl.tlinkowski.unij.service.api.misc.MiscellaneousApiProvider;
 
 /**
+ * UniJ API for the end users.
+ * <p>
+ * The API consists of the following static utility classes: {@link UniLists}, {@link UniSets}, {@link UniMaps}, {@link
+ * UniCollectors}.
+ *
  * @author Tomasz Linkowski
  */
 module pl.tlinkowski.unij.api {

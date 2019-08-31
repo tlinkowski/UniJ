@@ -40,6 +40,7 @@ abstract class AbstractUnmodifiableSetFactorySpec extends Specification {
       registered.class == factory.class
   }
 
+  //region STANDARD CONTRACT
   def "collector"(Set<Integer> set) {
     expect:
       set.stream().collect(factory.collector()) == set
@@ -60,11 +61,6 @@ abstract class AbstractUnmodifiableSetFactorySpec extends Specification {
       [1]       | _
       [1, 2]    | _
       [1, 2, 3] | _
-  }
-
-  def "of(n=0) always returns the same instance"() {
-    expect:
-      factory.of().is(factory.of())
   }
 
   def "of(n=0)"() {
@@ -131,5 +127,263 @@ abstract class AbstractUnmodifiableSetFactorySpec extends Specification {
     expect:
       factory.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11) ==
               Set.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)
+  }
+  //endregion
+
+  //region NULLABILITY CONTRACT
+  def "collector throws NPE"(Set<Integer> set) {
+    when:
+      set.stream().collect(factory.collector())
+    then:
+      thrown(NullPointerException)
+    where:
+      set          | _
+      [null]       | _
+      [1, null]    | _
+      [1, 2, null] | _
+  }
+
+  def "copyOf throws NPE"(Set<Integer> set) {
+    when:
+      factory.copyOf(set)
+    then:
+      thrown(NullPointerException)
+    where:
+      set          | _
+      [null]       | _
+      [1, null]    | _
+      [1, 2, null] | _
+  }
+
+  def "of(...) throws NPE"(Integer[] array) {
+    when:
+      factory.of(array)
+    then:
+      thrown(NullPointerException)
+    where:
+      array                                 | _
+      [null]                                | _
+      [1, null]                             | _
+      [1, 2, null]                          | _
+      [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, null] | _
+      [null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10] | _
+  }
+
+  def "of(n=1) throws NPE"() {
+    when:
+      factory.of(null)
+    then:
+      thrown(NullPointerException)
+  }
+
+  def "of(n=2) throws NPE"(int nullIndex) {
+    given:
+      def a = argsWithNull(2, nullIndex)
+    when:
+      factory.of(a[0], a[1])
+    then:
+      thrown(NullPointerException)
+    where:
+      nullIndex << (0..1)
+  }
+
+  def "of(n=3) throws NPE"(int nullIndex) {
+    given:
+      def a = argsWithNull(3, nullIndex)
+    when:
+      factory.of(a[0], a[1], a[2])
+    then:
+      thrown(NullPointerException)
+    where:
+      nullIndex << (0..2)
+  }
+
+  def "of(n=4) throws NPE"(int nullIndex) {
+    given:
+      def a = argsWithNull(4, nullIndex)
+    when:
+      factory.of(a[0], a[1], a[2], a[3])
+    then:
+      thrown(NullPointerException)
+    where:
+      nullIndex << (0..3)
+  }
+
+  def "of(n=5) throws NPE"(int nullIndex) {
+    given:
+      def a = argsWithNull(5, nullIndex)
+    when:
+      factory.of(a[0], a[1], a[2], a[3], a[4])
+    then:
+      thrown(NullPointerException)
+    where:
+      nullIndex << (0..4)
+  }
+
+  def "of(n=6) throws NPE"(int nullIndex) {
+    given:
+      def a = argsWithNull(6, nullIndex)
+    when:
+      factory.of(a[0], a[1], a[2], a[3], a[4], a[5])
+    then:
+      thrown(NullPointerException)
+    where:
+      nullIndex << (0..5)
+  }
+
+  def "of(n=7) throws NPE"(int nullIndex) {
+    given:
+      def a = argsWithNull(7, nullIndex)
+    when:
+      factory.of(a[0], a[1], a[2], a[3], a[4], a[5], a[6])
+    then:
+      thrown(NullPointerException)
+    where:
+      nullIndex << (0..6)
+  }
+
+  def "of(n=8) throws NPE"(int nullIndex) {
+    given:
+      def a = argsWithNull(8, nullIndex)
+    when:
+      factory.of(a[0], a[1], a[2], a[3], a[4], a[5], a[6], a[7])
+    then:
+      thrown(NullPointerException)
+    where:
+      nullIndex << (0..7)
+  }
+
+  def "of(n=9) throws NPE"(int nullIndex) {
+    given:
+      def a = argsWithNull(9, nullIndex)
+    when:
+      factory.of(a[0], a[1], a[2], a[3], a[4], a[5], a[6], a[7], a[8])
+    then:
+      thrown(NullPointerException)
+    where:
+      nullIndex << (0..8)
+  }
+
+  def "of(n=10) throws NPE"(int nullIndex) {
+    given:
+      def a = argsWithNull(10, nullIndex)
+    when:
+      factory.of(a[0], a[1], a[2], a[3], a[4], a[5], a[6], a[7], a[8], a[9])
+    then:
+      thrown(NullPointerException)
+    where:
+      nullIndex << (0..9)
+  }
+
+  private static Integer[] argsWithNull(int size, int nullIndex) {
+    def args = args(size)
+    args[nullIndex] = null
+    args
+  }
+  //endregion
+
+  //region CONSISTENCY CONTRACT
+  def "of(n=0) has only one instance"(Set<Integer> set) {
+    when:
+      def actual = factory.of()
+    then:
+      set.is(actual)
+    where:
+      set             | _
+      factory.of()    | _
+      ofSized(0)      | _
+      copyOfSized(0)  | _
+      collectSized(0) | _
+  }
+
+  def "of(n=1) has only one type"(Set<Integer> set) {
+    when:
+      def actual = factory.of(1)
+    then:
+      set == actual
+      set.class == actual.class
+    where:
+      set             | _
+      factory.of(1)   | _
+      ofSized(1)      | _
+      copyOfSized(1)  | _
+      collectSized(1) | _
+  }
+
+  def "of(n=2) has only one type"(Set<Integer> set) {
+    when:
+      def actual = factory.of(1, 2)
+    then:
+      set == actual
+      set.class == actual.class
+    where:
+      set              | _
+      factory.of(1, 2) | _
+      ofSized(2)       | _
+      copyOfSized(2)   | _
+      collectSized(2)  | _
+  }
+
+  def "of(n=3) has only one type"(Set<Integer> set) {
+    when:
+      def actual = factory.of(1, 2, 3)
+    then:
+      set == actual
+      set.class == actual.class
+    where:
+      set                 | _
+      factory.of(1, 2, 3) | _
+      ofSized(3)          | _
+      copyOfSized(3)      | _
+      collectSized(3)     | _
+  }
+
+  def "of(n=10) has only one type"(Set<Integer> set) {
+    when:
+      def actual = factory.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+    then:
+      set == actual
+      set.class == actual.class
+    where:
+      set                                       | _
+      factory.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10) | _
+      ofSized(10)                               | _
+      copyOfSized(10)                           | _
+      collectSized(10)                          | _
+  }
+
+  def "of(n=11) has only one type"(Set<Integer> set) {
+    when:
+      def actual = factory.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)
+    then:
+      set == actual
+      set.class == actual.class
+    where:
+      set                                           | _
+      factory.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11) | _
+      ofSized(11)                                   | _
+      copyOfSized(11)                               | _
+      collectSized(11)                              | _
+  }
+
+  private Set<Integer> ofSized(int size) {
+    factory.of(args(size))
+  }
+
+  private Set<Integer> copyOfSized(int size) {
+    factory.copyOf(Arrays.asList(args(size)))
+  }
+
+  private Set<Integer> collectSized(int size) {
+    Arrays.stream(args(size)).collect(factory.collector())
+  }
+  //endregion
+
+  private static Integer[] args(int size) {
+    def args = new Integer[size]
+    for (int i = 0; i < size; i++) {
+      args[i] = i + 1
+    }
+    args
   }
 }

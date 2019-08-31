@@ -68,31 +68,37 @@ class UniSetsSpec extends Specification {
 
   def "of(n=6)"() {
     expect:
-      UniSets.of(1, 2, 3, 4, 5, 6) == Set.of(1, 2, 3, 4, 5, 6)
+      UniSets.of(1, 2, 3, 4, 5, 6) ==
+              Set.of(1, 2, 3, 4, 5, 6)
   }
 
   def "of(n=7)"() {
     expect:
-      UniSets.of(1, 2, 3, 4, 5, 6, 7) == Set.of(1, 2, 3, 4, 5, 6, 7)
+      UniSets.of(1, 2, 3, 4, 5, 6, 7) ==
+              Set.of(1, 2, 3, 4, 5, 6, 7)
   }
 
   def "of(n=8)"() {
     expect:
-      UniSets.of(1, 2, 3, 4, 5, 6, 7, 8) == Set.of(1, 2, 3, 4, 5, 6, 7, 8)
+      UniSets.of(1, 2, 3, 4, 5, 6, 7, 8) ==
+              Set.of(1, 2, 3, 4, 5, 6, 7, 8)
   }
 
   def "of(n=9)"() {
     expect:
-      UniSets.of(1, 2, 3, 4, 5, 6, 7, 8, 9) == Set.of(1, 2, 3, 4, 5, 6, 7, 8, 9)
+      UniSets.of(1, 2, 3, 4, 5, 6, 7, 8, 9) ==
+              Set.of(1, 2, 3, 4, 5, 6, 7, 8, 9)
   }
 
   def "of(n=10)"() {
     expect:
-      UniSets.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10) == Set.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+      UniSets.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10) ==
+              Set.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
   }
 
   def "of(...)"() {
     expect:
-      UniSets.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11) == Set.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)
+      UniSets.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11) ==
+              Set.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)
   }
 }

@@ -81,19 +81,6 @@ class UniCollectorsSpec extends Specification {
       [["a": 1], ["b": 2]]         | ["a": 1, "b": 2]
       [["a": 1, "b": 2], ["b": 3]] | ["a": 1, "b": 5]
   }
-
-  def "toUnmodifiableMap(keyMapper,valueMapper) throws on merge conflict"(List<Map<String, Integer>> maps) {
-    given:
-      def entryStream = maps.stream().flatMap { it.entrySet().stream() }
-      def collector = UniCollectors.toUnmodifiableMap({ it.getKey() }, { it.getValue() })
-    when:
-      entryStream.collect(collector)
-    then:
-      thrown(IllegalStateException.class)
-    where:
-      maps                         | _
-      [["a": 1, "b": 2], ["b": 3]] | _
-  }
   //endregion
 
   //region MISCELLANEOUS (corresponds to COLLECTORS region of AbstractMiscellaneousApiProviderSpec)

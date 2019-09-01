@@ -59,8 +59,12 @@ class UnmodifiableMapSpecHelper {
   //endregion
 
   //region ENTRIES
+  static Map.Entry<String, Integer>[] entryArray(int size) {
+    entries(size)
+  }
+
   static List<Map.Entry<String, Integer>> entries(int size) {
-    size == 0 ? [] : (1..size).collect { Map.entry(String.valueOf(it), it) }
+    size == 0 ? [] : (1..size).collect { Map.entry(letter(it), it) }
   }
 
   static List<Map.Entry<String, Integer>> entriesWithNull(int size, int nullIndex, boolean nullifyKey) {
@@ -69,6 +73,12 @@ class UnmodifiableMapSpecHelper {
     def value = nullifyKey ? entries[nullIndex].value : null
     entries[nullIndex] = new AbstractMap.SimpleImmutableEntry(key, value)
     entries
+  }
+
+  private static String letter(int i) {
+    char a = 'a'
+    char letter = a + i - 1
+    String.valueOf(letter)
   }
 
   static def k(Map.Entry<String, Integer> entry) {

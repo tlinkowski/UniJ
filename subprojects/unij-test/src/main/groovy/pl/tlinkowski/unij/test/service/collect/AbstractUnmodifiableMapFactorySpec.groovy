@@ -312,6 +312,75 @@ abstract class AbstractUnmodifiableMapFactorySpec extends Specification {
   }
   //endregion
 
+  //region CONSISTENCY CONTRACT
+  def "of(n=0) has only one instance"(Map<String, Integer> map) {
+    when:
+      def actual = factory.of()
+    then:
+      map.is(actual)
+    where:
+      map             | _
+      factory.of()    | _
+      ofSized(0)      | _
+      copyOfSized(0)  | _
+      collectSized(0) | _
+  }
+
+  def "of(n=1) has only one type"(Map<String, Integer> map) {
+    when:
+      def actual = factory.of("a", 1)
+    then:
+      map == actual
+      map.class == actual.class
+    where:
+      map                | _
+      factory.of("a", 1) | _
+      ofSized(1)         | _
+      copyOfSized(1)     | _
+      collectSized(1)    | _
+  }
+
+  def "of(n=2) has only one type"(Map<String, Integer> map) {
+    when:
+      def actual = factory.of("a", 1, "b", 2)
+    then:
+      map == actual
+      map.class == actual.class
+    where:
+      map                        | _
+      factory.of("a", 1, "b", 2) | _
+      ofSized(2)                 | _
+      copyOfSized(2)             | _
+      collectSized(2)            | _
+  }
+
+  def "of(n=3) has only one type"(Map<String, Integer> map) {
+    when:
+      def actual = factory.of("a", 1, "b", 2, "c", 3)
+    then:
+      map == actual
+      map.class == actual.class
+    where:
+      map                                | _
+      factory.of("a", 1, "b", 2, "c", 3) | _
+      ofSized(3)                         | _
+      copyOfSized(3)                     | _
+      collectSized(3)                    | _
+  }
+
+  private Map<String, Integer> ofSized(int size) {
+    factory.ofEntries(entryArray(size))
+  }
+
+  private Map<String, Integer> copyOfSized(int size) {
+    factory.copyOf(Map.ofEntries(entryArray(size)))
+  }
+
+  private Map<String, Integer> collectSized(int size) {
+    entries(size).stream().collect(collector2(factory.&collector))
+  }
+  //endregion
+
   //region DUPLICATION CONTRACT
   def "collector(key,value) throws on merge conflict"(List<Map<String, Integer>> maps) {
     when:

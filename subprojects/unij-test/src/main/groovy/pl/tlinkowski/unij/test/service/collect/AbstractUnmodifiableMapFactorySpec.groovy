@@ -69,7 +69,7 @@ abstract class AbstractUnmodifiableMapFactorySpec extends Specification {
       map << maps()
   }
 
-  def "ofEntries(...)"(Map<String, Integer> map) {
+  def "ofEntries"(Map<String, Integer> map) {
     given:
       Map.Entry<String, Integer>[] entries = map.entrySet()
     expect:
@@ -390,15 +390,119 @@ abstract class AbstractUnmodifiableMapFactorySpec extends Specification {
   //endregion
 
   //region DUPLICATION CONTRACT
-  def "collector(key,value) throws on merge conflict"(List<Map<String, Integer>> maps) {
+  def "collector(key,value) throws on duplicates"(List<Map<String, Integer>> maps) {
     when:
       collect(collector2(factory.&collector), maps)
     then:
-      RuntimeException ex = thrown()
-      ex.message.contains("key")
+      Exception e = thrown()
+      isDuplicateException(e)
     where:
       maps                   | _
       [[a: 1, b: 2], [b: 3]] | _
+  }
+
+  def "ofEntries throws on duplicates"(List<Map<String, Integer>> maps) {
+    given:
+      Map.Entry<String, Integer>[] entries = maps.collectMany { it.entrySet() }
+    when:
+      factory.ofEntries(entries)
+    then:
+      Exception e = thrown()
+      isDuplicateException(e)
+    where:
+      maps                   | _
+      [[a: 1, b: 2], [b: 3]] | _
+  }
+
+  def "of(n=2) throws on duplicates"() {
+    when:
+      factory.of("a", 1, "a", 2)
+    then:
+      Exception e = thrown()
+      isDuplicateException(e)
+  }
+
+  def "of(n=3) throws on duplicates"() {
+    when:
+      factory.of("a", 1, "b", 2, "a", 3)
+    then:
+      Exception e = thrown()
+      isDuplicateException(e)
+  }
+
+  def "of(n=4) throws on duplicates"() {
+    when:
+      factory.of("a", 1, "b", 2, "a", 3, "d", 4)
+    then:
+      Exception e = thrown()
+      isDuplicateException(e)
+  }
+
+  def "of(n=5) throws on duplicates"() {
+    when:
+      factory.of("a", 1, "b", 2, "a", 3, "d", 4, "e", 5)
+    then:
+      Exception e = thrown()
+      isDuplicateException(e)
+  }
+
+  def "of(n=6) throws on duplicates"() {
+    when:
+      factory.of(
+              "a", 1, "b", 2, "c", 3, "a", 4, "e", 5,
+              "f", 6
+      )
+    then:
+      Exception e = thrown()
+      isDuplicateException(e)
+  }
+
+  def "of(n=7) throws on duplicates"() {
+    when:
+      factory.of(
+              "a", 1, "b", 2, "c", 3, "b", 4, "e", 5,
+              "f", 6, "g", 7
+      )
+    then:
+      Exception e = thrown()
+      isDuplicateException(e)
+  }
+
+  def "of(n=8) throws on duplicates"() {
+    when:
+      factory.of(
+              "a", 1, "b", 2, "c", 3, "b", 4, "e", 5,
+              "f", 6, "g", 7, "h", 8
+      )
+    then:
+      Exception e = thrown()
+      isDuplicateException(e)
+  }
+
+  def "of(n=9) throws on duplicates"() {
+    when:
+      factory.of(
+              "a", 1, "b", 2, "c", 3, "d", 4, "b", 5,
+              "f", 6, "g", 7, "h", 8, "i", 9
+      )
+    then:
+      Exception e = thrown()
+      isDuplicateException(e)
+  }
+
+  def "of(n=10) throws on duplicates"() {
+    when:
+      factory.of(
+              "a", 1, "b", 2, "c", 3, "d", 4, "b", 5,
+              "f", 6, "g", 7, "h", 8, "i", 9, "j", 10
+      )
+    then:
+      Exception e = thrown()
+      isDuplicateException(e)
+  }
+
+  private static boolean isDuplicateException(Exception e) {
+    (e instanceof IllegalArgumentException || e instanceof IllegalStateException) && e.message.contains("key")
   }
   //endregion
 }

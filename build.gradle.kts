@@ -64,7 +64,7 @@ subprojects {
     val lombokVersion: String by project // https://projectlombok.org/changelog
     val autoServiceVersion: String by project // https://github.com/google/auto/tree/master/service
 
-    compileOnly(group = "pl.tlinkowski.annotation", name = "basic-annotations", version = basicAnnotationsVersion)
+    compileOnly(group = "pl.tlinkowski.annotation", name = "pl.tlinkowski.annotation.basic", version = basicAnnotationsVersion)
     compileOnly(group = "org.projectlombok", name = "lombok", version = lombokVersion)
     compileOnly(group = "com.google.auto.service", name = "auto-service-annotations", version = autoServiceVersion)
 

@@ -17,6 +17,8 @@
  */
 modularity.mixedJavaRelease(8)
 
+superpom.useLombok = true
+
 dependencies {
   val slf4jVersion: String by project // https://www.slf4j.org/
 

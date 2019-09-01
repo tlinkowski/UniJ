@@ -22,28 +22,12 @@ config {
   }
 }
 
+superpom.isTestProject = true
+
 dependencies {
-  val groovyVersion: String by project // https://groovy-lang.org/
-  val spockVersion: String by project // http://spockframework.org/
   val slf4jVersion: String by project // https://www.slf4j.org/
 
   api(project(":pl.tlinkowski.unij.api"))
   api(project(":pl.tlinkowski.unij.service.api"))
-  api(group = "org.codehaus.groovy", name = "groovy-all", version = groovyVersion)
-  api(group = "org.spockframework", name = "spock-core", version = spockVersion)
   runtimeOnly(group = "org.slf4j", name = "slf4j-simple", version = slf4jVersion)
 }
-
-//region JAVA PLATFORM MODULE SYSTEM
-val moduleName by extra("pl.tlinkowski.unij.test")
-
-tasks {
-  jar {
-    inputs.property("moduleName", moduleName)
-
-    manifest {
-      attributes["Automatic-Module-Name"] = moduleName
-    }
-  }
-}
-//endregion

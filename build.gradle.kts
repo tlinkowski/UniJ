@@ -61,14 +61,11 @@ subprojects {
 
   dependencies {
     val basicAnnotationsVersion: String by project // https://github.com/tlinkowski/basic-annotations
-    val lombokVersion: String by project // https://projectlombok.org/changelog
     val autoServiceVersion: String by project // https://github.com/google/auto/tree/master/service
 
     compileOnly(group = "pl.tlinkowski.annotation", name = "pl.tlinkowski.annotation.basic", version = basicAnnotationsVersion)
-    compileOnly(group = "org.projectlombok", name = "lombok", version = lombokVersion)
     compileOnly(group = "com.google.auto.service", name = "auto-service-annotations", version = autoServiceVersion)
 
-    annotationProcessor(group = "org.projectlombok", name = "lombok", version = lombokVersion)
     annotationProcessor(group = "com.google.auto.service", name = "auto-service", version = autoServiceVersion)
   }
 

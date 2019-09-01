@@ -17,6 +17,8 @@
  */
 modularity.mixedJavaRelease(8)
 
+superpom.useLombok = true
+
 dependencies {
   val guavaVersion: String by project // https://github.com/google/guava
 

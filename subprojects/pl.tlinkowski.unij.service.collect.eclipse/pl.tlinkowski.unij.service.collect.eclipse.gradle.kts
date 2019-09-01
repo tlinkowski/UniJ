@@ -17,6 +17,8 @@
  */
 modularity.mixedJavaRelease(8)
 
+superpom.useLombok = true
+
 dependencies {
   val eclipseCollectionsVersion: String by project // https://www.eclipse.org/collections/
 

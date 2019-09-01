@@ -16,3 +16,5 @@
  * limitations under the License.
  */
 modularity.mixedJavaRelease(8)
+
+superpom.useLombok = true

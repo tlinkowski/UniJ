@@ -186,6 +186,17 @@ abstract class AbstractUnmodifiableMapFactorySpec extends Specification {
       map << mapsWithNull()
   }
 
+  def "entry throws NPE"(String key, Integer value) {
+    when:
+      factory.entry(key, value)
+    then:
+      thrown(NullPointerException)
+    where:
+      key  | value
+      "a"  | null
+      null | 1
+  }
+
   def "of(n=1) throws NPE"(int nullIndex, NullTarget target) {
     given:
       def e = entriesWithNull(1, nullIndex, target)

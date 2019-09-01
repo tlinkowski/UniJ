@@ -186,64 +186,64 @@ abstract class AbstractUnmodifiableMapFactorySpec extends Specification {
       map << mapsWithNull()
   }
 
-  def "of(n=1) throws NPE"(int nullIndex, boolean nullifyKey) {
+  def "of(n=1) throws NPE"(int nullIndex, NullTarget target) {
     given:
-      def e = entriesWithNull(1, nullIndex, nullifyKey)
+      def e = entriesWithNull(1, nullIndex, target)
     when:
       factory.of(k(e[0]), v(e[0]))
     then:
       thrown(NullPointerException)
     where:
-      [nullIndex, nullifyKey] << combinationsWithNull(1)
+      [nullIndex, target] << combinationsWithNull(1)
   }
 
-  def "of(n=2) throws NPE"(int nullIndex, boolean nullifyKey) {
+  def "of(n=2) throws NPE"(int nullIndex, NullTarget target) {
     given:
-      def e = entriesWithNull(2, nullIndex, nullifyKey)
+      def e = entriesWithNull(2, nullIndex, target)
     when:
       factory.of(k(e[0]), v(e[0]), k(e[1]), v(e[1]))
     then:
       thrown(NullPointerException)
     where:
-      [nullIndex, nullifyKey] << combinationsWithNull(2)
+      [nullIndex, target] << combinationsWithNull(2)
   }
 
-  def "of(n=3) throws NPE"(int nullIndex, boolean nullifyKey) {
+  def "of(n=3) throws NPE"(int nullIndex, NullTarget target) {
     given:
-      def e = entriesWithNull(3, nullIndex, nullifyKey)
+      def e = entriesWithNull(3, nullIndex, target)
     when:
       factory.of(k(e[0]), v(e[0]), k(e[1]), v(e[1]), k(e[2]), v(e[2]))
     then:
       thrown(NullPointerException)
     where:
-      [nullIndex, nullifyKey] << combinationsWithNull(3)
+      [nullIndex, target] << combinationsWithNull(3)
   }
 
-  def "of(n=4) throws NPE"(int nullIndex, boolean nullifyKey) {
+  def "of(n=4) throws NPE"(int nullIndex, NullTarget target) {
     given:
-      def e = entriesWithNull(4, nullIndex, nullifyKey)
+      def e = entriesWithNull(4, nullIndex, target)
     when:
       factory.of(k(e[0]), v(e[0]), k(e[1]), v(e[1]), k(e[2]), v(e[2]), k(e[3]), v(e[3]))
     then:
       thrown(NullPointerException)
     where:
-      [nullIndex, nullifyKey] << combinationsWithNull(4)
+      [nullIndex, target] << combinationsWithNull(4)
   }
 
-  def "of(n=5) throws NPE"(int nullIndex, boolean nullifyKey) {
+  def "of(n=5) throws NPE"(int nullIndex, NullTarget target) {
     given:
-      def e = entriesWithNull(5, nullIndex, nullifyKey)
+      def e = entriesWithNull(5, nullIndex, target)
     when:
       factory.of(k(e[0]), v(e[0]), k(e[1]), v(e[1]), k(e[2]), v(e[2]), k(e[3]), v(e[3]), k(e[4]), v(e[4]))
     then:
       thrown(NullPointerException)
     where:
-      [nullIndex, nullifyKey] << combinationsWithNull(5)
+      [nullIndex, target] << combinationsWithNull(5)
   }
 
-  def "of(n=6) throws NPE"(int nullIndex, boolean nullifyKey) {
+  def "of(n=6) throws NPE"(int nullIndex, NullTarget target) {
     given:
-      def e = entriesWithNull(6, nullIndex, nullifyKey)
+      def e = entriesWithNull(6, nullIndex, target)
     when:
       factory.of(
               k(e[0]), v(e[0]), k(e[1]), v(e[1]), k(e[2]), v(e[2]), k(e[3]), v(e[3]), k(e[4]), v(e[4]),
@@ -252,12 +252,12 @@ abstract class AbstractUnmodifiableMapFactorySpec extends Specification {
     then:
       thrown(NullPointerException)
     where:
-      [nullIndex, nullifyKey] << combinationsWithNull(6)
+      [nullIndex, target] << combinationsWithNull(6)
   }
 
-  def "of(n=7) throws NPE"(int nullIndex, boolean nullifyKey) {
+  def "of(n=7) throws NPE"(int nullIndex, NullTarget target) {
     given:
-      def e = entriesWithNull(7, nullIndex, nullifyKey)
+      def e = entriesWithNull(7, nullIndex, target)
     when:
       factory.of(
               k(e[0]), v(e[0]), k(e[1]), v(e[1]), k(e[2]), v(e[2]), k(e[3]), v(e[3]), k(e[4]), v(e[4]),
@@ -266,12 +266,12 @@ abstract class AbstractUnmodifiableMapFactorySpec extends Specification {
     then:
       thrown(NullPointerException)
     where:
-      [nullIndex, nullifyKey] << combinationsWithNull(7)
+      [nullIndex, target] << combinationsWithNull(7)
   }
 
-  def "of(n=8) throws NPE"(int nullIndex, boolean nullifyKey) {
+  def "of(n=8) throws NPE"(int nullIndex, NullTarget target) {
     given:
-      def e = entriesWithNull(8, nullIndex, nullifyKey)
+      def e = entriesWithNull(8, nullIndex, target)
     when:
       factory.of(
               k(e[0]), v(e[0]), k(e[1]), v(e[1]), k(e[2]), v(e[2]), k(e[3]), v(e[3]), k(e[4]), v(e[4]),
@@ -280,12 +280,12 @@ abstract class AbstractUnmodifiableMapFactorySpec extends Specification {
     then:
       thrown(NullPointerException)
     where:
-      [nullIndex, nullifyKey] << combinationsWithNull(8)
+      [nullIndex, target] << combinationsWithNull(8)
   }
 
-  def "of(n=9) throws NPE"(int nullIndex, boolean nullifyKey) {
+  def "of(n=9) throws NPE"(int nullIndex, NullTarget target) {
     given:
-      def e = entriesWithNull(9, nullIndex, nullifyKey)
+      def e = entriesWithNull(9, nullIndex, target)
     when:
       factory.of(
               k(e[0]), v(e[0]), k(e[1]), v(e[1]), k(e[2]), v(e[2]), k(e[3]), v(e[3]), k(e[4]), v(e[4]),
@@ -294,12 +294,12 @@ abstract class AbstractUnmodifiableMapFactorySpec extends Specification {
     then:
       thrown(NullPointerException)
     where:
-      [nullIndex, nullifyKey] << combinationsWithNull(9)
+      [nullIndex, target] << combinationsWithNull(9)
   }
 
-  def "of(n=10) throws NPE"(int nullIndex, boolean nullifyKey) {
+  def "of(n=10) throws NPE"(int nullIndex, NullTarget target) {
     given:
-      def e = entriesWithNull(10, nullIndex, nullifyKey)
+      def e = entriesWithNull(10, nullIndex, target)
     when:
       factory.of(
               k(e[0]), v(e[0]), k(e[1]), v(e[1]), k(e[2]), v(e[2]), k(e[3]), v(e[3]), k(e[4]), v(e[4]),
@@ -308,7 +308,7 @@ abstract class AbstractUnmodifiableMapFactorySpec extends Specification {
     then:
       thrown(NullPointerException)
     where:
-      [nullIndex, nullifyKey] << combinationsWithNull(10)
+      [nullIndex, target] << combinationsWithNull(10)
   }
   //endregion
 

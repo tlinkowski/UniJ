@@ -67,10 +67,10 @@ class UnmodifiableMapSpecHelper {
     size == 0 ? [] : (1..size).collect { Map.entry(letter(it), it) }
   }
 
-  static List<Map.Entry<String, Integer>> entriesWithNull(int size, int nullIndex, boolean nullifyKey) {
+  static List<Map.Entry<String, Integer>> entriesWithNull(int size, int nullIndex, NullTarget target) {
     def entries = entries(size)
-    def key = nullifyKey ? null : entries[nullIndex].key
-    def value = nullifyKey ? entries[nullIndex].value : null
+    def key = target == NullTarget.KEY ? null : entries[nullIndex].key
+    def value = target == NullTarget.VALUE ? null : entries[nullIndex].value
     entries[nullIndex] = new AbstractMap.SimpleImmutableEntry(key, value)
     entries
   }
@@ -90,7 +90,7 @@ class UnmodifiableMapSpecHelper {
   }
 
   static def combinationsWithNull(int size) {
-    [0..(size - 1), [false, true]].combinations()
+    [0..(size - 1), NullTarget.values()].combinations()
   }
   //endregion
 
@@ -133,4 +133,9 @@ class UnmodifiableMapSpecHelper {
             Function<? super T, ? extends V> valueMapper, BinaryOperator<V> mergeFunction);
   }
   //endregion
+
+  enum NullTarget {
+
+    KEY, VALUE
+  }
 }

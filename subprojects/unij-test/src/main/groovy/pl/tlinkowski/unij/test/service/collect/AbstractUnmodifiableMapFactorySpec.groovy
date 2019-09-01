@@ -319,11 +319,12 @@ abstract class AbstractUnmodifiableMapFactorySpec extends Specification {
     then:
       map.is(actual)
     where:
-      map             | _
-      factory.of()    | _
-      ofSized(0)      | _
-      copyOfSized(0)  | _
-      collectSized(0) | _
+      map               | _
+      factory.of()      | _
+      ofEntriesSized(0) | _
+      copyOfSized(0)    | _
+      collect2Sized(0)  | _
+      collect3Sized(0)  | _
   }
 
   def "of(n=1) has only one type"(Map<String, Integer> map) {
@@ -335,9 +336,10 @@ abstract class AbstractUnmodifiableMapFactorySpec extends Specification {
     where:
       map                | _
       factory.of("a", 1) | _
-      ofSized(1)         | _
+      ofEntriesSized(1)  | _
       copyOfSized(1)     | _
-      collectSized(1)    | _
+      collect2Sized(1)   | _
+      collect3Sized(1)   | _
   }
 
   def "of(n=2) has only one type"(Map<String, Integer> map) {
@@ -349,9 +351,10 @@ abstract class AbstractUnmodifiableMapFactorySpec extends Specification {
     where:
       map                        | _
       factory.of("a", 1, "b", 2) | _
-      ofSized(2)                 | _
+      ofEntriesSized(2)          | _
       copyOfSized(2)             | _
-      collectSized(2)            | _
+      collect2Sized(2)           | _
+      collect3Sized(2)           | _
   }
 
   def "of(n=3) has only one type"(Map<String, Integer> map) {
@@ -363,12 +366,13 @@ abstract class AbstractUnmodifiableMapFactorySpec extends Specification {
     where:
       map                                | _
       factory.of("a", 1, "b", 2, "c", 3) | _
-      ofSized(3)                         | _
+      ofEntriesSized(3)                  | _
       copyOfSized(3)                     | _
-      collectSized(3)                    | _
+      collect2Sized(3)                   | _
+      collect3Sized(3)                   | _
   }
 
-  private Map<String, Integer> ofSized(int size) {
+  private Map<String, Integer> ofEntriesSized(int size) {
     factory.ofEntries(entryArray(size))
   }
 
@@ -376,8 +380,12 @@ abstract class AbstractUnmodifiableMapFactorySpec extends Specification {
     factory.copyOf(Map.ofEntries(entryArray(size)))
   }
 
-  private Map<String, Integer> collectSized(int size) {
+  private Map<String, Integer> collect2Sized(int size) {
     entries(size).stream().collect(collector2(factory.&collector))
+  }
+
+  private Map<String, Integer> collect3Sized(int size) {
+    entries(size).stream().collect(collector3(factory.&collector))
   }
   //endregion
 

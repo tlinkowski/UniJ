@@ -15,9 +15,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-modularity.mixedJavaRelease(8)
+modularity.standardJavaRelease(11)
 
 dependencies {
-  implementation(project(":unij-collect-eclipse"))
-  implementation(project(":unij-misc-jdk8"))
+  implementation(project(":pl.tlinkowski.unij.service.collect.jdk10"))
+  implementation(project(":pl.tlinkowski.unij.service.misc.jdk11"))
 }

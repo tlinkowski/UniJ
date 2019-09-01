@@ -20,11 +20,11 @@ modularity.mixedJavaRelease(8)
 dependencies {
   val slf4jVersion: String by project // https://www.slf4j.org/
 
-  implementation(project(":unij-service-api"))
+  implementation(project(":pl.tlinkowski.unij.service.api"))
   implementation(group = "org.slf4j", name = "slf4j-api", version = slf4jVersion)
 
-  testImplementation(project(":unij-test"))
-  testRuntimeOnly(project(":unij-bundle-jdk11"))
+  testImplementation(project(":pl.tlinkowski.unij.test"))
+  testRuntimeOnly(project(":pl.tlinkowski.unij.bundle.jdk11"))
 
-  jmhRuntimeOnly(project(":unij-bundle-jdk11"))
+  jmhRuntimeOnly(project(":pl.tlinkowski.unij.bundle.jdk11"))
 }

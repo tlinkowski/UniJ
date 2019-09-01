@@ -77,21 +77,21 @@ subprojects {
 
     javadoc.autoLinks {
       excludes.add("lombok-.*") // https://github.com/tlinkowski/UniJ/issues/38
-      excludes.add("unij-.*") // https://github.com/aalmiray/kordamp-gradle-plugins/issues/169
+      excludes.add("pl\\.tlinkowski\\.unij\\..*") // https://github.com/aalmiray/kordamp-gradle-plugins/issues/169
     }
   }
 
   //region PER-SUBPROJECT-TYPE CONFIGURATION
-  if (name.startsWith("unij-bundle-")) {
+  if (name.contains(".bundle.")) {
     dependencies {
-      api(project(":unij-api"))
-      testImplementation(project(":unij-test"))
+      api(project(":pl.tlinkowski.unij.api"))
+      testImplementation(project(":pl.tlinkowski.unij.test"))
     }
   }
-  if (name.startsWith("unij-collect-") || name.startsWith("unij-misc-")) {
+  if (name.contains(".service.collect.") || name.contains(".service.misc.")) {
     dependencies {
-      implementation(project(":unij-service-api"))
-      testImplementation(project(":unij-test"))
+      implementation(project(":pl.tlinkowski.unij.service.api"))
+      testImplementation(project(":pl.tlinkowski.unij.test"))
     }
   }
   //endregion
@@ -115,10 +115,10 @@ subprojects {
 
 //region TEMPORARY workaround for: https://github.com/tlinkowski/UniJ/issues/40 (TODO: remove this)
 val namesOfYetEmptyProjects = listOf(
-        "unij-bundle-eclipse-jdk8",
-        "unij-bundle-guava-jdk8",
-        "unij-bundle-jdk8",
-        "unij-bundle-jdk11"
+        "pl.tlinkowski.unij.bundle.eclipse_jdk8",
+        "pl.tlinkowski.unij.bundle.guava_jdk8",
+        "pl.tlinkowski.unij.bundle.jdk8",
+        "pl.tlinkowski.unij.bundle.jdk11"
 )
 namesOfYetEmptyProjects.forEach {
   project(":$it") {

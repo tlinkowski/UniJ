@@ -47,7 +47,8 @@ final class UniJLoader {
   private static <S> void validateLoadedServices(@ReadOnly Collection<S> services, Class<S> serviceClass) {
     if (services.isEmpty()) {
       throw new UniJException(String.format(
-              "%s service implementation not found. Ensure proper unij-* module is on the classpath/modulepath",
+              "%s service implementation not found. "
+                      + "Ensure proper pl.tlinkowski.unij.service.* dependency is on the runtime classpath/modulepath",
               serviceClass.getName()
       ));
     }

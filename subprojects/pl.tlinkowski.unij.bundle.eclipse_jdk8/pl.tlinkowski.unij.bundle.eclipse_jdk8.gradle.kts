@@ -18,6 +18,6 @@
 modularity.mixedJavaRelease(8)
 
 dependencies {
-  implementation(project(":unij-collect-guava"))
-  implementation(project(":unij-misc-jdk8"))
+  implementation(project(":pl.tlinkowski.unij.service.collect.eclipse"))
+  implementation(project(":pl.tlinkowski.unij.service.misc.jdk8"))
 }

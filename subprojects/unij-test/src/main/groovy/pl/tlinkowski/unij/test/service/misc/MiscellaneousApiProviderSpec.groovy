@@ -27,7 +27,9 @@ import java.util.stream.Stream
 import pl.tlinkowski.unij.service.api.misc.MiscellaneousApiProvider
 
 /**
- * Base specification for {@link MiscellaneousApiProvider}.
+ * Specification for {@link MiscellaneousApiProvider}.
+ *
+ * Inheriting classes should initialize {@code provider} in the {@code setupSpec} method.
  *
  * @author Tomasz Linkowski
  */

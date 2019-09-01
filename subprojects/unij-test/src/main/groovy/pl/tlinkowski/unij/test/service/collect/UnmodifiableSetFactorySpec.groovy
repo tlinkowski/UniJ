@@ -27,7 +27,9 @@ import java.util.stream.Collectors
 import pl.tlinkowski.unij.service.api.collect.UnmodifiableSetFactory
 
 /**
- * Base specification for {@link UnmodifiableSetFactory}.
+ * Specification for {@link UnmodifiableSetFactory}.
+ *
+ * Inheriting classes should initialize {@code factory} in the {@code setupSpec} method.
  *
  * @author Tomasz Linkowski
  */

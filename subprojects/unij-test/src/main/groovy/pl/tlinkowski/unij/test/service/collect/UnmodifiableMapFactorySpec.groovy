@@ -27,7 +27,9 @@ import java.util.stream.Collectors
 import pl.tlinkowski.unij.service.api.collect.UnmodifiableMapFactory
 
 /**
- * Base specification for {@link UnmodifiableMapFactory}.
+ * Specification for {@link UnmodifiableMapFactory}.
+ *
+ * Inheriting classes should initialize {@code factory} in the {@code setupSpec} method.
  *
  * @author Tomasz Linkowski
  */

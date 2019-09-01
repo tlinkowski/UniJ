@@ -18,8 +18,11 @@
 
 package pl.tlinkowski.unij.test.service.collect
 
+import static pl.tlinkowski.unij.test.service.collect.UnmodifiableCollectionSpecHelper.*
 import spock.lang.Shared
 import spock.lang.Specification
+
+import java.util.stream.Collectors
 
 import pl.tlinkowski.unij.service.api.collect.UnmodifiableListFactory
 
@@ -43,24 +46,16 @@ abstract class AbstractUnmodifiableListFactorySpec extends Specification {
   //region STANDARD CONTRACT
   def "collector"(List<Integer> list) {
     expect:
-      list.stream().collect(factory.collector()) == list
+      collect(factory.collector(), list) == collect(Collectors.toUnmodifiableList(), list)
     where:
-      list      | _
-      []        | _
-      [1]       | _
-      [1, 2]    | _
-      [1, 2, 3] | _
+      list << lists()
   }
 
   def "copyOf"(List<Integer> list) {
     expect:
       factory.copyOf(list) == List.copyOf(list)
     where:
-      list      | _
-      []        | _
-      [1]       | _
-      [1, 2]    | _
-      [1, 2, 3] | _
+      list << lists()
   }
 
   def "of(n=0)"() {
@@ -137,10 +132,7 @@ abstract class AbstractUnmodifiableListFactorySpec extends Specification {
     then:
       thrown(NullPointerException)
     where:
-      list         | _
-      [null]       | _
-      [1, null]    | _
-      [1, 2, null] | _
+      list << listsWithNull()
   }
 
   def "copyOf throws NPE"(List<Integer> list) {
@@ -149,24 +141,18 @@ abstract class AbstractUnmodifiableListFactorySpec extends Specification {
     then:
       thrown(NullPointerException)
     where:
-      list         | _
-      [null]       | _
-      [1, null]    | _
-      [1, 2, null] | _
+      list << listsWithNull()
   }
 
-  def "of(...) throws NPE"(Integer[] array) {
+  def "of(...) throws NPE"(List<Integer> list) {
+    given:
+      Integer[] array = list
     when:
       factory.of(array)
     then:
       thrown(NullPointerException)
     where:
-      array                                 | _
-      [null]                                | _
-      [1, null]                             | _
-      [1, 2, null]                          | _
-      [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, null] | _
-      [null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10] | _
+      list << listsWithNull()
   }
 
   def "of(n=1) throws NPE"() {
@@ -274,12 +260,6 @@ abstract class AbstractUnmodifiableListFactorySpec extends Specification {
     where:
       nullIndex << (0..9)
   }
-
-  private static Integer[] argsWithNull(int size, int nullIndex) {
-    def args = args(size)
-    args[nullIndex] = null
-    args
-  }
   //endregion
 
   //region CONSISTENCY CONTRACT
@@ -367,23 +347,15 @@ abstract class AbstractUnmodifiableListFactorySpec extends Specification {
   }
 
   private List<Integer> ofSized(int size) {
-    factory.of(args(size))
+    factory.of((Integer[]) args(size))
   }
 
   private List<Integer> copyOfSized(int size) {
-    factory.copyOf(Arrays.asList(args(size)))
+    factory.copyOf(args(size))
   }
 
   private List<Integer> collectSized(int size) {
-    Arrays.stream(args(size)).collect(factory.collector())
+    collect(factory.collector(), args(size))
   }
   //endregion
-
-  private static Integer[] args(int size) {
-    def args = new Integer[size]
-    for (int i = 0; i < size; i++) {
-      args[i] = i + 1
-    }
-    args
-  }
 }

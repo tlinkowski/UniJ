@@ -18,10 +18,11 @@
 
 package pl.tlinkowski.unij.test.service.collect
 
+import static pl.tlinkowski.unij.test.service.collect.UnmodifiableMapSpecHelper.*
 import spock.lang.Shared
 import spock.lang.Specification
 
-import java.util.stream.Collector
+import java.util.stream.Collectors
 
 import pl.tlinkowski.unij.service.api.collect.UnmodifiableMapFactory
 
@@ -44,40 +45,28 @@ abstract class AbstractUnmodifiableMapFactorySpec extends Specification {
 
   //region STANDARD CONTRACT
   def "collector(keyMapper,valueMapper)"(Map<String, Integer> map) {
-    given:
-      def entryStream = map.entrySet().stream()
     expect:
-      entryStream.collect(collector()) == map
+      collect(collector2(factory.&collector), map) == collect(collector2(Collectors.&toUnmodifiableMap), map)
     where:
-      map                | _
-      [:]                | _
-      [a: 1]             | _
-      [a: 1, b: 2]       | _
-      [a: 1, b: 2, c: 3] | _
+      map << maps()
   }
 
-  def "collector(keyMapper,valueMapper,mergeFunction)"(List<Map<String, Integer>> maps, Map<String, Integer> merged) {
-    given:
-      def entryStream = maps.stream().flatMap { it.entrySet().stream() }
+  def "collector(keyMapper,valueMapper,mergeFunction)"(List<Map<String, Integer>> maps) {
     expect:
-      entryStream.collect(summingCollector()) == merged
+      collect(collector3(factory.&collector), maps) == collect(collector3(Collectors.&toUnmodifiableMap), maps)
     where:
-      maps                   | merged
-      []                     | [:]
-      [[a: 1]]               | [a: 1]
-      [[a: 1], [b: 2]]       | [a: 1, b: 2]
-      [[a: 1, b: 2], [b: 3]] | [a: 1, b: 5]
+      maps                   | _
+      []                     | _
+      [[a: 1]]               | _
+      [[a: 1], [b: 2]]       | _
+      [[a: 1, b: 2], [b: 3]] | _
   }
 
   def "copyOf"(Map<String, Integer> map) {
     expect:
       factory.copyOf(map) == Map.copyOf(map)
     where:
-      map                | _
-      [:]                | _
-      [a: 1]             | _
-      [a: 1, b: 2]       | _
-      [a: 1, b: 2, c: 3] | _
+      map << maps()
   }
 
   def "ofEntries(...)"(Map<String, Integer> map) {
@@ -86,11 +75,7 @@ abstract class AbstractUnmodifiableMapFactorySpec extends Specification {
     expect:
       factory.ofEntries(entries) == Map.ofEntries(entries)
     where:
-      map                | _
-      [:]                | _
-      [a: 1]             | _
-      [a: 1, b: 2]       | _
-      [a: 1, b: 2, c: 3] | _
+      map << maps()
   }
 
   def "entry"() {
@@ -165,7 +150,7 @@ abstract class AbstractUnmodifiableMapFactorySpec extends Specification {
   //region NULLABILITY CONTRACT
   def "collector(keyMapper,valueMapper) throws NPE"(Map<String, Integer> map) {
     when:
-      map.entrySet().stream().collect(collector())
+      collect(collector2(factory.&collector), map)
     then:
       thrown(NullPointerException)
     where:
@@ -174,7 +159,7 @@ abstract class AbstractUnmodifiableMapFactorySpec extends Specification {
 
   def "collector(keyMapper,valueMapper,mergeFunction) throws NPE"(Map<String, Integer> map) {
     when:
-      map.entrySet().stream().collect(summingCollector())
+      collect(collector3(factory.&collector), map)
     then:
       thrown(NullPointerException)
     where:
@@ -199,19 +184,6 @@ abstract class AbstractUnmodifiableMapFactorySpec extends Specification {
       thrown(NullPointerException)
     where:
       map << mapsWithNull()
-  }
-
-  private static List<Map<String, Integer>> mapsWithNull() {
-    [
-            // null value
-            [a: null],
-            [a: 1, b: null],
-            [a: 1, b: 2, c: null],
-            // null key
-            [(null): 1],
-            [a: 1, (null): 2],
-            [a: 1, b: 2, (null): 3]
-    ]
   }
 
   def "of(n=1) throws NPE"(int nullIndex, boolean nullifyKey) {
@@ -338,34 +310,12 @@ abstract class AbstractUnmodifiableMapFactorySpec extends Specification {
     where:
       [nullIndex, nullifyKey] << combinationsWithNull(10)
   }
-
-  private static Map.Entry<String, Integer>[] entriesWithNull(int size, int nullIndex, boolean nullifyKey) {
-    def entries = entries(size)
-    def key = nullifyKey ? null : entries[nullIndex].key
-    def value = nullifyKey ? entries[nullIndex].value : null
-    entries[nullIndex] = new AbstractMap.SimpleImmutableEntry(key, value)
-    entries
-  }
-
-  private static def k(Map.Entry<String, Integer> entry) {
-    entry.key
-  }
-
-  private static def v(Map.Entry<String, Integer> entry) {
-    entry.value
-  }
-
-  private static def combinationsWithNull(int size) {
-    [0..(size - 1), [false, true]].combinations()
-  }
   //endregion
 
   //region DUPLICATION CONTRACT
   def "collector(key,value) throws on merge conflict"(List<Map<String, Integer>> maps) {
-    given:
-      def entryStream = maps.stream().flatMap { it.entrySet().stream() }
     when:
-      entryStream.collect(collector())
+      collect(collector2(factory.&collector), maps)
     then:
       RuntimeException ex = thrown()
       ex.message.contains("key")
@@ -374,20 +324,4 @@ abstract class AbstractUnmodifiableMapFactorySpec extends Specification {
       [[a: 1, b: 2], [b: 3]] | _
   }
   //endregion
-
-  private Collector<Map.Entry<String, Integer>, ?, Map<String, Integer>> collector() {
-    factory.collector({ it.getKey() }, { it.getValue() })
-  }
-
-  private Collector<Map.Entry<String, Integer>, ?, Map<String, Integer>> summingCollector() {
-    factory.collector({ it.getKey() }, { it.getValue() }, { l, r -> l + r })
-  }
-
-  private static Map.Entry<String, Integer>[] entries(int size) {
-    def entries = new Map.Entry<String, Integer>[size]
-    for (int i = 0; i < size; i++) {
-      entries[i] = Map.entry(String.valueOf(i), i + 1)
-    }
-    entries
-  }
 }

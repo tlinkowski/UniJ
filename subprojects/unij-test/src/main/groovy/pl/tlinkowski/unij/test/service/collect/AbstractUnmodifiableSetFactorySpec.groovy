@@ -358,4 +358,90 @@ abstract class AbstractUnmodifiableSetFactorySpec extends Specification {
     collect(factory.collector(), args(size))
   }
   //endregion
+
+  //region DUPLICATION CONTRACT
+  def "of(n=2) throws on duplicates"() {
+    when:
+      factory.of(1, 1)
+    then:
+      Exception e = thrown()
+      isDuplicateException(e)
+  }
+
+  def "of(n=3) throws on duplicates"() {
+    when:
+      factory.of(1, 2, 1)
+    then:
+      Exception e = thrown()
+      isDuplicateException(e)
+  }
+
+  def "of(n=4) throws on duplicates"() {
+    when:
+      factory.of(1, 2, 1, 4)
+    then:
+      Exception e = thrown()
+      isDuplicateException(e)
+  }
+
+  def "of(n=5) throws on duplicates"() {
+    when:
+      factory.of(1, 2, 1, 4, 5)
+    then:
+      Exception e = thrown()
+      isDuplicateException(e)
+  }
+
+  def "of(n=6) throws on duplicates"() {
+    when:
+      factory.of(1, 2, 3, 1, 5, 6)
+    then:
+      Exception e = thrown()
+      isDuplicateException(e)
+  }
+
+  def "of(n=7) throws on duplicates"() {
+    when:
+      factory.of(1, 2, 3, 2, 5, 6, 7)
+    then:
+      Exception e = thrown()
+      isDuplicateException(e)
+  }
+
+  def "of(n=8) throws on duplicates"() {
+    when:
+      factory.of(1, 2, 3, 2, 5, 6, 7, 8)
+    then:
+      Exception e = thrown()
+      isDuplicateException(e)
+  }
+
+  def "of(n=9) throws on duplicates"() {
+    when:
+      factory.of(1, 2, 3, 4, 2, 6, 7, 8, 9)
+    then:
+      Exception e = thrown()
+      isDuplicateException(e)
+  }
+
+  def "of(n=10) throws on duplicates"() {
+    when:
+      factory.of(1, 2, 3, 4, 2, 6, 7, 8, 9, 10)
+    then:
+      Exception e = thrown()
+      isDuplicateException(e)
+  }
+
+  def "of(...) throws on duplicates"() {
+    when:
+      factory.of(1, 2, 3, 4, 5, 3, 7, 8, 9, 10, 11)
+    then:
+      Exception e = thrown()
+      isDuplicateException(e)
+  }
+
+  private static boolean isDuplicateException(Exception e) {
+    e instanceof IllegalArgumentException && e.message.contains("element")
+  }
+  //endregion
 }

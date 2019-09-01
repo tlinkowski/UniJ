@@ -42,14 +42,14 @@ public final class EclipseUnmodifiableSetFactory implements UnmodifiableSetFacto
   //region COLLECTOR
   @Override
   public <E> Collector<E, ?, Set<E>> collector() {
-    return Collectors.collectingAndThen(Collectors2.toImmutableSet(), this::castToSetWithNullChecks);
+    return Collectors.collectingAndThen(Collectors2.toImmutableSet(), this::requireNoNulls);
   }
   //endregion
 
   //region COPY OF
   @Override
   public <E> Set<E> copyOf(Collection<? extends E> coll) {
-    return castToSetWithNullChecks(Sets.immutable.ofAll(coll));
+    return requireNoNulls(Sets.immutable.ofAll(coll));
   }
   //endregion
 
@@ -66,68 +66,91 @@ public final class EclipseUnmodifiableSetFactory implements UnmodifiableSetFacto
 
   @Override
   public <E> Set<E> of(@NonNull E e1, @NonNull E e2) {
-    return Sets.immutable.of(e1, e2).castToSet();
+    return requireNoDuplicates(2, Sets.immutable.of(e1, e2));
   }
 
   @Override
   public <E> Set<E> of(@NonNull E e1, @NonNull E e2, @NonNull E e3) {
-    return Sets.immutable.of(e1, e2, e3).castToSet();
+    return requireNoDuplicates(3, Sets.immutable.of(e1, e2, e3));
   }
 
   @Override
   public <E> Set<E> of(@NonNull E e1, @NonNull E e2, @NonNull E e3, @NonNull E e4) {
-    return Sets.immutable.of(e1, e2, e3, e4).castToSet();
+    return requireNoDuplicates(4, Sets.immutable.of(e1, e2, e3, e4));
   }
 
   @SuppressWarnings("unchecked")
   @Override
   public <E> Set<E> of(@NonNull E e1, @NonNull E e2, @NonNull E e3, @NonNull E e4, @NonNull E e5) {
-    return Sets.immutable.of(e1, e2, e3, e4, e5).castToSet();
+    return requireNoDuplicates(5, Sets.immutable.of(e1, e2, e3, e4, e5));
   }
 
   @SuppressWarnings("unchecked")
   @Override
   public <E> Set<E> of(@NonNull E e1, @NonNull E e2, @NonNull E e3, @NonNull E e4, @NonNull E e5, @NonNull E e6) {
-    return Sets.immutable.of(e1, e2, e3, e4, e5, e6).castToSet();
+    return requireNoDuplicates(6, Sets.immutable.of(e1, e2, e3, e4, e5, e6));
   }
 
   @SuppressWarnings("unchecked")
   @Override
   public <E> Set<E> of(@NonNull E e1, @NonNull E e2, @NonNull E e3, @NonNull E e4, @NonNull E e5, @NonNull E e6,
           @NonNull E e7) {
-    return Sets.immutable.of(e1, e2, e3, e4, e5, e6, e7).castToSet();
+    return requireNoDuplicates(7, Sets.immutable.of(e1, e2, e3, e4, e5, e6, e7));
   }
 
   @SuppressWarnings("unchecked")
   @Override
   public <E> Set<E> of(@NonNull E e1, @NonNull E e2, @NonNull E e3, @NonNull E e4, @NonNull E e5, @NonNull E e6,
           @NonNull E e7, @NonNull E e8) {
-    return Sets.immutable.of(e1, e2, e3, e4, e5, e6, e7, e8).castToSet();
+    return requireNoDuplicates(8, Sets.immutable.of(e1, e2, e3, e4, e5, e6, e7, e8));
   }
 
   @SuppressWarnings("unchecked")
   @Override
   public <E> Set<E> of(@NonNull E e1, @NonNull E e2, @NonNull E e3, @NonNull E e4, @NonNull E e5, @NonNull E e6,
           @NonNull E e7, @NonNull E e8, @NonNull E e9) {
-    return Sets.immutable.of(e1, e2, e3, e4, e5, e6, e7, e8, e9).castToSet();
+    return requireNoDuplicates(9, Sets.immutable.of(e1, e2, e3, e4, e5, e6, e7, e8, e9));
   }
 
   @SuppressWarnings({"unchecked", "PMD.ExcessiveParameterList"})
   @Override
   public <E> Set<E> of(@NonNull E e1, @NonNull E e2, @NonNull E e3, @NonNull E e4, @NonNull E e5, @NonNull E e6,
           @NonNull E e7, @NonNull E e8, @NonNull E e9, @NonNull E e10) {
-    return Sets.immutable.of(e1, e2, e3, e4, e5, e6, e7, e8, e9, e10).castToSet();
+    return requireNoDuplicates(10, Sets.immutable.of(e1, e2, e3, e4, e5, e6, e7, e8, e9, e10));
   }
 
   @SafeVarargs
   @Override
   public final <E> Set<E> of(E... elements) {
-    return castToSetWithNullChecks(Sets.immutable.of(elements));
+    return requireNoDuplicateNorNulls(elements.length, Sets.immutable.of(elements));
   }
   //endregion
 
-  private <E> Set<E> castToSetWithNullChecks(ImmutableSet<E> set) {
-    set.forEach(Objects::requireNonNull);
+  //region REQUIRE & ENSURE
+  private static <E> Set<E> requireNoDuplicates(int size, ImmutableSet<E> set) {
+    ensureNoDuplicates(size, set);
     return set.castToSet();
   }
+
+  private static <E> Set<E> requireNoDuplicateNorNulls(int size, ImmutableSet<E> set) {
+    ensureNoDuplicates(size, set);
+    ensureNoNulls(set);
+    return set.castToSet();
+  }
+
+  private <E> Set<E> requireNoNulls(ImmutableSet<E> set) {
+    ensureNoNulls(set);
+    return set.castToSet();
+  }
+
+  private static <E> void ensureNoDuplicates(int size, ImmutableSet<E> set) {
+    if (set.size() < size) {
+      throw new IllegalArgumentException("Duplicate element");
+    }
+  }
+
+  private static <E> void ensureNoNulls(ImmutableSet<E> set) {
+    set.forEach(Objects::requireNonNull);
+  }
+  //endregion
 }

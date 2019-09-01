@@ -64,54 +64,61 @@ public final class GuavaUnmodifiableSetFactory implements UnmodifiableSetFactory
 
   @Override
   public <E> Set<E> of(E e1, E e2) {
-    return ImmutableSet.of(e1, e2);
+    return requireNoDuplicates(2, ImmutableSet.of(e1, e2));
   }
 
   @Override
   public <E> Set<E> of(E e1, E e2, E e3) {
-    return ImmutableSet.of(e1, e2, e3);
+    return requireNoDuplicates(3, ImmutableSet.of(e1, e2, e3));
   }
 
   @Override
   public <E> Set<E> of(E e1, E e2, E e3, E e4) {
-    return ImmutableSet.of(e1, e2, e3, e4);
+    return requireNoDuplicates(4, ImmutableSet.of(e1, e2, e3, e4));
   }
 
   @Override
   public <E> Set<E> of(E e1, E e2, E e3, E e4, E e5) {
-    return ImmutableSet.of(e1, e2, e3, e4, e5);
+    return requireNoDuplicates(5, ImmutableSet.of(e1, e2, e3, e4, e5));
   }
 
   @Override
   public <E> Set<E> of(E e1, E e2, E e3, E e4, E e5, E e6) {
-    return ImmutableSet.of(e1, e2, e3, e4, e5, e6);
+    return requireNoDuplicates(6, ImmutableSet.of(e1, e2, e3, e4, e5, e6));
   }
 
   @Override
   public <E> Set<E> of(E e1, E e2, E e3, E e4, E e5, E e6, E e7) {
-    return ImmutableSet.of(e1, e2, e3, e4, e5, e6, e7);
+    return requireNoDuplicates(7, ImmutableSet.of(e1, e2, e3, e4, e5, e6, e7));
   }
 
   @Override
   public <E> Set<E> of(E e1, E e2, E e3, E e4, E e5, E e6, E e7, E e8) {
-    return ImmutableSet.of(e1, e2, e3, e4, e5, e6, e7, e8);
+    return requireNoDuplicates(8, ImmutableSet.of(e1, e2, e3, e4, e5, e6, e7, e8));
   }
 
   @Override
   public <E> Set<E> of(E e1, E e2, E e3, E e4, E e5, E e6, E e7, E e8, E e9) {
-    return ImmutableSet.of(e1, e2, e3, e4, e5, e6, e7, e8, e9);
+    return requireNoDuplicates(9, ImmutableSet.of(e1, e2, e3, e4, e5, e6, e7, e8, e9));
   }
 
   @SuppressWarnings("PMD.ExcessiveParameterList")
   @Override
   public <E> Set<E> of(E e1, E e2, E e3, E e4, E e5, E e6, E e7, E e8, E e9, E e10) {
-    return ImmutableSet.of(e1, e2, e3, e4, e5, e6, e7, e8, e9, e10);
+    return requireNoDuplicates(10, ImmutableSet.of(e1, e2, e3, e4, e5, e6, e7, e8, e9, e10));
   }
 
   @SafeVarargs
   @Override
   public final <E> Set<E> of(E... elements) {
-    return ImmutableSet.copyOf(elements);
+    return requireNoDuplicates(elements.length, ImmutableSet.copyOf(elements));
+  }
+
+  private static <E> Set<E> requireNoDuplicates(int size, ImmutableSet<E> set) {
+    if (set.size() < size) {
+      throw new IllegalArgumentException("Duplicate element");
+    }
+    return set;
   }
   //endregion
 }

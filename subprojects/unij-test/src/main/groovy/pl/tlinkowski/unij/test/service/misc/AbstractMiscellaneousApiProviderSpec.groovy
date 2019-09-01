@@ -36,7 +36,7 @@ abstract class AbstractMiscellaneousApiProviderSpec extends Specification {
   @Shared
   protected MiscellaneousApiProvider provider
 
-  //region COLLECTORS (corresponds to MISCELLANEOUS region of UniCollectorsSpec)
+  //region COLLECTORS: STANDARD CONTRACT (corresponds to MISCELLANEOUS region of UniCollectorsSpec)
   def "flatMappingCollector"(List<Integer> list, List<Integer> expected) {
     when:
       def collector = provider.flatMappingCollector({ Stream.of(it, -it) }, Collectors.toList())
@@ -63,6 +63,15 @@ abstract class AbstractMiscellaneousApiProviderSpec extends Specification {
       [2]       | []
       [1, 2]    | [1]
       [1, 2, 3] | [1, 3]
+  }
+  //endregion
+
+  //region COLLECTORS: SPECIAL CASES
+  def "flatMappingCollector handles null as empty stream"() {
+    when:
+      def collector = provider.flatMappingCollector({ null }, Collectors.toList())
+    then:
+      [1, 2, 3].stream().collect(collector) == []
   }
   //endregion
 }

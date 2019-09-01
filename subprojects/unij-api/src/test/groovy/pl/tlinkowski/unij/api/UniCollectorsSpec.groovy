@@ -83,7 +83,7 @@ class UniCollectorsSpec extends Specification {
   }
   //endregion
 
-  //region MISCELLANEOUS (corresponds to COLLECTORS region of AbstractMiscellaneousApiProviderSpec)
+  //region MISCELLANEOUS (corresponds to COLLECTORS: STANDARD CONTRACT region of AbstractMiscellaneousApiProviderSpec)
   def "flatMapping(mapper,downstream)"(List<Integer> list, List<Integer> expected) {
     when:
       def collector = UniCollectors.flatMapping({ Stream.of(it, -it) }, Collectors.toList())

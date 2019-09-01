@@ -17,12 +17,12 @@
  */
 package pl.tlinkowski.unij.service.collect.jdk10
 
-import pl.tlinkowski.unij.test.service.collect.AbstractUnmodifiableMapFactorySpec
+import pl.tlinkowski.unij.test.service.collect.UnmodifiableMapFactorySpec
 
 /**
  * @author Tomasz Linkowski
  */
-class Jdk10UnmodifiableMapFactorySpec extends AbstractUnmodifiableMapFactorySpec {
+class Jdk10UnmodifiableMapFactorySpec extends UnmodifiableMapFactorySpec {
 
   def setupSpec() {
     factory = new Jdk10UnmodifiableMapFactory()

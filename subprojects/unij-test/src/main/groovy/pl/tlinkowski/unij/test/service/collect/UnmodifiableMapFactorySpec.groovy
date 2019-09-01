@@ -31,7 +31,7 @@ import pl.tlinkowski.unij.service.api.collect.UnmodifiableMapFactory
  *
  * @author Tomasz Linkowski
  */
-abstract class AbstractUnmodifiableMapFactorySpec extends Specification {
+abstract class UnmodifiableMapFactorySpec extends Specification {
 
   @Shared
   protected UnmodifiableMapFactory factory

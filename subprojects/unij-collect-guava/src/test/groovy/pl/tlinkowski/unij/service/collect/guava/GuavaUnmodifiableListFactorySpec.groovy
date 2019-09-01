@@ -18,12 +18,12 @@
 
 package pl.tlinkowski.unij.service.collect.guava
 
-import pl.tlinkowski.unij.test.service.collect.AbstractUnmodifiableListFactorySpec
+import pl.tlinkowski.unij.test.service.collect.UnmodifiableListFactorySpec
 
 /**
  * @author Tomasz Linkowski
  */
-class GuavaUnmodifiableListFactorySpec extends AbstractUnmodifiableListFactorySpec {
+class GuavaUnmodifiableListFactorySpec extends UnmodifiableListFactorySpec {
 
   def setupSpec() {
     factory = new GuavaUnmodifiableListFactory()

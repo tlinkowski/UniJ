@@ -31,7 +31,7 @@ import pl.tlinkowski.unij.service.api.misc.MiscellaneousApiProvider
  *
  * @author Tomasz Linkowski
  */
-abstract class AbstractMiscellaneousApiProviderSpec extends Specification {
+abstract class MiscellaneousApiProviderSpec extends Specification {
 
   @Shared
   protected MiscellaneousApiProvider provider

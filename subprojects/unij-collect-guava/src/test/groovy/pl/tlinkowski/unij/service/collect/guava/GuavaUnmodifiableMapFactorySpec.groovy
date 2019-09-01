@@ -18,12 +18,12 @@
 
 package pl.tlinkowski.unij.service.collect.guava
 
-import pl.tlinkowski.unij.test.service.collect.AbstractUnmodifiableMapFactorySpec
+import pl.tlinkowski.unij.test.service.collect.UnmodifiableMapFactorySpec
 
 /**
  * @author Tomasz Linkowski
  */
-class GuavaUnmodifiableMapFactorySpec extends AbstractUnmodifiableMapFactorySpec {
+class GuavaUnmodifiableMapFactorySpec extends UnmodifiableMapFactorySpec {
 
   def setupSpec() {
     factory = new GuavaUnmodifiableMapFactory()

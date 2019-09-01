@@ -18,12 +18,12 @@
 
 package pl.tlinkowski.unij.service.collect.eclipse
 
-import pl.tlinkowski.unij.test.service.collect.AbstractUnmodifiableSetFactorySpec
+import pl.tlinkowski.unij.test.service.collect.UnmodifiableSetFactorySpec
 
 /**
  * @author Tomasz Linkowski
  */
-class EclipseUnmodifiableSetFactorySpec extends AbstractUnmodifiableSetFactorySpec {
+class EclipseUnmodifiableSetFactorySpec extends UnmodifiableSetFactorySpec {
 
   def setupSpec() {
     factory = new EclipseUnmodifiableSetFactory()

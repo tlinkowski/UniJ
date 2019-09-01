@@ -17,12 +17,12 @@
  */
 package pl.tlinkowski.unij.service.collect.jdk10
 
-import pl.tlinkowski.unij.test.service.collect.AbstractUnmodifiableListFactorySpec
+import pl.tlinkowski.unij.test.service.collect.UnmodifiableListFactorySpec
 
 /**
  * @author Tomasz Linkowski
  */
-class Jdk10UnmodifiableListFactorySpec extends AbstractUnmodifiableListFactorySpec {
+class Jdk10UnmodifiableListFactorySpec extends UnmodifiableListFactorySpec {
 
   def setupSpec() {
     factory = new Jdk10UnmodifiableListFactory()

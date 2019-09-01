@@ -18,12 +18,12 @@
 
 package pl.tlinkowski.unij.service.collect.jdk8
 
-import pl.tlinkowski.unij.test.service.collect.AbstractUnmodifiableSetFactorySpec
+import pl.tlinkowski.unij.test.service.collect.UnmodifiableSetFactorySpec
 
 /**
  * @author Tomasz Linkowski
  */
-class Jdk8UnmodifiableSetFactorySpec extends AbstractUnmodifiableSetFactorySpec {
+class Jdk8UnmodifiableSetFactorySpec extends UnmodifiableSetFactorySpec {
 
   def setupSpec() {
     factory = new Jdk8UnmodifiableSetFactory()

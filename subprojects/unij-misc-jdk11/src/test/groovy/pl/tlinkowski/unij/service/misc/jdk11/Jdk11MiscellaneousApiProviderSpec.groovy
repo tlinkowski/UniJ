@@ -18,12 +18,12 @@
 
 package pl.tlinkowski.unij.service.misc.jdk11
 
-import pl.tlinkowski.unij.test.service.misc.AbstractMiscellaneousApiProviderSpec
+import pl.tlinkowski.unij.test.service.misc.MiscellaneousApiProviderSpec
 
 /**
  * @author Tomasz Linkowski
  */
-class Jdk11MiscellaneousApiProviderSpec extends AbstractMiscellaneousApiProviderSpec {
+class Jdk11MiscellaneousApiProviderSpec extends MiscellaneousApiProviderSpec {
 
   def setupSpec() {
     provider = new Jdk11MiscellaneousApiProvider()

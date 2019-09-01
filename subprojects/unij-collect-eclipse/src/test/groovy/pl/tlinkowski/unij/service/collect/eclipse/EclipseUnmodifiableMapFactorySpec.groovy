@@ -18,12 +18,12 @@
 
 package pl.tlinkowski.unij.service.collect.eclipse
 
-import pl.tlinkowski.unij.test.service.collect.AbstractUnmodifiableMapFactorySpec
+import pl.tlinkowski.unij.test.service.collect.UnmodifiableMapFactorySpec
 
 /**
  * @author Tomasz Linkowski
  */
-class EclipseUnmodifiableMapFactorySpec extends AbstractUnmodifiableMapFactorySpec {
+class EclipseUnmodifiableMapFactorySpec extends UnmodifiableMapFactorySpec {
 
   def setupSpec() {
     factory = new EclipseUnmodifiableMapFactory()

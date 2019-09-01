@@ -18,12 +18,12 @@
 
 package pl.tlinkowski.unij.service.misc.jdk8
 
-import pl.tlinkowski.unij.test.service.misc.AbstractMiscellaneousApiProviderSpec
+import pl.tlinkowski.unij.test.service.misc.MiscellaneousApiProviderSpec
 
 /**
  * @author Tomasz Linkowski
  */
-class Jdk8MiscellaneousApiProviderSpec extends AbstractMiscellaneousApiProviderSpec {
+class Jdk8MiscellaneousApiProviderSpec extends MiscellaneousApiProviderSpec {
 
   def setupSpec() {
     provider = new Jdk8MiscellaneousApiProvider()

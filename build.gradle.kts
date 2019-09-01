@@ -70,7 +70,6 @@ subprojects {
 
     javadoc.autoLinks {
       configurations = listOf("api", "implementation", "compileOnly")
-      excludes.add("pl\\.tlinkowski\\.unij\\..*") // https://github.com/aalmiray/kordamp-gradle-plugins/issues/169
     }
   }
 

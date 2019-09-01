@@ -61,12 +61,8 @@ subprojects {
 
   dependencies {
     val basicAnnotationsVersion: String by project // https://github.com/tlinkowski/basic-annotations
-    val autoServiceVersion: String by project // https://github.com/google/auto/tree/master/service
 
     compileOnly(group = "pl.tlinkowski.annotation", name = "pl.tlinkowski.annotation.basic", version = basicAnnotationsVersion)
-    compileOnly(group = "com.google.auto.service", name = "auto-service-annotations", version = autoServiceVersion)
-
-    annotationProcessor(group = "com.google.auto.service", name = "auto-service", version = autoServiceVersion)
   }
 
   config {
@@ -87,6 +83,11 @@ subprojects {
   }
   if (name.contains(".service.collect.") || name.contains(".service.misc.")) {
     dependencies {
+      val autoServiceVersion: String by project // https://github.com/google/auto/tree/master/service
+
+      compileOnly(group = "com.google.auto.service", name = "auto-service-annotations", version = autoServiceVersion)
+      annotationProcessor(group = "com.google.auto.service", name = "auto-service", version = autoServiceVersion)
+
       implementation(project(":pl.tlinkowski.unij.service.api"))
       testImplementation(project(":pl.tlinkowski.unij.test"))
     }

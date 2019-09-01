@@ -32,5 +32,4 @@ module pl.tlinkowski.unij.service.api {
   exports pl.tlinkowski.unij.service.api.misc;
 
   requires static pl.tlinkowski.annotation.basic;
-  requires static auto.service.annotations;
 }

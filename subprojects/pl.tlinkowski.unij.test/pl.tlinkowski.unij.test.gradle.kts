@@ -24,10 +24,18 @@ config {
 
 superpom.isTestProject = true
 
+//region REMOVE REDUNDANT KOTLIN-STDLIB DEPENDENCY ADDED BY SUPERPOM PLUGIN
+afterEvaluate {
+  configurations.api {
+    dependencies.removeIf { it.name == "kotlin-stdlib-jdk8" }
+  }
+}
+//endregion
+
 dependencies {
   val slf4jVersion: String by project // https://www.slf4j.org/
 
-  api(project(":pl.tlinkowski.unij.api"))
   api(project(":pl.tlinkowski.unij.service.api"))
+  implementation(project(":pl.tlinkowski.unij.api")) // for UniJBundleTest
   runtimeOnly(group = "org.slf4j", name = "slf4j-simple", version = slf4jVersion)
 }

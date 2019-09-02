@@ -20,8 +20,9 @@ package pl.tlinkowski.unij.test.bundle
 
 import spock.lang.Specification
 
-import pl.tlinkowski.unij.api.UniLists
-import pl.tlinkowski.unij.api.UniSets
+import java.util.stream.Collectors
+
+import pl.tlinkowski.unij.api.*
 
 /**
  * Test that should be extended by every bundle.
@@ -30,7 +31,7 @@ import pl.tlinkowski.unij.api.UniSets
  *
  * @author Tomasz Linkowski
  */
-abstract class AbstractBundleTest extends Specification {
+abstract class UniJBundleTest extends Specification {
 
   def "UnmodifiableListFactory implementation found"() {
     when:
@@ -42,6 +43,20 @@ abstract class AbstractBundleTest extends Specification {
   def "UnmodifiableSetFactory implementation found"() {
     when:
       UniSets.of()
+    then:
+      noExceptionThrown()
+  }
+
+  def "UnmodifiableMapFactory implementation found"() {
+    when:
+      UniMaps.of()
+    then:
+      noExceptionThrown()
+  }
+
+  def "MiscellaneousApiProvider implementation found"() {
+    when:
+      UniCollectors.filtering({ true }, Collectors.toList())
     then:
       noExceptionThrown()
   }

@@ -18,10 +18,10 @@
 
 package pl.tlinkowski.unij.bundle.jdk11
 
-import pl.tlinkowski.unij.test.bundle.AbstractBundleTest
+import pl.tlinkowski.unij.test.bundle.UniJBundleTest
 
 /**
  * @author Tomasz Linkowski
  */
-class Jdk11BundleTest extends AbstractBundleTest {
+class Jdk11BundleTest extends UniJBundleTest {
 }

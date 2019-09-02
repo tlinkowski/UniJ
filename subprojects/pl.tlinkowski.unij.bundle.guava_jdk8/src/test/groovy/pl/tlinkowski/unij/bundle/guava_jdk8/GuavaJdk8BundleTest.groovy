@@ -15,12 +15,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-modularity.mixedJavaRelease(8)
 
-dependencies {
-  implementation(project(":pl.tlinkowski.unij.service.collect.guava"))
-  implementation(project(":pl.tlinkowski.unij.service.misc.jdk8"))
+package pl.tlinkowski.unij.bundle.guava_jdk8
 
-  val guavaVersion: String by project // https://github.com/google/guava
-  testRuntimeOnly(group = "com.google.guava", name = "guava", version = guavaVersion)
+import pl.tlinkowski.unij.test.bundle.UniJBundleTest
+
+/**
+ * @author Tomasz Linkowski
+ */
+class GuavaJdk8BundleTest extends UniJBundleTest {
 }

@@ -20,4 +20,7 @@ modularity.mixedJavaRelease(8)
 dependencies {
   implementation(project(":pl.tlinkowski.unij.service.collect.eclipse"))
   implementation(project(":pl.tlinkowski.unij.service.misc.jdk8"))
+
+  val eclipseCollectionsVersion: String by project // https://www.eclipse.org/collections/
+  testRuntimeOnly(group = "org.eclipse.collections", name = "eclipse-collections", version = eclipseCollectionsVersion)
 }

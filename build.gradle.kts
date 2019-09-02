@@ -69,7 +69,7 @@ subprojects {
     bintray.enabled = true
 
     javadoc.autoLinks {
-      excludes.add("lombok-.*") // https://github.com/tlinkowski/UniJ/issues/38
+      configurations = listOf("api", "implementation", "compileOnly")
       excludes.add("pl\\.tlinkowski\\.unij\\..*") // https://github.com/aalmiray/kordamp-gradle-plugins/issues/169
     }
   }

@@ -116,10 +116,10 @@ UniJ currently provides four types of `Collection` factory API bindings:
 
 UniJ currently provides two types of miscellaneous API bindings:
 
-1.  JDK 11 ([`pl.tlinkowski.unij.service.misc.jdk11`](https://github.com/tlinkowski/UniJ/tree/master/subprojects/pl.tlinkowski.unij.misc.collect.jdk11)):
+1.  JDK 11 ([`pl.tlinkowski.unij.service.misc.jdk11`](https://github.com/tlinkowski/UniJ/tree/master/subprojects/pl.tlinkowski.unij.service.misc.jdk11)):
     simply forwards all calls to the JDK
 
-2.  JDK 8 ([`pl.tlinkowski.unij.service.misc.jdk8`](https://github.com/tlinkowski/UniJ/tree/master/subprojects/pl.tlinkowski.unij.misc.collect.jdk8)):
+2.  JDK 8 ([`pl.tlinkowski.unij.service.misc.jdk8`](https://github.com/tlinkowski/UniJ/tree/master/subprojects/pl.tlinkowski.unij.service.misc.jdk8)):
     provides custom implementations based on the ones in JDK 11
 
 #### Bundles
@@ -134,19 +134,19 @@ Currently, UniJ provides the following four bundles:
 
 1.  JDK 11 ([`pl.tlinkowski.unij.bundle.jdk11`](https://github.com/tlinkowski/UniJ/tree/master/subprojects/pl.tlinkowski.unij.bundle.jdk11)):
     -   [`pl.tlinkowski.unij.service.collect.jdk10`](https://github.com/tlinkowski/UniJ/tree/master/subprojects/pl.tlinkowski.unij.service.collect.jdk10)
-    -   [`pl.tlinkowski.unij.service.misc.jdk11`](https://github.com/tlinkowski/UniJ/tree/master/subprojects/pl.tlinkowski.unij.misc.collect.jdk11)
+    -   [`pl.tlinkowski.unij.service.misc.jdk11`](https://github.com/tlinkowski/UniJ/tree/master/subprojects/pl.tlinkowski.unij.service.misc.jdk11)
 
 2.  pure JDK 8 ([`pl.tlinkowski.unij.bundle.jdk8`](https://github.com/tlinkowski/UniJ/tree/master/subprojects/pl.tlinkowski.unij.bundle.jdk8)):
     -   [`pl.tlinkowski.unij.service.collect.jdk8`](https://github.com/tlinkowski/UniJ/tree/master/subprojects/pl.tlinkowski.unij.service.collect.jdk8)
-    -   [`pl.tlinkowski.unij.service.misc.jdk8`](https://github.com/tlinkowski/UniJ/tree/master/subprojects/pl.tlinkowski.unij.misc.collect.jdk8)
+    -   [`pl.tlinkowski.unij.service.misc.jdk8`](https://github.com/tlinkowski/UniJ/tree/master/subprojects/pl.tlinkowski.unij.service.misc.jdk8)
 
 3.  Guava on JDK 8 ([`pl.tlinkowski.unij.bundle.guava_jdk8`](https://github.com/tlinkowski/UniJ/tree/master/subprojects/pl.tlinkowski.unij.bundle.guava_jdk8)):
     -   [`pl.tlinkowski.unij.service.collect.guava`](https://github.com/tlinkowski/UniJ/tree/master/subprojects/pl.tlinkowski.unij.service.collect.guava)
-    -   [`pl.tlinkowski.unij.service.misc.jdk8`](https://github.com/tlinkowski/UniJ/tree/master/subprojects/pl.tlinkowski.unij.misc.collect.jdk8)
+    -   [`pl.tlinkowski.unij.service.misc.jdk8`](https://github.com/tlinkowski/UniJ/tree/master/subprojects/pl.tlinkowski.unij.service.misc.jdk8)
 
 4.  Eclipse on JDK 8 ([`pl.tlinkowski.unij.bundle.eclipse_jdk8`](https://github.com/tlinkowski/UniJ/tree/master/subprojects/pl.tlinkowski.unij.bundle.eclipse_jdk8)):
     -   [`pl.tlinkowski.unij.service.collect.eclipse`](https://github.com/tlinkowski/UniJ/tree/master/subprojects/pl.tlinkowski.unij.service.collect.eclipse)
-    -   [`pl.tlinkowski.unij.service.misc.jdk8`](https://github.com/tlinkowski/UniJ/tree/master/subprojects/pl.tlinkowski.unij.misc.collect.jdk8)
+    -   [`pl.tlinkowski.unij.service.misc.jdk8`](https://github.com/tlinkowski/UniJ/tree/master/subprojects/pl.tlinkowski.unij.service.misc.jdk8)
 
 ### Custom Bindings
 

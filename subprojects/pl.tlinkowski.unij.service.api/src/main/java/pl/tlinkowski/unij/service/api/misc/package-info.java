@@ -17,11 +17,12 @@
  */
 
 /**
- * API for UniJ services (e.g. {@link pl.tlinkowski.unij.service.api.UniJService} annotation).
+ * Miscellaneous UniJ service provider interfaces (e.g. {@link pl.tlinkowski.unij.service.api.misc.MiscellaneousApiProvider}).
  *
  * @author Tomasz Linkowski
+ * @see java.util.ServiceLoader
  */
 @NonNullPackage
-package pl.tlinkowski.unij.service.api;
+package pl.tlinkowski.unij.service.api.misc;
 
 import pl.tlinkowski.annotation.basic.NonNullPackage;

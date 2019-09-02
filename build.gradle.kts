@@ -80,6 +80,13 @@ subprojects {
       api(project(":pl.tlinkowski.unij.api"))
       testImplementation(project(":pl.tlinkowski.unij.test"))
     }
+    //region TEMPORARY WORKAROUND: https://github.com/tlinkowski/UniJ/issues/40
+    tasks {
+      "javadoc" {
+        enabled = false
+      }
+    }
+    //endregion
   }
   if (name.contains(".service.collect.") || name.contains(".service.misc.")) {
     dependencies {
@@ -110,21 +117,3 @@ subprojects {
     jvmArgsAppend = listOf("-Djmh.separateClasspathJAR=true") // https://bugs.openjdk.java.net/browse/CODETOOLS-7902106
   }
 }
-
-//region TEMPORARY workaround for: https://github.com/tlinkowski/UniJ/issues/40 (TODO: remove this)
-val namesOfYetEmptyProjects = listOf(
-        "pl.tlinkowski.unij.bundle.eclipse_jdk8",
-        "pl.tlinkowski.unij.bundle.guava_jdk8",
-        "pl.tlinkowski.unij.bundle.jdk8",
-        "pl.tlinkowski.unij.bundle.jdk11"
-)
-namesOfYetEmptyProjects.forEach {
-  project(":$it") {
-    tasks {
-      "javadoc" {
-        enabled = false
-      }
-    }
-  }
-}
-//endregion

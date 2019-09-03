@@ -214,6 +214,15 @@ class MyUnmodifiableListFactorySpec extends UnmodifiableListFactorySpec {
 A test dependency on [`pl.tlinkowski.unij.test`](https://github.com/tlinkowski/UniJ/tree/master/subprojects/pl.tlinkowski.unij.test)
 is needed for it.
 
+## Kotlin interoperability
+
+This library is highly interoperable with [Kotlin](https://kotlinlang.org/) thanks to being annotated with regard to:
+
+-   nullability ([`@NonNullPackage`](https://github.com/tlinkowski/basic-annotations/blob/master/subprojects/pl.tlinkowski.annotation.basic/src/main/java/pl/tlinkowski/annotation/basic/NonNullPackage.java))
+-   mutability ([`@ReadOnly`](https://github.com/JetBrains/kotlin/blob/master/libraries/tools/kotlin-annotations-jvm/src/kotlin/annotations/jvm/ReadOnly.java))
+
+using annotations provided by [Basic Java Annotations](https://github.com/tlinkowski/basic-annotations) library.
+
 ## Requirements
 
 Usage: JDK 8+.

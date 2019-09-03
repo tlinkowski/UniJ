@@ -12,10 +12,14 @@
 
 UniJ is a **facade** for:
 
-1.  unmodifiable [`List`](https://docs.oracle.com/javase/10/docs/api/java/util/List.html#unmodifiable)/[`Set`](https://docs.oracle.com/javase/10/docs/api/java/util/Set.html#unmodifiable)/[`Map`](https://docs.oracle.com/javase/10/docs/api/java/util/Map.html#unmodifiable) factory methods introduced in JDK 9+
-2.  some new [`Collector`](https://docs.oracle.com/javase/10/docs/api/java/util/stream/Collectors.html)s introduced in JDK 10+
+1.  unmodifiable [`List`](https://docs.oracle.com/javase/10/docs/api/java/util/List.html#unmodifiable)/[`Set`](https://docs.oracle.com/javase/10/docs/api/java/util/Set.html#unmodifiable)/[`Map`](https://docs.oracle.com/javase/10/docs/api/java/util/Map.html#unmodifiable)
+    factory methods introduced in JDK 9+
 
-**Note**: This library is meant only as a **facade for the official JDK APIs**. This library will **not** introduce any APIs of its own, and will only introduce new APIs as they're being introduced in new versions of the JDK.
+2.  some new [`Collector`](https://docs.oracle.com/javase/10/docs/api/java/util/stream/Collectors.html)s introduced in
+    JDK 10+
+
+**Note**: This library is meant only as a **facade for the official JDK APIs**. This library will **not** introduce
+any APIs of its own, and will only introduce new APIs as they're being introduced in new versions of the JDK.
 
 ## API
 
@@ -28,13 +32,17 @@ The call chain looks as follows:
 end user ⟷ User API ⟷ Service API ⟷ binding provider
 ```
 
-In other words, the end user is oblivious of the [Service API](#service-api), and the binding provider is oblivious of the [User API](#user-api).
+In other words, the end user is oblivious of the [Service API](#service-api), and the binding provider is oblivious of
+the [User API](#user-api).
 
-UniJ is somewhat similar to [Slf4j](https://www.slf4j.org/) (Simple Logging Facade for Java) in that it provides an API that can be implemented in many different ways and then injected at runtime as a [Java service](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/ServiceLoader.html).
+UniJ is somewhat similar to [Slf4j](https://www.slf4j.org/) (Simple Logging Facade for Java) in that it provides an
+API that can be implemented in many different ways and then injected at runtime as a
+[Java service](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/ServiceLoader.html).
 
 ### User API
 
-The User API is defined in [`pl.tlinkowski.unij.api`](subprojects/pl.tlinkowski.unij.api) and consists of the following utility classes:
+The User API is defined in [`pl.tlinkowski.unij.api`](subprojects/pl.tlinkowski.unij.api) and consists of the
+following utility classes:
 
 -   [`UniLists`](https://github.com/tlinkowski/UniJ/blob/master/subprojects/pl.tlinkowski.unij.api/src/main/java/pl/tlinkowski/unij/api/UniLists.java)
     (equivalent to [`List`](https://docs.oracle.com/javase/10/docs/api/java/util/List.html#unmodifiable)'s
@@ -61,34 +69,54 @@ Details of this equivalence can be found in [Specification](#specification) sect
 
 ### Service API
 
-*Disclaimer: As an end user, you **don't** need to be concerned with this API. Read on **only if** you want to implement your own UniJ bindings or want to understand how UniJ works internally.*
+*Disclaimer: As an end user, you **don't** need to be concerned with this API. Read on **only if** you want to
+implement your own UniJ bindings or want to understand how UniJ works internally.*
 
-UniJ service API is defined in [`pl.tlinkowski.unij.service.api`](subprojects/pl.tlinkowski.unij.service.api) and consists of the following interfaces:
+UniJ service API is defined in [`pl.tlinkowski.unij.service.api`](subprojects/pl.tlinkowski.unij.service.api)
+and consists of the following interfaces:
 
--   `collect`: [`UnmodifiableListFactory`](https://github.com/tlinkowski/UniJ/blob/master/subprojects/pl.tlinkowski.unij.service.api/src/main/java/pl/tlinkowski/unij/service/api/collect/UnmodifiableListFactory.java),
+-   `collect`:
+    [`UnmodifiableListFactory`](https://github.com/tlinkowski/UniJ/blob/master/subprojects/pl.tlinkowski.unij.service.api/src/main/java/pl/tlinkowski/unij/service/api/collect/UnmodifiableListFactory.java),
     [`UnmodifiableSetFactory`](https://github.com/tlinkowski/UniJ/blob/master/subprojects/pl.tlinkowski.unij.service.api/src/main/java/pl/tlinkowski/unij/service/api/collect/UnmodifiableSetFactory.java),
     [`UnmodifiableMapFactory`](https://github.com/tlinkowski/UniJ/blob/master/subprojects/pl.tlinkowski.unij.service.api/src/main/java/pl/tlinkowski/unij/service/api/collect/UnmodifiableMapFactory.java)
 
--   `misc`: [`MiscellaneousApiProvider`](https://github.com/tlinkowski/UniJ/blob/master/subprojects/pl.tlinkowski.unij.service.api/src/main/java/pl/tlinkowski/unij/service/api/misc/MiscellaneousApiProvider.java)
+-   `misc`:
+    [`MiscellaneousApiProvider`](https://github.com/tlinkowski/UniJ/blob/master/subprojects/pl.tlinkowski.unij.service.api/src/main/java/pl/tlinkowski/unij/service/api/misc/MiscellaneousApiProvider.java)
 
 A module providing implementations of one or more of these interfaces constitutes a **binding**.
 
 UniJ provides many predefined bindings, but custom bindings are also possible (see [Bindings](#bindings) for details).
 
+### Why two APIs
+
+Why are there two APIs in UniJ? So that:
+
+1.  for the user, we can exactly mirror the JDK API (equivalent class names, static methods), e.g.:
+    -   `List.of()` ⟷ `UniLists.of()`
+    -   `Collectors.toUnmodifiableList()` ⟷ `UniCollectors.toUnmodifiableList()`
+
+2.  for the binding provider, we can expose an interface with all the related method to be implemented *together*, e.g.:
+    -   `UnmodifiableListFactory.of()`
+    -   `UnmodifiableListFactory.collector()`
+
 ## Specification
 
-UniJ APIs come with a detailed specification expressed as [Spock](http://spockframework.org/) tests for the [Service API](#service-api) interfaces.
+UniJ APIs come with a detailed specification expressed as [Spock](http://spockframework.org/) tests for the
+[Service API](#service-api) interfaces.
 
-The specification is based on the contract of the original JDK API (expressed mostly in JavaDoc), and tries to follow this contract as close as possible.
+The specification is based on the contract of the original JDK API (expressed mostly in JavaDoc), and tries to follow
+this contract as close as possible.
 
 The specification is expressed as the following test classes defined
 [`pl.tlinkowski.unij.test`](https://github.com/tlinkowski/UniJ/tree/master/subprojects/pl.tlinkowski.unij.test):
 
--   `collect`: [`UnmodifiableListFactorySpec`](https://github.com/tlinkowski/UniJ/blob/master/subprojects/pl.tlinkowski.unij.test/src/main/groovy/pl/tlinkowski/unij/test/service/collect/UnmodifiableListFactorySpec.groovy),
+-   `collect`:
+    [`UnmodifiableListFactorySpec`](https://github.com/tlinkowski/UniJ/blob/master/subprojects/pl.tlinkowski.unij.test/src/main/groovy/pl/tlinkowski/unij/test/service/collect/UnmodifiableListFactorySpec.groovy),
     [`UnmodifiableSetFactorySpec`](https://github.com/tlinkowski/UniJ/blob/master/subprojects/pl.tlinkowski.unij.test/src/main/groovy/pl/tlinkowski/unij/test/service/collect/UnmodifiableSetFactorySpec.groovy),
     [`UnmodifiableMapFactorySpec`](https://github.com/tlinkowski/UniJ/blob/master/subprojects/pl.tlinkowski.unij.test/src/main/groovy/pl/tlinkowski/unij/test/service/collect/UnmodifiableMapFactorySpec.groovy)
 
--   `misc`: [`MiscellaneousApiProviderSpec`](https://github.com/tlinkowski/UniJ/blob/master/subprojects/pl.tlinkowski.unij.test/src/main/groovy/pl/tlinkowski/unij/test/service/misc/MiscellaneousApiProviderSpec.groovy)
+-   `misc`:
+    [`MiscellaneousApiProviderSpec`](https://github.com/tlinkowski/UniJ/blob/master/subprojects/pl.tlinkowski.unij.test/src/main/groovy/pl/tlinkowski/unij/test/service/misc/MiscellaneousApiProviderSpec.groovy)
 
 Read the specs linked above to learn in detail what contract UniJ follows.
 
@@ -107,10 +135,12 @@ UniJ currently provides four types of `Collection` factory API bindings:
     provides regular mutable JDK 8 collections wrapped using [`Collections.unmodifiableList/Set/Map`](https://docs.oracle.com/javase/8/docs/api/java/util/Collections.html#unmodifiableList-java.util.List-)
 
 3.  [Guava](https://github.com/google/guava) ([`pl.tlinkowski.unij.service.collect.guava`](https://github.com/tlinkowski/UniJ/tree/master/subprojects/pl.tlinkowski.unij.service.collect.guava)):
-    provides Guava's [`ImmutableList`](https://guava.dev/releases/28.0-jre/api/docs/com/google/common/collect/ImmutableList.html)/[`ImmutableSet`](https://guava.dev/releases/28.0-jre/api/docs/com/google/common/collect/ImmutableSet.html)/[`ImmutableMap`](https://guava.dev/releases/28.0-jre/api/docs/com/google/common/collect/ImmutableMap.html) implementations
+    provides Guava's [`ImmutableList`](https://guava.dev/releases/28.0-jre/api/docs/com/google/common/collect/ImmutableList.html)/[`ImmutableSet`](https://guava.dev/releases/28.0-jre/api/docs/com/google/common/collect/ImmutableSet.html)/[`ImmutableMap`](https://guava.dev/releases/28.0-jre/api/docs/com/google/common/collect/ImmutableMap.html)
+    implementations
 
 4.  [Eclipse Collections](https://www.eclipse.org/collections/) ([`pl.tlinkowski.unij.service.collect.eclipse`](https://github.com/tlinkowski/UniJ/tree/master/subprojects/pl.tlinkowski.unij.service.collect.eclipse)):
-    provides Eclipse's [`ImmutableList`](https://www.eclipse.org/collections/javadoc/10.0.0/org/eclipse/collections/api/list/ImmutableList.html)/[`ImmutableSet`](https://www.eclipse.org/collections/javadoc/10.0.0/org/eclipse/collections/api/set/ImmutableSet.html)/[`ImmutableMap`](https://www.eclipse.org/collections/javadoc/10.0.0/org/eclipse/collections/api/map/ImmutableMap.html) implementations
+    provides Eclipse's [`ImmutableList`](https://www.eclipse.org/collections/javadoc/10.0.0/org/eclipse/collections/api/list/ImmutableList.html)/[`ImmutableSet`](https://www.eclipse.org/collections/javadoc/10.0.0/org/eclipse/collections/api/set/ImmutableSet.html)/[`ImmutableMap`](https://www.eclipse.org/collections/javadoc/10.0.0/org/eclipse/collections/api/map/ImmutableMap.html)
+    implementations
 
 #### Miscellaneous API Bindings
 
@@ -124,7 +154,8 @@ UniJ currently provides two types of miscellaneous API bindings:
 
 #### Bundles
 
-On top of that, UniJ provides four types of *bundles*. A UniJ bundle is a module having no source (save for its `module-info.java`) and depending on the following three modules:
+On top of that, UniJ provides four types of *bundles*. A UniJ bundle is a module having no source (save for its
+`module-info.java`) and depending on the following three modules:
 
 1.  [`pl.tlinkowski.unij.api`](subprojects/pl.tlinkowski.unij.api) module (transitive dependency)
 2.  one of `pl.tlinkowski.unij.service.collect.<?>` modules
@@ -154,9 +185,11 @@ You can provide custom bindings by:
 
 -   implementing an interface from the [Service API](#service-api)
 
--   annotating it with a special [`@UniJService`](https://github.com/tlinkowski/UniJ/blob/master/subprojects/pl.tlinkowski.unij.service.api/src/main/java/pl/tlinkowski/unij/service/api/UniJService.java) annotation
+-   annotating it with a special [`@UniJService`](https://github.com/tlinkowski/UniJ/blob/master/subprojects/pl.tlinkowski.unij.service.api/src/main/java/pl/tlinkowski/unij/service/api/UniJService.java)
+    annotation
 
--   providing a `module-info.java` entry (for JDK 9+) and/or a `META-INF` entry (for JDK 8; I recommend Google's [`@AutoValue`](https://github.com/google/auto/tree/master/value) for it)
+-   providing a `module-info.java` entry (for JDK 9+) and/or a `META-INF` entry (for JDK 8; I recommend Google's
+    [`@AutoValue`](https://github.com/google/auto/tree/master/value) for it)
 
 Example:
 
@@ -178,7 +211,8 @@ class MyUnmodifiableListFactorySpec extends UnmodifiableListFactorySpec {
 }
 ```
 
-A test dependency on [`pl.tlinkowski.unij.test`](https://github.com/tlinkowski/UniJ/tree/master/subprojects/pl.tlinkowski.unij.test) is needed for it.
+A test dependency on [`pl.tlinkowski.unij.test`](https://github.com/tlinkowski/UniJ/tree/master/subprojects/pl.tlinkowski.unij.test)
+is needed for it.
 
 ## Requirements
 

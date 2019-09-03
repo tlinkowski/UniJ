@@ -29,8 +29,8 @@ plugins {
 config {
   info {
     name = "UniJ"
-    description = "Universal cross-JDK API provider for immutable collections"
-    tags = listOf("java", "facade", "collection", "collector", "immutability")
+    description = "Universal JDK API Facade"
+    tags = listOf("java", "jdk", "facade", "collection", "collector", "immutability")
     inceptionYear = "2018"
 
     links {

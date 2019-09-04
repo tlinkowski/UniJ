@@ -67,21 +67,21 @@ Instead, you're probably using:
 1.  some [`ArrayList`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/ArrayList.html)s
     and wrapping them using [`Collections.unmodifiableList`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Collections.html#unmodifiableList(java.util.List))
 
-2.  or some external library providing immutable lists, like [Guava](https://github.com/google/guava)
+2.  or some external library providing immutable `List`s, like [Guava](https://github.com/google/guava)
     or [Eclipse Collections](https://www.eclipse.org/collections/)
 
 The problems with these options are as follows:
 
 1.  If your users themselves use JDK 11's, Guava's or Eclipse's `Collection`s:
     -   you're wasting potential by not using the best `Collection` implementations available
-    -   you're introducing inconsistency into what `Collection` implementations are used in your users' app/library
+    -   you're introducing inconsistency regarding which `Collection` implementations are used in your users' app/library
 
-2.  This is a really bad option, because — by bundling with an external library — you're imposing a heavy dependency on
-    your users. Even worse, if they already use e.g. Guava, and you bundle with Eclipse Collections, they'd end up with
-    **both**. What a waste!
+2.  This would be a really bad option, because — by bundling with an external library — you'd impose a heavy dependency on
+    your users. Even worse, if they already used one (e.g. Guava), and you bundled with another (e.g. Eclipse Collections),
+    they'd end up with **both**!
 
 To sum up, as a library maintainer, the choice of `Collection` implementations **shouldn't be yours**. It's the same
-as with logging - you shouldn't choose the logging backend, and should only program to a facade like
+as with logging - you shouldn't choose the logging backend, and should only program to a **facade** like
 [SLF4J](https://www.slf4j.org/). That's *precisely* what UniJ lets you do with respect to `Collection` factory methods.
 
 Simply add an intransitive (Gradle `implementation`) or a transitive (Gradle `api`) dependency on the
@@ -90,8 +90,8 @@ should depend on a UniJ [binding](#bindings) of their choosing (like with [SLF4J
 
 Alternatively, you can depend on the still quite lightweight
 [`pl.tlinkowski.unij.bundle.jdk8`](subprojects/pl.tlinkowski.unij.bundle.jdk8),
-and let your users optionally *override* the default JDK 8 bindings by depending on some other binding (UniJ supports
-multiple [bindings](#bindings) at runtime).
+and let your users optionally *override* the default JDK 8 bindings by depending on some other bindings (UniJ supports
+multiple competing [bindings](#bindings) at runtime, with the JDK 8 bindings having the lowest priority).
 
 ## API
 

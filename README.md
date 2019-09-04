@@ -21,6 +21,78 @@ UniJ is a **facade** for:
 **Note**: This library is meant only as a **facade for the official JDK APIs**. This library will **not** introduce
 any APIs of its own, and will only introduce new APIs as they're being introduced in new versions of the JDK.
 
+## Analogy
+
+> UniJ is to new parts the JDK 9+ API what [Slf4j](https://www.slf4j.org/) is to logging API — a **facade**.
+
+## Motivation
+
+This library is primarily useful to:
+
+1.  [End users stuck on JDK 8](#end-users-stuck-on-jdk-8)
+2.  [Library maintainers targeting JDK 8](#library-maintainers-targeting-jdk-8)
+
+### End Users Stuck on JDK 8
+
+If you're stuck on JDK 8, you can't use JDK 9's
+[`List.of()`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/List.html#of()) and friends.
+
+What can you do?
+
+1.  Use [Guava](https://github.com/google/guava) or [Eclipse Collections](https://www.eclipse.org/collections/).
+2.  Use UniJ.
+
+The problem with option 1 is that you get somewhat far from the JDK 11 API and its [specification](#specification).
+If you decide to upgrade to JDK 11 in the future, replacing their collections with JDK 11 ones will **not** be
+straightforward.
+
+With option 2, there's no such problem. Just add a dependency on
+[`pl.tlinkowski.unij.bundle.jdk8`](subprojects/pl.tlinkowski.unij.bundle.jdk8),
+[`pl.tlinkowski.unij.bundle.guava_jdk8`](subprojects/pl.tlinkowski.unij.bundle.guava_jdk8), or
+[`pl.tlinkowski.unij.bundle.eclipse_jdk8`](subprojects/pl.tlinkowski.unij.bundle.eclipse_jdk8),
+and enjoy the JDK 11 API on JDK 8! (note that when using UniJ's Guava or Eclipse bundles, you must add your own
+runtime-only dependency on Guava or Eclipse Collections)
+
+In the future, if you switch to JDK 11, you'll either:
+
+-   change the dependency to [`pl.tlinkowski.unij.bundle.jdk11`](subprojects/pl.tlinkowski.unij.bundle.jdk11)
+-   or remove UniJ altogether (will be a simple matter of replacing all occurrences of `UniLists` with `List`, etc.)
+
+### Library Maintainers Targeting JDK 8
+
+If you're a library maintainer targeting JDK 8, you also can't use JDK 9's
+[`List.of()`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/List.html#of()) and friends.
+Instead, you're probably using:
+
+1.  some [`ArrayList`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/ArrayList.html)s
+    and wrapping them using [`Collections.unmodifiableList`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Collections.html#unmodifiableList(java.util.List))
+
+2.  or some external library providing immutable lists, like [Guava](https://github.com/google/guava)
+    or [Eclipse Collections](https://www.eclipse.org/collections/)
+
+The problems with these options are as follows:
+
+1.  If your users themselves use JDK 11's, Guava's or Eclipse's `Collection`s:
+    -   you're wasting potential by not using the best `Collection` implementations available
+    -   you're introducing inconsistency into what `Collection` implementations are used in your users' app/library
+
+2.  This is a really bad option, because — by bundling with an external library — you're imposing a heavy dependency on
+    your users. Even worse, if they already use e.g. Guava, and you bundle with Eclipse Collections, they'd end up with
+    **both**. What a waste!
+
+To sum up, as a library maintainer, the choice of `Collection` implementations **shouldn't be yours**. It's the same
+as with logging - you shouldn't choose the logging backend, and should only program to a facade like
+[Slf4j](https://www.slf4j.org/). That's *precisely* what UniJ lets you do with respect to `Collection` factory methods.
+
+Simply add an intransitive (Gradle `implementation`) or a transitive (Gradle `api`) dependency on the
+extremely lightweight [`pl.tlinkowski.unij.api`](subprojects/pl.tlinkowski.unij.api), and inform your users they
+should depend on a UniJ [binding](#bindings) of their choosing (like with [Slf4j](https://www.slf4j.org/)).
+
+Alternatively, you can depend on the still quite lightweight
+[`pl.tlinkowski.unij.bundle.jdk8`](subprojects/pl.tlinkowski.unij.bundle.jdk8),
+and let your users optionally *override* the default JDK 8 bindings by depending on some other binding (UniJ supports
+multiple [bindings](#bindings) at runtime).
+
 ## API
 
 UniJ has two kind of APIs:
@@ -122,6 +194,11 @@ Read the specs linked above to learn in detail what contract UniJ follows.
 
 ## Bindings
 
+A binding is an implementation of the [Service API](#service-api) available at runtime. If multiple bindings with
+the same functionality are present on the runtime classpath/modulepath, the one with the top
+[priority](subprojects/pl.tlinkowski.unij.service.api/src/main/java/pl/tlinkowski/unij/service/api/UniJService.java)
+(lowest number) will be selected.
+
 ### Predefined Bindings
 
 #### Collection Factory API Bindings
@@ -136,11 +213,11 @@ UniJ currently provides four types of `Collection` factory API bindings:
 
 3.  [Guava](https://github.com/google/guava) ([`pl.tlinkowski.unij.service.collect.guava`](https://github.com/tlinkowski/UniJ/tree/master/subprojects/pl.tlinkowski.unij.service.collect.guava)):
     provides Guava's [`ImmutableList`](https://guava.dev/releases/28.0-jre/api/docs/com/google/common/collect/ImmutableList.html)/[`ImmutableSet`](https://guava.dev/releases/28.0-jre/api/docs/com/google/common/collect/ImmutableSet.html)/[`ImmutableMap`](https://guava.dev/releases/28.0-jre/api/docs/com/google/common/collect/ImmutableMap.html)
-    implementations
+    implementations (Guava as compile-only dependency — the user needs to add their own runtime dependency on it)
 
 4.  [Eclipse Collections](https://www.eclipse.org/collections/) ([`pl.tlinkowski.unij.service.collect.eclipse`](https://github.com/tlinkowski/UniJ/tree/master/subprojects/pl.tlinkowski.unij.service.collect.eclipse)):
     provides Eclipse's [`ImmutableList`](https://www.eclipse.org/collections/javadoc/10.0.0/org/eclipse/collections/api/list/ImmutableList.html)/[`ImmutableSet`](https://www.eclipse.org/collections/javadoc/10.0.0/org/eclipse/collections/api/set/ImmutableSet.html)/[`ImmutableMap`](https://www.eclipse.org/collections/javadoc/10.0.0/org/eclipse/collections/api/map/ImmutableMap.html)
-    implementations
+    implementations (Eclipse as compile-only dependency — the user needs to add their own runtime dependency on it)
 
 #### Miscellaneous API Bindings
 
@@ -214,7 +291,7 @@ class MyUnmodifiableListFactorySpec extends UnmodifiableListFactorySpec {
 A test dependency on [`pl.tlinkowski.unij.test`](https://github.com/tlinkowski/UniJ/tree/master/subprojects/pl.tlinkowski.unij.test)
 is needed for it.
 
-## Kotlin interoperability
+## Kotlin Interoperability
 
 This library is highly interoperable with [Kotlin](https://kotlinlang.org/) thanks to being annotated with regard to:
 

@@ -266,13 +266,14 @@ You can provide custom bindings by:
     annotation
 
 -   providing a `module-info.java` entry (for JDK 9+) and/or a `META-INF` entry (for JDK 8; I recommend Google's
-    [`@AutoValue`](https://github.com/google/auto/tree/master/value) for it)
+    [`@AutoService`](https://github.com/google/auto/tree/master/service) for it)
 
 Example:
 
 ```java
 @UniJService(priority = 1)
-public class MyUnmodifiableListFactory implements UnmodifiableListFactory {
+@AutoService(UnmodifiableListFactory.class)
+public class CustomUnmodifiableListFactory implements UnmodifiableListFactory {
   // ...
 }
 ```
@@ -280,10 +281,10 @@ public class MyUnmodifiableListFactory implements UnmodifiableListFactory {
 When providing a custom service implementation, one should also create the following Spock test for it:
 
 ```groovy
-class MyUnmodifiableListFactorySpec extends UnmodifiableListFactorySpec {
+class CustomUnmodifiableListFactorySpec extends UnmodifiableListFactorySpec {
 
   def setupSpec() {
-    factory = new MyUnmodifiableListFactory()
+    factory = new CustomUnmodifiableListFactory()
   }
 }
 ```

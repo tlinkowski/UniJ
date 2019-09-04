@@ -23,7 +23,7 @@ any APIs of its own, and will only introduce new APIs as they're being introduce
 
 ## Analogy
 
-> UniJ is to new parts the JDK 9+ API what [Slf4j](https://www.slf4j.org/) is to logging API — a **facade**.
+> UniJ is to new parts the JDK 9+ API what [SLF4J](https://www.slf4j.org/) is to logging API — a **facade**.
 
 ## Motivation
 
@@ -82,11 +82,11 @@ The problems with these options are as follows:
 
 To sum up, as a library maintainer, the choice of `Collection` implementations **shouldn't be yours**. It's the same
 as with logging - you shouldn't choose the logging backend, and should only program to a facade like
-[Slf4j](https://www.slf4j.org/). That's *precisely* what UniJ lets you do with respect to `Collection` factory methods.
+[SLF4J](https://www.slf4j.org/). That's *precisely* what UniJ lets you do with respect to `Collection` factory methods.
 
 Simply add an intransitive (Gradle `implementation`) or a transitive (Gradle `api`) dependency on the
 extremely lightweight [`pl.tlinkowski.unij.api`](subprojects/pl.tlinkowski.unij.api), and inform your users they
-should depend on a UniJ [binding](#bindings) of their choosing (like with [Slf4j](https://www.slf4j.org/)).
+should depend on a UniJ [binding](#bindings) of their choosing (like with [SLF4J](https://www.slf4j.org/)).
 
 Alternatively, you can depend on the still quite lightweight
 [`pl.tlinkowski.unij.bundle.jdk8`](subprojects/pl.tlinkowski.unij.bundle.jdk8),
@@ -107,7 +107,7 @@ end user ⟷ User API ⟷ Service API ⟷ binding provider
 In other words, the end user is oblivious of the [Service API](#service-api), and the binding provider is oblivious of
 the [User API](#user-api).
 
-UniJ is somewhat similar to [Slf4j](https://www.slf4j.org/) (Simple Logging Facade for Java) in that it provides an
+UniJ is somewhat similar to [SLF4J](https://www.slf4j.org/) (Simple Logging Facade for Java) in that it provides an
 API that can be implemented in many different ways and then injected at runtime as a
 [Java service](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/ServiceLoader.html).
 

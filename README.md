@@ -223,6 +223,18 @@ This library is highly interoperable with [Kotlin](https://kotlinlang.org/) than
 
 using annotations provided by [Basic Java Annotations](https://github.com/tlinkowski/basic-annotations) library.
 
+## Performance
+
+If you wonder how UniJ's indirection (= its two extra layers: [User API](#user-api) and [Service API](#service-api))
+affects performance, the answer is short: **it effectively doesn't**.
+
+It turns out the JIT compiler simply optimizes all the indirection away.
+
+You can verify this by running a JMH benchmark
+([`UniListsBenchmark`](subprojects/pl.tlinkowski.unij.api/src/jmh/java/pl/tlinkowski/unij/api/UniListsBenchmark.java))
+where calls to `UniLists` (with a JDK 11 binding) are compared to direct JDK 11 API calls. The exact results can be
+found [here](docs/UniListsBenchmark-results.txt).
+
 ## Requirements
 
 Usage: JDK 8+.

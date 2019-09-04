@@ -23,11 +23,11 @@ any APIs of its own, and will only introduce new APIs as they're being introduce
 
 ## Analogy
 
-> UniJ is to new parts the JDK 9+ API what [SLF4J](https://www.slf4j.org/) is to logging API — a **facade**.
+> UniJ is to new parts of JDK 9+ API what [SLF4J](https://www.slf4j.org/) is to logging API — a **facade**.
 
 ## Motivation
 
-This library is primarily useful to:
+This library has been primarily designed for:
 
 1.  [End users stuck on JDK 8](#end-users-stuck-on-jdk-8)
 2.  [Library maintainers targeting JDK 8](#library-maintainers-targeting-jdk-8)
@@ -39,8 +39,10 @@ If you're stuck on JDK 8, you can't use JDK 9's
 
 What can you do?
 
-1.  Use [Guava](https://github.com/google/guava) or [Eclipse Collections](https://www.eclipse.org/collections/).
-2.  Use UniJ.
+1.  Depend on [Guava](https://github.com/google/guava) or [Eclipse Collections](https://www.eclipse.org/collections/)
+    and program to their proprietary APIs.
+
+2.  Or depend on **UniJ** and program to its [JDK-like API](#user-api).
 
 The problem with option 1 is that you get somewhat far from the JDK 11 API and its [specification](#specification).
 If you decide to upgrade to JDK 11 in the future, replacing their collections with JDK 11 ones will **not** be
@@ -53,7 +55,7 @@ With option 2, there's no such problem. Just add a dependency on
 and enjoy the JDK 11 API on JDK 8! (note that when using UniJ's Guava or Eclipse bundles, you must add your own
 runtime-only dependency on Guava or Eclipse Collections)
 
-In the future, if you switch to JDK 11, you'll either:
+In the future, if you want to switch to JDK 11, you'll either:
 
 -   change the dependency to [`pl.tlinkowski.unij.bundle.jdk11`](subprojects/pl.tlinkowski.unij.bundle.jdk11)
 -   or remove UniJ altogether (will be a simple matter of replacing all occurrences of `UniLists` with `List`, etc.)

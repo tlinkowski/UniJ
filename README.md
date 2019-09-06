@@ -122,21 +122,33 @@ following utility classes:
     (equivalent to [`List`](https://docs.oracle.com/javase/10/docs/api/java/util/List.html#unmodifiable)'s
     static factory methods)
 
+    -   example usage in
+        [`UniListsSpec`](https://github.com/tlinkowski/UniJ/blob/master/subprojects/pl.tlinkowski.unij.api/src/test/groovy/pl/tlinkowski/unij/api/UniListsSpec.groovy)
+
 -   [`UniSets`](https://github.com/tlinkowski/UniJ/blob/master/subprojects/pl.tlinkowski.unij.api/src/main/java/pl/tlinkowski/unij/api/UniSets.java)
     (equivalent to [`Set`](https://docs.oracle.com/javase/10/docs/api/java/util/Set.html#unmodifiable)'s
     static factory methods)
+
+    -   example usage in
+        [`UniSetsSpec`](https://github.com/tlinkowski/UniJ/blob/master/subprojects/pl.tlinkowski.unij.api/src/test/groovy/pl/tlinkowski/unij/api/UniListsSpec.groovy)
 
 -   [`UniMaps`](https://github.com/tlinkowski/UniJ/blob/master/subprojects/pl.tlinkowski.unij.api/src/main/java/pl/tlinkowski/unij/api/UniMaps.java) 
     (equivalent to [`Map`](https://docs.oracle.com/javase/10/docs/api/java/util/Map.html#unmodifiable)'s
     static factory methods)
 
+    -   example usage in
+    [`UniMapsSpec`](https://github.com/tlinkowski/UniJ/blob/master/subprojects/pl.tlinkowski.unij.api/src/test/groovy/pl/tlinkowski/unij/api/UniListsSpec.groovy)
+
 -   [`UniCollectors`](https://github.com/tlinkowski/UniJ/blob/master/subprojects/pl.tlinkowski.unij.api/src/main/java/pl/tlinkowski/unij/api/UniCollectors.java)
-    (equivalent to
-    [`Collectors`](https://docs.oracle.com/javase/10/docs/api/java/util/stream/Collectors.html))
+    (equivalent to [`Collectors`](https://docs.oracle.com/javase/10/docs/api/java/util/stream/Collectors.html)
+    utility class)
+
+    -   example usage in
+        [`UniCollectorsSpec`](https://github.com/tlinkowski/UniJ/blob/master/subprojects/pl.tlinkowski.unij.api/src/test/groovy/pl/tlinkowski/unij/api/UniListsSpec.groovy)
 
 The API of these classes has strict equivalence to the corresponding JDK API in terms of:
 -   `null` treatment (no `null`s allowed)
--   duplicate handling (e.g. no duplicates allowed in `of` methods)
+-   duplicate handling (e.g. no duplicates allowed in `of` methods of `UniSets` and `UniMaps`)
 -   consistency (e.g. only one empty collection instance)
 
 Details of this equivalence can be found in [Specification](#specification) section.

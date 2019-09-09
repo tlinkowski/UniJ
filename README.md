@@ -52,8 +52,7 @@ With option 2, there's no such problem. Just add a dependency on
 [`pl.tlinkowski.unij.bundle.jdk8`](subprojects/bundles/pl.tlinkowski.unij.bundle.jdk8),
 [`pl.tlinkowski.unij.bundle.guava_jdk8`](subprojects/bundles/pl.tlinkowski.unij.bundle.guava_jdk8), or
 [`pl.tlinkowski.unij.bundle.eclipse_jdk8`](subprojects/bundles/pl.tlinkowski.unij.bundle.eclipse_jdk8),
-and enjoy the JDK 11 API on JDK 8! (note that when using UniJ's Guava or Eclipse bundles, you must add your own
-runtime-only dependency on Guava or Eclipse Collections)
+and enjoy the JDK 11 API on JDK 8! (you may also need to add certain [external dependencies](#external-dependencies))
 
 In the future, if you want to switch to JDK 11, you'll either:
 
@@ -88,7 +87,10 @@ as with logging - you shouldn't choose the logging backend, and should only prog
 
 Simply add an intransitive (Gradle `implementation`) or a transitive (Gradle `api`) dependency on the
 extremely lightweight [`pl.tlinkowski.unij.api`](subprojects/api/pl.tlinkowski.unij.api), and inform your users they
-should depend on a UniJ [binding](#bindings) of their choosing (like with [SLF4J](https://www.slf4j.org/)).
+should add an intransitive dependency on:
+
+-   an [SFL4J binding](https://www.slf4j.org/manual.html#swapping) of their choosing (UniJ [depends on SLF4J](#slf4j)))
+-   a [UniJ binding](#bindings) of their choosing (like with SLF4J)
 
 Alternatively, you can depend on the still quite lightweight
 [`pl.tlinkowski.unij.bundle.jdk8`](subprojects/bundles/pl.tlinkowski.unij.bundle.jdk8),
@@ -137,7 +139,7 @@ following utility classes:
     static factory methods)
 
     -   example usage in
-    [`UniMapsSpec`](subprojects/api/pl.tlinkowski.unij.api/src/test/groovy/pl/tlinkowski/unij/api/UniListsSpec.groovy)
+        [`UniMapsSpec`](subprojects/api/pl.tlinkowski.unij.api/src/test/groovy/pl/tlinkowski/unij/api/UniListsSpec.groovy)
 
 -   [`UniCollectors`](subprojects/api/pl.tlinkowski.unij.api/src/main/java/pl/tlinkowski/unij/api/UniCollectors.java)
     (equivalent to [`Collectors`](https://docs.oracle.com/javase/10/docs/api/java/util/stream/Collectors.html)
@@ -246,33 +248,6 @@ UniJ currently provides two types of miscellaneous API bindings:
 2.  JDK 8 ([`pl.tlinkowski.unij.service.misc.jdk8`](subprojects/bindings/misc/pl.tlinkowski.unij.service.misc.jdk8)):
     provides custom implementations based on the ones in JDK 11
 
-#### Bundles
-
-On top of that, UniJ provides four types of [bundles](subprojects/bundles). A UniJ bundle is a module having no source
-(save for its `module-info.java`) and depending on the following three modules:
-
-1.  [`pl.tlinkowski.unij.api`](subprojects/api/pl.tlinkowski.unij.api) module (transitive dependency)
-2.  one of `pl.tlinkowski.unij.service.collect.<?>` modules
-3.  one of `pl.tlinkowski.unij.service.misc.<?>` modules
-
-Currently, UniJ provides the following four bundles:
-
-1.  JDK 11 ([`pl.tlinkowski.unij.bundle.jdk11`](subprojects/bundles/pl.tlinkowski.unij.bundle.jdk11)):
-    -   [`pl.tlinkowski.unij.service.collect.jdk10`](subprojects/bindings/collect/pl.tlinkowski.unij.service.collect.jdk10)
-    -   [`pl.tlinkowski.unij.service.misc.jdk11`](subprojects/bindings/misc/pl.tlinkowski.unij.service.misc.jdk11)
-
-2.  pure JDK 8 ([`pl.tlinkowski.unij.bundle.jdk8`](subprojects/bundles/pl.tlinkowski.unij.bundle.jdk8)):
-    -   [`pl.tlinkowski.unij.service.collect.jdk8`](subprojects/bindings/collect/pl.tlinkowski.unij.service.collect.jdk8)
-    -   [`pl.tlinkowski.unij.service.misc.jdk8`](subprojects/bindings/misc/pl.tlinkowski.unij.service.misc.jdk8)
-
-3.  Guava on JDK 8 ([`pl.tlinkowski.unij.bundle.guava_jdk8`](subprojects/bundles/pl.tlinkowski.unij.bundle.guava_jdk8)):
-    -   [`pl.tlinkowski.unij.service.collect.guava`](subprojects/bindings/collect/pl.tlinkowski.unij.service.collect.guava)
-    -   [`pl.tlinkowski.unij.service.misc.jdk8`](subprojects/bindings/misc/pl.tlinkowski.unij.service.misc.jdk8)
-
-4.  Eclipse on JDK 8 ([`pl.tlinkowski.unij.bundle.eclipse_jdk8`](subprojects/bundles/pl.tlinkowski.unij.bundle.eclipse_jdk8)):
-    -   [`pl.tlinkowski.unij.service.collect.eclipse`](subprojects/bindings/collect/pl.tlinkowski.unij.service.collect.eclipse)
-    -   [`pl.tlinkowski.unij.service.misc.jdk8`](subprojects/bindings/misc/pl.tlinkowski.unij.service.misc.jdk8)
-
 ### Custom Bindings
 
 You can provide custom bindings by:
@@ -308,6 +283,70 @@ class CustomUnmodifiableListFactorySpec extends UnmodifiableListFactorySpec {
 
 A test dependency on [`pl.tlinkowski.unij.test`](subprojects/pl.tlinkowski.unij.test)
 is needed for it.
+
+## Bundles
+
+A UniJ bundle is a module having no source (save for its `module-info.java`) and depending on the following three modules:
+
+1.  [`pl.tlinkowski.unij.api`](subprojects/api/pl.tlinkowski.unij.api) module (transitive dependency)
+2.  `Collection` factory API binding (= one of `pl.tlinkowski.unij.service.collect.___` modules)
+3.  miscellaneous API binding (= one of `pl.tlinkowski.unij.service.misc.___` modules)
+
+### Predefined Bundles
+
+Currently, UniJ provides the following four [bundles](subprojects/bundles):
+
+1.  JDK 11 ([`pl.tlinkowski.unij.bundle.jdk11`](subprojects/bundles/pl.tlinkowski.unij.bundle.jdk11)):
+    -   [`pl.tlinkowski.unij.service.collect.jdk10`](subprojects/bindings/collect/pl.tlinkowski.unij.service.collect.jdk10)
+    -   [`pl.tlinkowski.unij.service.misc.jdk11`](subprojects/bindings/misc/pl.tlinkowski.unij.service.misc.jdk11)
+
+2.  pure JDK 8 ([`pl.tlinkowski.unij.bundle.jdk8`](subprojects/bundles/pl.tlinkowski.unij.bundle.jdk8)):
+    -   [`pl.tlinkowski.unij.service.collect.jdk8`](subprojects/bindings/collect/pl.tlinkowski.unij.service.collect.jdk8)
+    -   [`pl.tlinkowski.unij.service.misc.jdk8`](subprojects/bindings/misc/pl.tlinkowski.unij.service.misc.jdk8)
+
+3.  Guava on JDK 8 ([`pl.tlinkowski.unij.bundle.guava_jdk8`](subprojects/bundles/pl.tlinkowski.unij.bundle.guava_jdk8)):
+    -   [`pl.tlinkowski.unij.service.collect.guava`](subprojects/bindings/collect/pl.tlinkowski.unij.service.collect.guava)
+    -   [`pl.tlinkowski.unij.service.misc.jdk8`](subprojects/bindings/misc/pl.tlinkowski.unij.service.misc.jdk8)
+
+4.  Eclipse on JDK 8 ([`pl.tlinkowski.unij.bundle.eclipse_jdk8`](subprojects/bundles/pl.tlinkowski.unij.bundle.eclipse_jdk8)):
+    -   [`pl.tlinkowski.unij.service.collect.eclipse`](subprojects/bindings/collect/pl.tlinkowski.unij.service.collect.eclipse)
+    -   [`pl.tlinkowski.unij.service.misc.jdk8`](subprojects/bindings/misc/pl.tlinkowski.unij.service.misc.jdk8)
+
+## External Dependencies
+
+### SLF4J
+
+UniJ [User API](#user-api) has an `implementation` dependency on [SLF4J](https://www.slf4j.org/) API to let you have
+insight into which implementation it chooses for each of its [Service API](#service-api) interfaces.
+
+As a result, if you use UniJ, you may also add a dependency on one of
+[its bindings](https://www.slf4j.org/manual.html#swapping).
+Otherwise, you'll see the following message at runtime:
+
+> SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+>
+> SLF4J: Defaulting to no-operation (NOP) logger implementation
+>
+> SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+
+If your project is:
+
+-   unmodularized: just add a `runtimeOnly` dependency
+-   modularized: add an `implementation` dependency + `requires org.slf4j.___;` entry to your `module-info.java`
+
+### Guava / Eclipse Collections
+
+Note that the dependencies on [Guava](https://github.com/google/guava) and
+[Eclipse Collections](https://www.eclipse.org/collections/) (present only in modules with `guava` and `eclipse` in
+their name, respectively) are `compileOnly` dependencies.
+
+Thanks to this, dependency on UniJ won't affect the version of Guava / Eclipse Collections you want to use, since
+you have to declare this dependency explicitly.
+
+If your project is:
+
+-   unmodularized: just add a `runtimeOnly` / `implementation` dependency (depending on whether you'll use it explicitly)
+-   modularized: add an `implementation` dependency + `requires ___;` entry to your `module-info.java`
 
 ## Kotlin Interoperability
 

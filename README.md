@@ -49,15 +49,15 @@ If you decide to upgrade to JDK 11 in the future, replacing their collections wi
 straightforward.
 
 With option 2, there's no such problem. Just add a dependency on
-[`pl.tlinkowski.unij.bundle.jdk8`](subprojects/pl.tlinkowski.unij.bundle.jdk8),
-[`pl.tlinkowski.unij.bundle.guava_jdk8`](subprojects/pl.tlinkowski.unij.bundle.guava_jdk8), or
-[`pl.tlinkowski.unij.bundle.eclipse_jdk8`](subprojects/pl.tlinkowski.unij.bundle.eclipse_jdk8),
+[`pl.tlinkowski.unij.bundle.jdk8`](subprojects/bundles/pl.tlinkowski.unij.bundle.jdk8),
+[`pl.tlinkowski.unij.bundle.guava_jdk8`](subprojects/bundles/pl.tlinkowski.unij.bundle.guava_jdk8), or
+[`pl.tlinkowski.unij.bundle.eclipse_jdk8`](subprojects/bundles/pl.tlinkowski.unij.bundle.eclipse_jdk8),
 and enjoy the JDK 11 API on JDK 8! (note that when using UniJ's Guava or Eclipse bundles, you must add your own
 runtime-only dependency on Guava or Eclipse Collections)
 
 In the future, if you want to switch to JDK 11, you'll either:
 
--   change the dependency to [`pl.tlinkowski.unij.bundle.jdk11`](subprojects/pl.tlinkowski.unij.bundle.jdk11)
+-   change the dependency to [`pl.tlinkowski.unij.bundle.jdk11`](subprojects/bundles/pl.tlinkowski.unij.bundle.jdk11)
 -   or remove UniJ altogether (will be a simple matter of replacing all occurrences of `UniLists` with `List`, etc.)
 
 ### Library Maintainers Targeting JDK 8
@@ -87,17 +87,17 @@ as with logging - you shouldn't choose the logging backend, and should only prog
 [SLF4J](https://www.slf4j.org/). That's *precisely* what UniJ lets you do with respect to `Collection` factory methods.
 
 Simply add an intransitive (Gradle `implementation`) or a transitive (Gradle `api`) dependency on the
-extremely lightweight [`pl.tlinkowski.unij.api`](subprojects/pl.tlinkowski.unij.api), and inform your users they
+extremely lightweight [`pl.tlinkowski.unij.api`](subprojects/api/pl.tlinkowski.unij.api), and inform your users they
 should depend on a UniJ [binding](#bindings) of their choosing (like with [SLF4J](https://www.slf4j.org/)).
 
 Alternatively, you can depend on the still quite lightweight
-[`pl.tlinkowski.unij.bundle.jdk8`](subprojects/pl.tlinkowski.unij.bundle.jdk8),
+[`pl.tlinkowski.unij.bundle.jdk8`](subprojects/bundles/pl.tlinkowski.unij.bundle.jdk8),
 and let your users optionally *override* the default JDK 8 bindings by depending on some other bindings (UniJ supports
 multiple competing [bindings](#bindings) at runtime, with the JDK 8 bindings having the lowest priority).
 
 ## API
 
-UniJ has two kind of APIs:
+UniJ has two kind of [APIs](subprojects/api):
 -   [User API](#user-api): utility classes (this is what the user interacts with)
 -   [Service API](#service-api): interfaces (this is what the binding provider implements)
 
@@ -115,36 +115,36 @@ API that can be implemented in many different ways and then injected at runtime 
 
 ### User API
 
-The User API is defined in [`pl.tlinkowski.unij.api`](subprojects/pl.tlinkowski.unij.api) and consists of the
+The User API is defined in [`pl.tlinkowski.unij.api`](subprojects/api/pl.tlinkowski.unij.api) and consists of the
 following utility classes:
 
--   [`UniLists`](https://github.com/tlinkowski/UniJ/blob/master/subprojects/pl.tlinkowski.unij.api/src/main/java/pl/tlinkowski/unij/api/UniLists.java)
+-   [`UniLists`](subprojects/api/pl.tlinkowski.unij.api/src/main/java/pl/tlinkowski/unij/api/UniLists.java)
     (equivalent to [`List`](https://docs.oracle.com/javase/10/docs/api/java/util/List.html#unmodifiable)'s
     static factory methods)
 
     -   example usage in
-        [`UniListsSpec`](https://github.com/tlinkowski/UniJ/blob/master/subprojects/pl.tlinkowski.unij.api/src/test/groovy/pl/tlinkowski/unij/api/UniListsSpec.groovy)
+        [`UniListsSpec`](subprojects/api/pl.tlinkowski.unij.api/src/test/groovy/pl/tlinkowski/unij/api/UniListsSpec.groovy)
 
--   [`UniSets`](https://github.com/tlinkowski/UniJ/blob/master/subprojects/pl.tlinkowski.unij.api/src/main/java/pl/tlinkowski/unij/api/UniSets.java)
+-   [`UniSets`](subprojects/api/pl.tlinkowski.unij.api/src/main/java/pl/tlinkowski/unij/api/UniSets.java)
     (equivalent to [`Set`](https://docs.oracle.com/javase/10/docs/api/java/util/Set.html#unmodifiable)'s
     static factory methods)
 
     -   example usage in
-        [`UniSetsSpec`](https://github.com/tlinkowski/UniJ/blob/master/subprojects/pl.tlinkowski.unij.api/src/test/groovy/pl/tlinkowski/unij/api/UniListsSpec.groovy)
+        [`UniSetsSpec`](subprojects/api/pl.tlinkowski.unij.api/src/test/groovy/pl/tlinkowski/unij/api/UniListsSpec.groovy)
 
--   [`UniMaps`](https://github.com/tlinkowski/UniJ/blob/master/subprojects/pl.tlinkowski.unij.api/src/main/java/pl/tlinkowski/unij/api/UniMaps.java) 
+-   [`UniMaps`](subprojects/api/pl.tlinkowski.unij.api/src/main/java/pl/tlinkowski/unij/api/UniMaps.java) 
     (equivalent to [`Map`](https://docs.oracle.com/javase/10/docs/api/java/util/Map.html#unmodifiable)'s
     static factory methods)
 
     -   example usage in
-    [`UniMapsSpec`](https://github.com/tlinkowski/UniJ/blob/master/subprojects/pl.tlinkowski.unij.api/src/test/groovy/pl/tlinkowski/unij/api/UniListsSpec.groovy)
+    [`UniMapsSpec`](subprojects/api/pl.tlinkowski.unij.api/src/test/groovy/pl/tlinkowski/unij/api/UniListsSpec.groovy)
 
--   [`UniCollectors`](https://github.com/tlinkowski/UniJ/blob/master/subprojects/pl.tlinkowski.unij.api/src/main/java/pl/tlinkowski/unij/api/UniCollectors.java)
+-   [`UniCollectors`](subprojects/api/pl.tlinkowski.unij.api/src/main/java/pl/tlinkowski/unij/api/UniCollectors.java)
     (equivalent to [`Collectors`](https://docs.oracle.com/javase/10/docs/api/java/util/stream/Collectors.html)
     utility class)
 
     -   example usage in
-        [`UniCollectorsSpec`](https://github.com/tlinkowski/UniJ/blob/master/subprojects/pl.tlinkowski.unij.api/src/test/groovy/pl/tlinkowski/unij/api/UniListsSpec.groovy)
+        [`UniCollectorsSpec`](subprojects/api/pl.tlinkowski.unij.api/src/test/groovy/pl/tlinkowski/unij/api/UniListsSpec.groovy)
 
 The API of these classes has strict equivalence to the corresponding JDK API in terms of:
 -   `null` treatment (no `null`s allowed)
@@ -158,16 +158,16 @@ Details of this equivalence can be found in [Specification](#specification) sect
 *Disclaimer: As an end user, you **don't** need to be concerned with this API. Read on **only if** you want to
 implement your own UniJ bindings or want to understand how UniJ works internally.*
 
-UniJ service API is defined in [`pl.tlinkowski.unij.service.api`](subprojects/pl.tlinkowski.unij.service.api)
+UniJ service API is defined in [`pl.tlinkowski.unij.service.api`](subprojects/api/pl.tlinkowski.unij.service.api)
 and consists of the following interfaces:
 
 -   `collect`:
-    [`UnmodifiableListFactory`](https://github.com/tlinkowski/UniJ/blob/master/subprojects/pl.tlinkowski.unij.service.api/src/main/java/pl/tlinkowski/unij/service/api/collect/UnmodifiableListFactory.java),
-    [`UnmodifiableSetFactory`](https://github.com/tlinkowski/UniJ/blob/master/subprojects/pl.tlinkowski.unij.service.api/src/main/java/pl/tlinkowski/unij/service/api/collect/UnmodifiableSetFactory.java),
-    [`UnmodifiableMapFactory`](https://github.com/tlinkowski/UniJ/blob/master/subprojects/pl.tlinkowski.unij.service.api/src/main/java/pl/tlinkowski/unij/service/api/collect/UnmodifiableMapFactory.java)
+    [`UnmodifiableListFactory`](subprojects/api/pl.tlinkowski.unij.service.api/src/main/java/pl/tlinkowski/unij/service/api/collect/UnmodifiableListFactory.java),
+    [`UnmodifiableSetFactory`](subprojects/api/pl.tlinkowski.unij.service.api/src/main/java/pl/tlinkowski/unij/service/api/collect/UnmodifiableSetFactory.java),
+    [`UnmodifiableMapFactory`](subprojects/api/pl.tlinkowski.unij.service.api/src/main/java/pl/tlinkowski/unij/service/api/collect/UnmodifiableMapFactory.java)
 
 -   `misc`:
-    [`MiscellaneousApiProvider`](https://github.com/tlinkowski/UniJ/blob/master/subprojects/pl.tlinkowski.unij.service.api/src/main/java/pl/tlinkowski/unij/service/api/misc/MiscellaneousApiProvider.java)
+    [`MiscellaneousApiProvider`](subprojects/api/pl.tlinkowski.unij.service.api/src/main/java/pl/tlinkowski/unij/service/api/misc/MiscellaneousApiProvider.java)
 
 A module providing implementations of one or more of these interfaces constitutes a **binding**.
 
@@ -194,15 +194,15 @@ The specification is based on the contract of the original JDK API (expressed mo
 this contract as close as possible.
 
 The specification is expressed as the following test classes defined
-[`pl.tlinkowski.unij.test`](https://github.com/tlinkowski/UniJ/tree/master/subprojects/pl.tlinkowski.unij.test):
+[`pl.tlinkowski.unij.test`](subprojects/pl.tlinkowski.unij.test):
 
 -   `collect`:
-    [`UnmodifiableListFactorySpec`](https://github.com/tlinkowski/UniJ/blob/master/subprojects/pl.tlinkowski.unij.test/src/main/groovy/pl/tlinkowski/unij/test/service/collect/UnmodifiableListFactorySpec.groovy),
-    [`UnmodifiableSetFactorySpec`](https://github.com/tlinkowski/UniJ/blob/master/subprojects/pl.tlinkowski.unij.test/src/main/groovy/pl/tlinkowski/unij/test/service/collect/UnmodifiableSetFactorySpec.groovy),
-    [`UnmodifiableMapFactorySpec`](https://github.com/tlinkowski/UniJ/blob/master/subprojects/pl.tlinkowski.unij.test/src/main/groovy/pl/tlinkowski/unij/test/service/collect/UnmodifiableMapFactorySpec.groovy)
+    [`UnmodifiableListFactorySpec`](subprojects/pl.tlinkowski.unij.test/src/main/groovy/pl/tlinkowski/unij/test/service/collect/UnmodifiableListFactorySpec.groovy),
+    [`UnmodifiableSetFactorySpec`](subprojects/pl.tlinkowski.unij.test/src/main/groovy/pl/tlinkowski/unij/test/service/collect/UnmodifiableSetFactorySpec.groovy),
+    [`UnmodifiableMapFactorySpec`](subprojects/pl.tlinkowski.unij.test/src/main/groovy/pl/tlinkowski/unij/test/service/collect/UnmodifiableMapFactorySpec.groovy)
 
 -   `misc`:
-    [`MiscellaneousApiProviderSpec`](https://github.com/tlinkowski/UniJ/blob/master/subprojects/pl.tlinkowski.unij.test/src/main/groovy/pl/tlinkowski/unij/test/service/misc/MiscellaneousApiProviderSpec.groovy)
+    [`MiscellaneousApiProviderSpec`](subprojects/pl.tlinkowski.unij.test/src/main/groovy/pl/tlinkowski/unij/test/service/misc/MiscellaneousApiProviderSpec.groovy)
 
 Read the specs linked above to learn in detail what contract UniJ follows.
 
@@ -210,26 +210,29 @@ Read the specs linked above to learn in detail what contract UniJ follows.
 
 A binding is an implementation of the [Service API](#service-api) available at runtime. If multiple bindings with
 the same functionality are present on the runtime classpath/modulepath, the one with the top
-[priority](subprojects/pl.tlinkowski.unij.service.api/src/main/java/pl/tlinkowski/unij/service/api/UniJService.java)
+[priority](subprojects/api/pl.tlinkowski.unij.service.api/src/main/java/pl/tlinkowski/unij/service/api/UniJService.java)
 (lowest number) will be selected.
 
 ### Predefined Bindings
+
+UniJ comes with a number of predefined bindings, which can all be found under
+[`subprojects/bindings`](subprojects/bindings).
 
 #### Collection Factory API Bindings
 
 UniJ currently provides four types of `Collection` factory API bindings:
 
-1.  JDK 10 ([`pl.tlinkowski.unij.service.collect.jdk10`](https://github.com/tlinkowski/UniJ/tree/master/subprojects/pl.tlinkowski.unij.service.collect.jdk10)):
+1.  JDK 10 ([`pl.tlinkowski.unij.service.collect.jdk10`](subprojects/bindings/collect/pl.tlinkowski.unij.service.collect.jdk10)):
     simply forwards all calls to the JDK
 
-2.  JDK 8 ([`pl.tlinkowski.unij.service.collect.jdk8`](https://github.com/tlinkowski/UniJ/tree/master/subprojects/pl.tlinkowski.unij.service.collect.jdk8)):
+2.  JDK 8 ([`pl.tlinkowski.unij.service.collect.jdk8`](subprojects/bindings/collect/pl.tlinkowski.unij.service.collect.jdk8)):
     provides regular mutable JDK 8 collections wrapped using [`Collections.unmodifiableList/Set/Map`](https://docs.oracle.com/javase/8/docs/api/java/util/Collections.html#unmodifiableList-java.util.List-)
 
-3.  [Guava](https://github.com/google/guava) ([`pl.tlinkowski.unij.service.collect.guava`](https://github.com/tlinkowski/UniJ/tree/master/subprojects/pl.tlinkowski.unij.service.collect.guava)):
+3.  [Guava](https://github.com/google/guava) ([`pl.tlinkowski.unij.service.collect.guava`](subprojects/bindings/collect/pl.tlinkowski.unij.service.collect.guava)):
     provides Guava's [`ImmutableList`](https://guava.dev/releases/28.0-jre/api/docs/com/google/common/collect/ImmutableList.html)/[`ImmutableSet`](https://guava.dev/releases/28.0-jre/api/docs/com/google/common/collect/ImmutableSet.html)/[`ImmutableMap`](https://guava.dev/releases/28.0-jre/api/docs/com/google/common/collect/ImmutableMap.html)
     implementations (Guava as compile-only dependency — the user needs to add their own runtime dependency on it)
 
-4.  [Eclipse Collections](https://www.eclipse.org/collections/) ([`pl.tlinkowski.unij.service.collect.eclipse`](https://github.com/tlinkowski/UniJ/tree/master/subprojects/pl.tlinkowski.unij.service.collect.eclipse)):
+4.  [Eclipse Collections](https://www.eclipse.org/collections/) ([`pl.tlinkowski.unij.service.collect.eclipse`](subprojects/bindings/collect/pl.tlinkowski.unij.service.collect.eclipse)):
     provides Eclipse's [`ImmutableList`](https://www.eclipse.org/collections/javadoc/10.0.0/org/eclipse/collections/api/list/ImmutableList.html)/[`ImmutableSet`](https://www.eclipse.org/collections/javadoc/10.0.0/org/eclipse/collections/api/set/ImmutableSet.html)/[`ImmutableMap`](https://www.eclipse.org/collections/javadoc/10.0.0/org/eclipse/collections/api/map/ImmutableMap.html)
     implementations (Eclipse as compile-only dependency — the user needs to add their own runtime dependency on it)
 
@@ -237,38 +240,38 @@ UniJ currently provides four types of `Collection` factory API bindings:
 
 UniJ currently provides two types of miscellaneous API bindings:
 
-1.  JDK 11 ([`pl.tlinkowski.unij.service.misc.jdk11`](https://github.com/tlinkowski/UniJ/tree/master/subprojects/pl.tlinkowski.unij.service.misc.jdk11)):
+1.  JDK 11 ([`pl.tlinkowski.unij.service.misc.jdk11`](subprojects/bindings/misc/pl.tlinkowski.unij.service.misc.jdk11)):
     simply forwards all calls to the JDK
 
-2.  JDK 8 ([`pl.tlinkowski.unij.service.misc.jdk8`](https://github.com/tlinkowski/UniJ/tree/master/subprojects/pl.tlinkowski.unij.service.misc.jdk8)):
+2.  JDK 8 ([`pl.tlinkowski.unij.service.misc.jdk8`](subprojects/bindings/misc/pl.tlinkowski.unij.service.misc.jdk8)):
     provides custom implementations based on the ones in JDK 11
 
 #### Bundles
 
-On top of that, UniJ provides four types of *bundles*. A UniJ bundle is a module having no source (save for its
-`module-info.java`) and depending on the following three modules:
+On top of that, UniJ provides four types of [bundles](subprojects/bundles). A UniJ bundle is a module having no source
+(save for its `module-info.java`) and depending on the following three modules:
 
-1.  [`pl.tlinkowski.unij.api`](subprojects/pl.tlinkowski.unij.api) module (transitive dependency)
+1.  [`pl.tlinkowski.unij.api`](subprojects/api/pl.tlinkowski.unij.api) module (transitive dependency)
 2.  one of `pl.tlinkowski.unij.service.collect.<?>` modules
 3.  one of `pl.tlinkowski.unij.service.misc.<?>` modules
 
 Currently, UniJ provides the following four bundles:
 
-1.  JDK 11 ([`pl.tlinkowski.unij.bundle.jdk11`](https://github.com/tlinkowski/UniJ/tree/master/subprojects/pl.tlinkowski.unij.bundle.jdk11)):
-    -   [`pl.tlinkowski.unij.service.collect.jdk10`](https://github.com/tlinkowski/UniJ/tree/master/subprojects/pl.tlinkowski.unij.service.collect.jdk10)
-    -   [`pl.tlinkowski.unij.service.misc.jdk11`](https://github.com/tlinkowski/UniJ/tree/master/subprojects/pl.tlinkowski.unij.service.misc.jdk11)
+1.  JDK 11 ([`pl.tlinkowski.unij.bundle.jdk11`](subprojects/bundles/pl.tlinkowski.unij.bundle.jdk11)):
+    -   [`pl.tlinkowski.unij.service.collect.jdk10`](subprojects/bindings/collect/pl.tlinkowski.unij.service.collect.jdk10)
+    -   [`pl.tlinkowski.unij.service.misc.jdk11`](subprojects/bindings/misc/pl.tlinkowski.unij.service.misc.jdk11)
 
-2.  pure JDK 8 ([`pl.tlinkowski.unij.bundle.jdk8`](https://github.com/tlinkowski/UniJ/tree/master/subprojects/pl.tlinkowski.unij.bundle.jdk8)):
-    -   [`pl.tlinkowski.unij.service.collect.jdk8`](https://github.com/tlinkowski/UniJ/tree/master/subprojects/pl.tlinkowski.unij.service.collect.jdk8)
-    -   [`pl.tlinkowski.unij.service.misc.jdk8`](https://github.com/tlinkowski/UniJ/tree/master/subprojects/pl.tlinkowski.unij.service.misc.jdk8)
+2.  pure JDK 8 ([`pl.tlinkowski.unij.bundle.jdk8`](subprojects/bundles/pl.tlinkowski.unij.bundle.jdk8)):
+    -   [`pl.tlinkowski.unij.service.collect.jdk8`](subprojects/bindings/collect/pl.tlinkowski.unij.service.collect.jdk8)
+    -   [`pl.tlinkowski.unij.service.misc.jdk8`](subprojects/bindings/misc/pl.tlinkowski.unij.service.misc.jdk8)
 
-3.  Guava on JDK 8 ([`pl.tlinkowski.unij.bundle.guava_jdk8`](https://github.com/tlinkowski/UniJ/tree/master/subprojects/pl.tlinkowski.unij.bundle.guava_jdk8)):
-    -   [`pl.tlinkowski.unij.service.collect.guava`](https://github.com/tlinkowski/UniJ/tree/master/subprojects/pl.tlinkowski.unij.service.collect.guava)
-    -   [`pl.tlinkowski.unij.service.misc.jdk8`](https://github.com/tlinkowski/UniJ/tree/master/subprojects/pl.tlinkowski.unij.service.misc.jdk8)
+3.  Guava on JDK 8 ([`pl.tlinkowski.unij.bundle.guava_jdk8`](subprojects/bundles/pl.tlinkowski.unij.bundle.guava_jdk8)):
+    -   [`pl.tlinkowski.unij.service.collect.guava`](subprojects/bindings/collect/pl.tlinkowski.unij.service.collect.guava)
+    -   [`pl.tlinkowski.unij.service.misc.jdk8`](subprojects/bindings/misc/pl.tlinkowski.unij.service.misc.jdk8)
 
-4.  Eclipse on JDK 8 ([`pl.tlinkowski.unij.bundle.eclipse_jdk8`](https://github.com/tlinkowski/UniJ/tree/master/subprojects/pl.tlinkowski.unij.bundle.eclipse_jdk8)):
-    -   [`pl.tlinkowski.unij.service.collect.eclipse`](https://github.com/tlinkowski/UniJ/tree/master/subprojects/pl.tlinkowski.unij.service.collect.eclipse)
-    -   [`pl.tlinkowski.unij.service.misc.jdk8`](https://github.com/tlinkowski/UniJ/tree/master/subprojects/pl.tlinkowski.unij.service.misc.jdk8)
+4.  Eclipse on JDK 8 ([`pl.tlinkowski.unij.bundle.eclipse_jdk8`](subprojects/bundles/pl.tlinkowski.unij.bundle.eclipse_jdk8)):
+    -   [`pl.tlinkowski.unij.service.collect.eclipse`](subprojects/bindings/collect/pl.tlinkowski.unij.service.collect.eclipse)
+    -   [`pl.tlinkowski.unij.service.misc.jdk8`](subprojects/bindings/misc/pl.tlinkowski.unij.service.misc.jdk8)
 
 ### Custom Bindings
 
@@ -276,7 +279,7 @@ You can provide custom bindings by:
 
 -   implementing an interface from the [Service API](#service-api)
 
--   annotating it with a special [`@UniJService`](https://github.com/tlinkowski/UniJ/blob/master/subprojects/pl.tlinkowski.unij.service.api/src/main/java/pl/tlinkowski/unij/service/api/UniJService.java)
+-   annotating it with a special [`@UniJService`](subprojects/api/pl.tlinkowski.unij.service.api/src/main/java/pl/tlinkowski/unij/service/api/UniJService.java)
     annotation
 
 -   providing a `module-info.java` entry (for JDK 9+) and/or a `META-INF` entry (for JDK 8; I recommend Google's
@@ -303,7 +306,7 @@ class CustomUnmodifiableListFactorySpec extends UnmodifiableListFactorySpec {
 }
 ```
 
-A test dependency on [`pl.tlinkowski.unij.test`](https://github.com/tlinkowski/UniJ/tree/master/subprojects/pl.tlinkowski.unij.test)
+A test dependency on [`pl.tlinkowski.unij.test`](subprojects/pl.tlinkowski.unij.test)
 is needed for it.
 
 ## Kotlin Interoperability
@@ -323,7 +326,7 @@ affects performance, the answer is short: **it effectively doesn't**.
 It turns out the JIT compiler simply optimizes all the indirection away.
 
 You can verify this by running a JMH benchmark
-([`UniListsBenchmark`](subprojects/pl.tlinkowski.unij.api/src/jmh/java/pl/tlinkowski/unij/api/UniListsBenchmark.java))
+([`UniListsBenchmark`](subprojects/api/pl.tlinkowski.unij.api/src/jmh/java/pl/tlinkowski/unij/api/UniListsBenchmark.java))
 where calls to `UniLists` (with a JDK 11 binding) are compared to direct JDK 11 API calls. The exact results can be
 found [here](docs/UniListsBenchmark-results.txt).
 

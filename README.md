@@ -176,6 +176,8 @@ In the future, if you want to switch to JDK 11, you'll either:
 -   change the dependency to [`pl.tlinkowski.unij.bundle.jdk11`](subprojects/bundles/pl.tlinkowski.unij.bundle.jdk11)
 -   or remove UniJ altogether (will be a simple matter of replacing all occurrences of `UniLists` with `List`, etc.)
 
+PS. See [sample end-user projects](subprojects/samples/enduser) for an example.
+
 ### Library Maintainers Targeting JDK 8
 
 If you're a library maintainer targeting JDK 8, you also can't use JDK 9's

@@ -66,14 +66,27 @@ subprojects {
   }
 
   config {
-    bintray.enabled = true
-
     javadoc.autoLinks {
       configurations = listOf("api", "implementation", "compileOnly")
     }
   }
 
   //region PER-SUBPROJECT-TYPE CONFIGURATION
+  if (name.contains(".sample.")) {
+    config {
+      publishing.enabled = false
+    }
+
+    dependencies {
+      val slf4jVersion: String by project // https://www.slf4j.org/
+      implementation(group = "org.slf4j", name = "slf4j-simple", version = slf4jVersion)
+    }
+  } else {
+    config {
+      bintray.enabled = true
+    }
+  }
+
   if (name.contains(".bundle.")) {
     dependencies {
       api(project(":pl.tlinkowski.unij.api"))

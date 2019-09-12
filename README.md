@@ -25,6 +25,125 @@ any APIs of its own, and will only introduce new APIs as they're being introduce
 
 > UniJ is to new parts of JDK 9+ API what [SLF4J](https://www.slf4j.org/) is to logging API — a **facade**.
 
+## Usage
+
+### End User Usage
+
+<details open>
+<summary>Gradle (Kotlin DSL)</summary>
+
+```kotlin
+implementation(group = "pl.tlinkowski.unij", name = "pl.tlinkowski.unij.bundle.___", version = "x.y.z")
+```
+
+</details>
+
+<details>
+<summary>Gradle (Groovy DSL)</summary>
+
+```groovy
+implementation group: 'pl.tlinkowski.unij', name: 'pl.tlinkowski.unij.bundle.___', version: 'x.y.z'
+```
+
+</details>
+
+<details>
+<summary>Maven</summary>
+
+```xml
+<dependency>
+  <groupId>pl.tlinkowski.unij</groupId>
+  <artifactId>pl.tlinkowski.unij.bundle.___</artifactId>
+  <version>x.y.z</version>
+</dependency>
+```
+
+</details>
+
+<details open>
+<summary>JPMS (<code>module-info.java</code>)</summary>
+
+```java
+requires pl.tlinkowski.unij.bundle.___;
+```
+
+</details>
+
+where `___` can be one of: `jdk8`, `jdk11`, `guava_jdk8`, or `eclipse_jdk8` (see [Bundles](#bundles) for details). 
+
+### Library Usage
+
+### Non-Transitive Library Usage
+
+<details open>
+<summary>Gradle (Kotlin DSL)</summary>
+
+```kotlin
+implementation(group = "pl.tlinkowski.unij", name = "pl.tlinkowski.unij.api", version = "x.y.z")
+```
+
+</details>
+
+<details>
+<summary>Gradle (Groovy DSL)</summary>
+
+```groovy
+implementation group: 'pl.tlinkowski.unij', name: 'pl.tlinkowski.unij.api', version: 'x.y.z'
+```
+
+</details>
+
+<details open>
+<summary>JPMS (<code>module-info.java</code>)</summary>
+
+```java
+requires pl.tlinkowski.unij.api;
+```
+
+</details>
+
+### Transitive Library Usage
+
+<details open>
+<summary>Gradle (Kotlin DSL)</summary>
+
+```kotlin
+api(group = "pl.tlinkowski.unij", name = "pl.tlinkowski.unij.api", version = "x.y.z")
+```
+
+</details>
+
+<details>
+<summary>Gradle (Groovy DSL)</summary>
+
+```groovy
+api group: 'pl.tlinkowski.unij', name: 'pl.tlinkowski.unij.api', version: 'x.y.z'
+```
+
+</details>
+
+<details>
+<summary>Maven</summary>
+
+```xml
+<dependency>
+  <groupId>pl.tlinkowski.unij</groupId>
+  <artifactId>pl.tlinkowski.unij.api</artifactId>
+  <version>x.y.z</version>
+</dependency>
+```
+
+</details>
+
+<details open>
+<summary>JPMS (<code>module-info.java</code>)</summary>
+
+```java
+requires transitive pl.tlinkowski.unij.api;
+```
+
+</details>
+
 ## Motivation
 
 This library has been primarily designed for:
@@ -48,11 +167,9 @@ The problem with option 1 is that you get somewhat far from the JDK 11 API and i
 If you decide to upgrade to JDK 11 in the future, replacing their collections with JDK 11 ones will **not** be
 straightforward.
 
-With option 2, there's no such problem. Just add a dependency on
-[`pl.tlinkowski.unij.bundle.jdk8`](subprojects/bundles/pl.tlinkowski.unij.bundle.jdk8),
-[`pl.tlinkowski.unij.bundle.guava_jdk8`](subprojects/bundles/pl.tlinkowski.unij.bundle.guava_jdk8), or
-[`pl.tlinkowski.unij.bundle.eclipse_jdk8`](subprojects/bundles/pl.tlinkowski.unij.bundle.eclipse_jdk8),
-and enjoy the JDK 11 API on JDK 8! (you may also need to add certain [external dependencies](#external-dependencies))
+With option 2, there's no such problem. Just add a dependency on a UniJ bundle of your choosing
+(see [End User Usage](#end-user-usage) for detailed instructions) and enjoy the JDK 11 API on JDK 8!
+(note: you may also need to add certain [external dependencies](#external-dependencies))
 
 In the future, if you want to switch to JDK 11, you'll either:
 
@@ -85,14 +202,17 @@ To sum up, as a library maintainer, the choice of `Collection` implementations *
 as with logging - you shouldn't choose the logging backend, and should only program to a **facade** like
 [SLF4J](https://www.slf4j.org/). That's *precisely* what UniJ lets you do with respect to `Collection` factory methods.
 
-Simply add an intransitive (Gradle `implementation`) or a transitive (Gradle `api`) dependency on the
-extremely lightweight [`pl.tlinkowski.unij.api`](subprojects/api/pl.tlinkowski.unij.api), and inform your users they
-should add an intransitive dependency on:
+Simply add a [non-transitive](#non-transitive-library-usage) or a [transitive](#transitive-library-usage)
+dependency on the extremely lightweight [`pl.tlinkowski.unij.api`](subprojects/api/pl.tlinkowski.unij.api),
+and inform your users they should add an intransitive dependency on:
 
 -   an [SFL4J binding](https://www.slf4j.org/manual.html#swapping) of their choosing (UniJ [depends on SLF4J](#slf4j)))
--   a [UniJ binding](#bindings) of their choosing (like with SLF4J)
 
-Alternatively, you can depend on the still quite lightweight
+-   [UniJ bindings](#bindings) ([`Collection` API factory methods](#collection-factory-api-bindings) +
+    [miscellaneous API](#miscellaneous-api-bindings)) or a [UniJ bundle](#bundles) of their choosing
+    (see [End User Usage](#end-user-usage))
+
+PS. Alternatively, you can depend on the still quite lightweight
 [`pl.tlinkowski.unij.bundle.jdk8`](subprojects/bundles/pl.tlinkowski.unij.bundle.jdk8),
 and let your users optionally *override* the default JDK 8 bindings by depending on some other bindings (UniJ supports
 multiple competing [bindings](#bindings) at runtime, with the JDK 8 bindings having the lowest priority).
@@ -206,7 +326,7 @@ The specification is expressed as the following test classes defined
 -   `misc`:
     [`MiscellaneousApiProviderSpec`](subprojects/pl.tlinkowski.unij.test/src/main/groovy/pl/tlinkowski/unij/test/service/misc/MiscellaneousApiProviderSpec.groovy)
 
-Read the specs linked above to learn in detail what contract UniJ follows.
+Read the specs linked above to learn in detail which contract UniJ follows.
 
 ## Bindings
 

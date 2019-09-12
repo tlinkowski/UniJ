@@ -29,7 +29,7 @@ plugins {
 config {
   info {
     name = "UniJ"
-    description = "Universal JDK API Facade"
+    description = "A universal facade for JDK 9+ API, focused on Collection factory methods and Collector providers."
     tags = listOf("java", "jdk", "facade", "collection", "collector", "immutability")
     inceptionYear = "2018"
 

@@ -32,6 +32,8 @@ module pl.tlinkowski.unij.api {
   exports pl.tlinkowski.unij.api;
 
   requires pl.tlinkowski.unij.service.api;
+  requires org.slf4j;
+
   requires static pl.tlinkowski.annotation.basic;
   requires static lombok;
 

@@ -27,6 +27,10 @@ import pl.tlinkowski.unij.service.api.misc.MiscellaneousApiProvider;
  * UniCollectors}.
  *
  * @author Tomasz Linkowski
+ * @uses UnmodifiableListFactory
+ * @uses UnmodifiableSetFactory
+ * @uses UnmodifiableMapFactory
+ * @uses MiscellaneousApiProvider
  */
 module pl.tlinkowski.unij.api {
   exports pl.tlinkowski.unij.api;
@@ -40,6 +44,5 @@ module pl.tlinkowski.unij.api {
   uses UnmodifiableListFactory;
   uses UnmodifiableSetFactory;
   uses UnmodifiableMapFactory;
-
   uses MiscellaneousApiProvider;
 }

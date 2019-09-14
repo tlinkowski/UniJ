@@ -20,18 +20,18 @@ plugins {
   application
 }
 
-modularity.mixedJavaRelease(8)
-
 application {
   mainClassName = "${project.name}/${project.name}.EndUsage"
 }
+
+modularity.mixedJavaRelease(8)
 
 dependencies {
   implementation(project(":pl.tlinkowski.unij.bundle.jdk8"))
 }
 
 tasks {
-  build {
+  check {
     dependsOn(run)
   }
 }

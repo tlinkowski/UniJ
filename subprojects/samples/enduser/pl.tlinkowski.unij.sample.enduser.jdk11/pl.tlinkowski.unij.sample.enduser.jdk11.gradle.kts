@@ -20,18 +20,18 @@ plugins {
   application
 }
 
-modularity.standardJavaRelease(11)
-
 application {
   mainClassName = "${project.name}/${project.name}.EndUsage"
 }
+
+modularity.standardJavaRelease(11)
 
 dependencies {
   implementation(project(":pl.tlinkowski.unij.bundle.jdk11"))
 }
 
 tasks {
-  build {
+  check {
     // run fails with message "java.lang.module.FindException: Module pl.tlinkowski.unij.sample.enduser.jdk11 not found"
     // due to a bug in gradle-modules-plugin ("build\classes\merged" on module path)
 //    dependsOn(run)

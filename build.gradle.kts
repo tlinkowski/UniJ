@@ -81,6 +81,12 @@ subprojects {
       val slf4jVersion: String by project // https://www.slf4j.org/
       implementation(group = "org.slf4j", name = "slf4j-simple", version = slf4jVersion)
     }
+
+    tasks {
+      "jacocoTestCoverageVerification" {
+        enabled = false
+      }
+    }
   } else {
     config {
       bintray.enabled = true

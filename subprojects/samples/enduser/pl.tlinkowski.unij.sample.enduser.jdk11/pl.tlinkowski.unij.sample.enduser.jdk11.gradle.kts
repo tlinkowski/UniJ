@@ -34,6 +34,6 @@ tasks {
   check {
     // run fails with message "java.lang.module.FindException: Module pl.tlinkowski.unij.sample.enduser.jdk11 not found"
     // due to a bug in gradle-modules-plugin ("build\classes\merged" on module path)
-//    dependsOn(run)
+    dependsOn(run)
   }
 }

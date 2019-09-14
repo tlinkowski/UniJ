@@ -94,8 +94,22 @@ subprojects {
     }
     //region TEMPORARY WORKAROUND: https://github.com/tlinkowski/UniJ/issues/40
     tasks {
+      val simulateJavadoc by registering {
+        val javadocDir = buildDir.resolve("docs/javadoc")
+        val elementList = javadocDir.resolve("element-list")
+
+        group = "documentation"
+        inputs.property("project.name", project.name)
+        outputs.file(elementList)
+
+        doFirst {
+          javadocDir.mkdirs()
+          elementList.writeText("module:${project.name}\n")
+        }
+      }
       "javadoc" {
         enabled = false
+        finalizedBy(simulateJavadoc)
       }
     }
     //endregion

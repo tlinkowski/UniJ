@@ -356,16 +356,15 @@ UniJ currently provides four types of `Collection` factory API bindings:
     provides Guava's [`ImmutableList`](https://guava.dev/releases/28.0-jre/api/docs/com/google/common/collect/ImmutableList.html)/[`ImmutableSet`](https://guava.dev/releases/28.0-jre/api/docs/com/google/common/collect/ImmutableSet.html)/[`ImmutableMap`](https://guava.dev/releases/28.0-jre/api/docs/com/google/common/collect/ImmutableMap.html)
     implementations
 
-    -   Guava is a compile-only dependency for this binding — the user needs to add their own runtime dependency on it
-        (minimal supported version is [23.2](https://github.com/google/guava/releases/tag/v23.2)))
+    -   Guava is a compile-only dependency for this binding
+        (see [Guava / Eclipse Collections](#guava--eclipse-collections) for details)
 
 4.  [Eclipse Collections](https://www.eclipse.org/collections/) ([`pl.tlinkowski.unij.service.collect.eclipse`](subprojects/bindings/collect/pl.tlinkowski.unij.service.collect.eclipse)):
     provides Eclipse's [`ImmutableList`](https://www.eclipse.org/collections/javadoc/10.0.0/org/eclipse/collections/api/list/ImmutableList.html)/[`ImmutableSet`](https://www.eclipse.org/collections/javadoc/10.0.0/org/eclipse/collections/api/set/ImmutableSet.html)/[`ImmutableMap`](https://www.eclipse.org/collections/javadoc/10.0.0/org/eclipse/collections/api/map/ImmutableMap.html)
     implementations
 
-    -   Eclipse Collections is a compile-only dependency for this binding — the user needs to add their own runtime
-        dependency on it
-        (minimal supported version is [9.0.0](https://github.com/eclipse/eclipse-collections/releases/tag/9.0.0))
+    -   Eclipse Collections is a compile-only dependency for this binding
+        (see [Guava / Eclipse Collections](#guava--eclipse-collections) for details)
 
 #### Miscellaneous API Bindings
 
@@ -460,17 +459,24 @@ Otherwise, you'll see the following message at runtime:
 
 ### Guava / Eclipse Collections
 
-Note that the dependencies on [Guava](https://github.com/google/guava) and
+The dependencies on [Guava](https://github.com/google/guava) and
 [Eclipse Collections](https://www.eclipse.org/collections/) (present only in modules with `guava` and `eclipse` in
 their name, respectively) are `compileOnly` dependencies.
 
 Thanks to this, dependency on UniJ won't affect the version of Guava / Eclipse Collections you want to use, since
 you have to declare this dependency explicitly.
 
-If your project is:
+Depending on your use case, do the following:
 
--   unmodularized: just add a `runtimeOnly` / `implementation` dependency (depending on whether you'll use it explicitly)
--   modularized: add an `implementation` dependency + `requires ___;` entry to your `module-info.java`
+-   implicit use (only through UniJ): add a `runtimeOnly` dependency on Guava / Eclipse Collections
+
+-   explicit use (access to the entire library):
+    -   non-transitive: add an `implementation` dependency + `requires` entry to `module-info.java`
+    -   transitive: add an `api` dependency + `requires transitive` entry to `module-info.java`
+
+Minimal supported versions are:
+-   Guava: [23.2](https://github.com/google/guava/releases/tag/v23.2)
+-   Eclipse Collections: [9.0.0](https://github.com/eclipse/eclipse-collections/releases/tag/9.0.0)
 
 ## Kotlin Interoperability
 

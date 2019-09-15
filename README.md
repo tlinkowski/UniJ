@@ -15,11 +15,23 @@ UniJ is a **facade** for:
 1.  unmodifiable [`List`](https://docs.oracle.com/javase/10/docs/api/java/util/List.html#unmodifiable)/[`Set`](https://docs.oracle.com/javase/10/docs/api/java/util/Set.html#unmodifiable)/[`Map`](https://docs.oracle.com/javase/10/docs/api/java/util/Map.html#unmodifiable)
     factory methods introduced in JDK 9+
 
-2.  some new [`Collector`](https://docs.oracle.com/javase/10/docs/api/java/util/stream/Collectors.html)s introduced in
-    JDK 10+
+    ```java
+    List<Integer> list = UniLists.of(1, 2, 1); // ⇒ [1, 2, 1]
+    Set<Integer> set = UniSets.copyOf(list); // ⇒ [1, 2]
+    Map<Integer, String> map = UniMaps.of(1, "a", 2, "b"); // ⇒ [1: a, 2: b]
+    ```
 
-**Note**: This library is meant only as a **facade for the official JDK APIs**. This library will **not** introduce
-any APIs of its own, and will only introduce new APIs as they're being introduced in new versions of the JDK.
+2.  some new [`Collector`](https://docs.oracle.com/javase/10/docs/api/java/util/stream/Collectors.html)s introduced in
+    JDK 9+
+
+    ```java
+    Set<String> set = Stream.of("a", "a", "b").collect(UniCollectors.toUnmodifiableSet()); // ⇒ [a, b]
+    List<Integer> list = Stream.of(1, 2, 3, 4).collect(UniCollectors.filtering(i -> i > 2, UniCollectors.toUnmodifiableList())); // ⇒ [3, 4] 
+    ```
+
+**Note**: UniJ is meant only as a **facade for the official JDK APIs**. UniJ will **not** introduce any APIs of
+its own design (it may only introduce APIs that directly correspond to APIs in the latest stable release of the JDK;
+currently, it's [JDK 12](https://openjdk.java.net/projects/jdk/12/)).
 
 ## Analogy
 
@@ -176,7 +188,7 @@ In the future, if you want to switch to JDK 11, you'll either:
 -   change the dependency to [`pl.tlinkowski.unij.bundle.jdk11`](subprojects/bundles/pl.tlinkowski.unij.bundle.jdk11)
 -   or remove UniJ altogether (will be a simple matter of replacing all occurrences of `UniLists` with `List`, etc.)
 
-PS. See [sample end-user projects](subprojects/samples/enduser) for an example.
+**Example**: See [sample end-user projects](subprojects/samples/enduser).
 
 ### Library Maintainers Targeting JDK 8
 
@@ -204,20 +216,31 @@ To sum up, as a library maintainer, the choice of `Collection` implementations *
 as with logging - you shouldn't choose the logging backend, and should only program to a **facade** like
 [SLF4J](https://www.slf4j.org/). That's *precisely* what UniJ lets you do with respect to `Collection` factory methods.
 
-Simply add a [non-transitive](#non-transitive-library-usage) or a [transitive](#transitive-library-usage)
-dependency on the extremely lightweight [`pl.tlinkowski.unij.api`](subprojects/api/pl.tlinkowski.unij.api),
-and inform your users they should add an intransitive dependency on:
+You have two options here:
 
--   an [SFL4J binding](https://www.slf4j.org/manual.html#swapping) of their choosing (UniJ [depends on SLF4J](#slf4j)))
+1.  Add a [non-transitive](#non-transitive-library-usage) or a [transitive](#transitive-library-usage)
+    dependency on the extremely lightweight [`pl.tlinkowski.unij.api`](subprojects/api/pl.tlinkowski.unij.api)
+    and instruct your users to:
 
--   [UniJ bindings](#bindings) ([`Collection` API factory methods](#collection-factory-api-bindings) +
-    [miscellaneous API](#miscellaneous-api-bindings)) or a [UniJ bundle](#bundles) of their choosing
-    (see [End User Usage](#end-user-usage))
+    -   (optionally) add a runtime-only dependency on an [SFL4J binding](https://www.slf4j.org/manual.html#swapping)
+        of their choosing (UniJ [depends on SLF4J](#slf4j)))
 
-PS. Alternatively, you can depend on the still quite lightweight
-[`pl.tlinkowski.unij.bundle.jdk8`](subprojects/bundles/pl.tlinkowski.unij.bundle.jdk8),
-and let your users optionally *override* the default JDK 8 bindings by depending on some other bindings (UniJ supports
-multiple competing [bindings](#bindings) at runtime, with the JDK 8 bindings having the lowest priority).
+    -   add an intransitive dependency on [UniJ bindings](#bindings)
+        ([`Collection` API factory methods](#collection-factory-api-bindings) + [miscellaneous API](#miscellaneous-api-bindings))
+        or a [UniJ bundle](#bundles) of their choosing (see [End User Usage](#end-user-usage))
+
+2. Add a dependency on the still quite lightweight [`pl.tlinkowski.unij.bundle.jdk8`](subprojects/bundles/pl.tlinkowski.unij.bundle.jdk8)
+   and instruct your users to:
+
+    -   (optionally) add a runtime-only dependency on an [SFL4J binding](https://www.slf4j.org/manual.html#swapping)
+        
+    -   (optionally) *override* the default JDK 8 bindings by depending on some other bindings (UniJ supports multiple
+        competing [bindings](#bindings) at runtime, with the JDK 8 bindings having the lowest priority)
+
+Option 1 ensures there are no redundant dependencies on the classpath/modulepath, while
+option 2 requires less dependencies to be *explicitly* added by the user if they're on JDK 8.
+
+**Example**: See [sample library-related projects](subprojects/samples/lib) (option 1).
 
 ## API
 

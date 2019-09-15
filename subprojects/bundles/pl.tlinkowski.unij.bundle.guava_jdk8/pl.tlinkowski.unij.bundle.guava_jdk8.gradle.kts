@@ -21,6 +21,6 @@ dependencies {
   implementation(project(":pl.tlinkowski.unij.service.collect.guava"))
   implementation(project(":pl.tlinkowski.unij.service.misc.jdk8"))
 
-  val guavaVersion: String by project // https://github.com/google/guava
-  testRuntimeOnly(group = "com.google.guava", name = "guava", version = guavaVersion)
+  val guavaHighVersion: String by project // https://github.com/google/guava
+  testRuntimeOnly(group = "com.google.guava", name = "guava", version = guavaHighVersion)
 }

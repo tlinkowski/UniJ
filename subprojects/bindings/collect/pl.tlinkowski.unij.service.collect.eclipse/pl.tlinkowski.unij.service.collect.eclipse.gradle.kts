@@ -20,8 +20,8 @@ modularity.mixedJavaRelease(8)
 superpom.useLombok = true
 
 dependencies {
-  val eclipseCollectionsVersion: String by project // https://www.eclipse.org/collections/
+  val eclipseCollectionsLowVersion: String by project // https://www.eclipse.org/collections/
 
-  compileOnly(group = "org.eclipse.collections", name = "eclipse-collections", version = eclipseCollectionsVersion)
-  testRuntimeOnly(group = "org.eclipse.collections", name = "eclipse-collections", version = eclipseCollectionsVersion)
+  compileOnly(group = "org.eclipse.collections", name = "eclipse-collections", version = eclipseCollectionsLowVersion)
+  testRuntimeOnly(group = "org.eclipse.collections", name = "eclipse-collections", version = eclipseCollectionsLowVersion)
 }

@@ -20,8 +20,8 @@ modularity.mixedJavaRelease(8)
 superpom.useLombok = true
 
 dependencies {
-  val guavaVersion: String by project // https://github.com/google/guava
+  val guavaLowVersion: String by project // https://github.com/google/guava
 
-  compileOnly(group = "com.google.guava", name = "guava", version = guavaVersion)
-  testRuntimeOnly(group = "com.google.guava", name = "guava", version = guavaVersion)
+  compileOnly(group = "com.google.guava", name = "guava", version = guavaLowVersion)
+  testRuntimeOnly(group = "com.google.guava", name = "guava", version = guavaLowVersion)
 }

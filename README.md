@@ -229,8 +229,8 @@ You have two options here:
         ([`Collection` API factory methods](#collection-factory-api-bindings) + [miscellaneous API](#miscellaneous-api-bindings))
         or a [UniJ bundle](#bundles) of their choosing (see [End User Usage](#end-user-usage))
 
-2. Add a dependency on the still quite lightweight [`pl.tlinkowski.unij.bundle.jdk8`](subprojects/bundles/pl.tlinkowski.unij.bundle.jdk8)
-   and instruct your users to:
+2.  Add a dependency on the still quite lightweight [`pl.tlinkowski.unij.bundle.jdk8`](subprojects/bundles/pl.tlinkowski.unij.bundle.jdk8)
+    and instruct your users to:
 
     -   (optionally) add a runtime-only dependency on an [SFL4J binding](https://www.slf4j.org/manual.html#swapping)
         

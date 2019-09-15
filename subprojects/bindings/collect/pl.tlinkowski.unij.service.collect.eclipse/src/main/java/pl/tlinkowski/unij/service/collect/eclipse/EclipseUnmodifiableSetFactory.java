@@ -23,9 +23,9 @@ import java.util.stream.Collectors;
 
 import com.google.auto.service.AutoService;
 import lombok.NonNull;
-import org.eclipse.collections.api.factory.Sets;
 import org.eclipse.collections.api.set.ImmutableSet;
 import org.eclipse.collections.impl.collector.Collectors2;
+import org.eclipse.collections.impl.factory.Sets;
 
 import pl.tlinkowski.unij.service.api.UniJService;
 import pl.tlinkowski.unij.service.api.collect.UnmodifiableSetFactory;

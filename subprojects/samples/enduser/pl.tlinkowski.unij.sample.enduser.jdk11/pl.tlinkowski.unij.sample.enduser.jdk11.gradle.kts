@@ -32,8 +32,8 @@ dependencies {
 
 tasks {
   check {
-    // run fails with message "java.lang.module.FindException: Module pl.tlinkowski.unij.sample.enduser.jdk11 not found"
-    // due to a bug in gradle-modules-plugin ("build\classes\merged" on module path)
+    // `run` fails with "java.lang.module.FindException: Module pl.tlinkowski.unij.sample.enduser.jdk11 not found"
+    // https://github.com/java9-modularity/gradle-modules-plugin/issues/118
 //    dependsOn(run)
   }
 }

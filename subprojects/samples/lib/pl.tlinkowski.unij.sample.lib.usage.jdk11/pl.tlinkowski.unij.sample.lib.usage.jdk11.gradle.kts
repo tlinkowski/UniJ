@@ -35,6 +35,8 @@ dependencies {
 
 tasks {
   check {
-    dependsOn(run)
+    // `run` fails with "java.lang.module.FindException: Module pl.tlinkowski.unij.sample.lib.usage.jdk11 not found"
+    // https://github.com/java9-modularity/gradle-modules-plugin/issues/118
+//    dependsOn(run)
   }
 }

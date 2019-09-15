@@ -30,7 +30,7 @@ config {
   info {
     name = "UniJ"
     description = "A universal facade for JDK 9+ API, focused on Collection factory methods and Collector providers."
-    tags = listOf("java", "jdk", "facade", "collection", "collector", "immutability")
+    tags = listOf("java", "jdk", "facade", "collection", "collector", "immutability", "backport")
     inceptionYear = "2018"
 
     links {

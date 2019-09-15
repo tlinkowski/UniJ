@@ -54,6 +54,7 @@ subprojects {
   val api by configurations
   val implementation by configurations
   val compileOnly by configurations
+  val runtimeOnly by configurations
   val annotationProcessor by configurations
 
   val testImplementation by configurations
@@ -79,7 +80,7 @@ subprojects {
 
     dependencies {
       val slf4jVersion: String by project // https://www.slf4j.org/
-      implementation(group = "org.slf4j", name = "slf4j-simple", version = slf4jVersion)
+      runtimeOnly(group = "org.slf4j", name = "slf4j-simple", version = slf4jVersion)
     }
 
     tasks {

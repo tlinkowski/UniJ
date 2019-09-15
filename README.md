@@ -448,7 +448,7 @@ Currently, UniJ provides the following four [bundles](subprojects/bundles):
 UniJ [User API](#user-api) has an `implementation` dependency on [SLF4J](https://www.slf4j.org/) API to let you have
 insight into which implementation it chooses for each of its [Service API](#service-api) interfaces.
 
-As a result, if you use UniJ, you may also add a dependency on one of
+As a result, if you use UniJ, you should also add a `runtimeOnly` dependency on one of
 [its bindings](https://www.slf4j.org/manual.html#swapping).
 Otherwise, you'll see the following message at runtime:
 
@@ -457,11 +457,6 @@ Otherwise, you'll see the following message at runtime:
 > SLF4J: Defaulting to no-operation (NOP) logger implementation
 >
 > SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
-
-If your project is:
-
--   unmodularized: just add a `runtimeOnly` dependency
--   modularized: add an `implementation` dependency + `requires org.slf4j.___;` entry to your `module-info.java`
 
 ### Guava / Eclipse Collections
 

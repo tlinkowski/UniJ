@@ -1,4 +1,4 @@
-# UniJ: Universal JDK API Facade
+# UniJ: Universal JDK 9+ API Facade
 
 [![Build (Linux)](https://img.shields.io/travis/com/tlinkowski/UniJ/master?logo=linux)](https://travis-ci.com/tlinkowski/UniJ)
 [![Build (Windows)](https://img.shields.io/appveyor/ci/tlinkowski/UniJ/master?logo=windows)](https://ci.appveyor.com/project/tlinkowski/UniJ/branch/master)
@@ -354,11 +354,18 @@ UniJ currently provides four types of `Collection` factory API bindings:
 
 3.  [Guava](https://github.com/google/guava) ([`pl.tlinkowski.unij.service.collect.guava`](subprojects/bindings/collect/pl.tlinkowski.unij.service.collect.guava)):
     provides Guava's [`ImmutableList`](https://guava.dev/releases/28.0-jre/api/docs/com/google/common/collect/ImmutableList.html)/[`ImmutableSet`](https://guava.dev/releases/28.0-jre/api/docs/com/google/common/collect/ImmutableSet.html)/[`ImmutableMap`](https://guava.dev/releases/28.0-jre/api/docs/com/google/common/collect/ImmutableMap.html)
-    implementations (Guava as compile-only dependency — the user needs to add their own runtime dependency on it)
+    implementations
+
+    -   Guava is a compile-only dependency for this binding — the user needs to add their own runtime dependency on it
+        (minimal supported version is [23.2](https://github.com/google/guava/releases/tag/v23.2)))
 
 4.  [Eclipse Collections](https://www.eclipse.org/collections/) ([`pl.tlinkowski.unij.service.collect.eclipse`](subprojects/bindings/collect/pl.tlinkowski.unij.service.collect.eclipse)):
     provides Eclipse's [`ImmutableList`](https://www.eclipse.org/collections/javadoc/10.0.0/org/eclipse/collections/api/list/ImmutableList.html)/[`ImmutableSet`](https://www.eclipse.org/collections/javadoc/10.0.0/org/eclipse/collections/api/set/ImmutableSet.html)/[`ImmutableMap`](https://www.eclipse.org/collections/javadoc/10.0.0/org/eclipse/collections/api/map/ImmutableMap.html)
-    implementations (Eclipse as compile-only dependency — the user needs to add their own runtime dependency on it)
+    implementations
+
+    -   Eclipse Collections is a compile-only dependency for this binding — the user needs to add their own runtime
+        dependency on it
+        (minimal supported version is [9.0.0](https://github.com/eclipse/eclipse-collections/releases/tag/9.0.0))
 
 #### Miscellaneous API Bindings
 

@@ -175,15 +175,15 @@ What can you do?
 
 2.  Or depend on **UniJ** and program to its [JDK-like API](#user-api).
 
-The problem with option 1 is that you get somewhat far from the JDK 11 API and its [specification](#specification).
-If you decide to upgrade to JDK 11 in the future, replacing their collections with JDK 11 ones will **not** be
+The problem with option 1 is that you get somewhat far from the JDK 9+ API and its [specification](#specification).
+If you decide to upgrade to e.g. JDK 11 in the future, replacing their collections with JDK 11 ones will **not** be
 straightforward.
 
 With option 2, there's no such problem. Just add a dependency on a UniJ bundle of your choosing
-(see [End User Usage](#end-user-usage) for detailed instructions) and enjoy the JDK 11 API on JDK 8!
+(see [End User Usage](#end-user-usage) for detailed instructions) and enjoy the JDK 9+ API on JDK 8!
 (note: you may also need to add certain [external dependencies](#external-dependencies))
 
-In the future, if you want to switch to JDK 11, you'll either:
+In the future, if you want to switch from UniJ to JDK 11, you'll either:
 
 -   change the dependency to [`pl.tlinkowski.unij.bundle.jdk11`](subprojects/bundles/pl.tlinkowski.unij.bundle.jdk11)
 -   or remove UniJ altogether (will be a simple matter of replacing all occurrences of `UniLists` with `List`, etc.)
@@ -204,16 +204,15 @@ Instead, you're probably using:
 
 The problems with these options are as follows:
 
-1.  If your users themselves use JDK 11's, Guava's or Eclipse's `Collection`s:
+1.  If your users themselves use JDK 9's, Guava's or Eclipse's `Collection`s:
     -   you're wasting potential by not using the best `Collection` implementations available
     -   you're introducing inconsistency regarding which `Collection` implementations are used in your users' app/library
 
 2.  This would be a really bad option, because — by bundling with an external library — you'd impose a heavy dependency on
-    your users. Even worse, if they already used one (e.g. Guava), and you bundled with another (e.g. Eclipse Collections),
-    they'd end up with **both**!
+    your users.
 
-To sum up, as a library maintainer, the choice of `Collection` implementations **shouldn't be yours**. It's the same
-as with logging - you shouldn't choose the logging backend, and should only program to a **facade** like
+To sum up, as a library maintainer, the *choice* of `Collection` implementations **shouldn't be yours**. It's the same
+as with logging - you shouldn't choose the logging *backend*, and should only program to a **facade** like
 [SLF4J](https://www.slf4j.org/). That's *precisely* what UniJ lets you do with respect to `Collection` factory methods.
 
 You have two options here:
@@ -222,20 +221,20 @@ You have two options here:
     dependency on the extremely lightweight [`pl.tlinkowski.unij.api`](subprojects/api/pl.tlinkowski.unij.api)
     and instruct your users to:
 
-    -   (optionally) add a runtime-only dependency on an [SFL4J binding](https://www.slf4j.org/manual.html#swapping)
-        of their choosing (UniJ [depends on SLF4J](#slf4j)))
-
     -   add an intransitive dependency on [UniJ bindings](#bindings)
         ([`Collection` API factory methods](#collection-factory-api-bindings) + [miscellaneous API](#miscellaneous-api-bindings))
         or a [UniJ bundle](#bundles) of their choosing (see [End User Usage](#end-user-usage))
 
+    -   (optionally) add a runtime-only dependency on an [SFL4J binding](https://www.slf4j.org/manual.html#swapping)
+        of their choosing (UniJ [depends on SLF4J](#slf4j))
+
 2.  Add a dependency on the still quite lightweight [`pl.tlinkowski.unij.bundle.jdk8`](subprojects/bundles/pl.tlinkowski.unij.bundle.jdk8)
     and instruct your users to:
 
-    -   (optionally) add a runtime-only dependency on an [SFL4J binding](https://www.slf4j.org/manual.html#swapping)
-        
     -   (optionally) *override* the default JDK 8 bindings by depending on some other bindings (UniJ supports multiple
         competing [bindings](#bindings) at runtime, with the JDK 8 bindings having the lowest priority)
+
+    -   (optionally) add a runtime-only dependency on an [SFL4J binding](https://www.slf4j.org/manual.html#swapping)
 
 Option 1 ensures there are no redundant dependencies on the classpath/modulepath, while
 option 2 requires less dependencies to be *explicitly* added by the user if they're on JDK 8.
@@ -459,7 +458,7 @@ Currently, UniJ provides the following four [bundles](subprojects/bundles):
     -   [`pl.tlinkowski.unij.service.collect.guava`](subprojects/bindings/collect/pl.tlinkowski.unij.service.collect.guava)
     -   [`pl.tlinkowski.unij.service.misc.jdk8`](subprojects/bindings/misc/pl.tlinkowski.unij.service.misc.jdk8)
 
-4.  Eclipse on JDK 8 ([`pl.tlinkowski.unij.bundle.eclipse_jdk8`](subprojects/bundles/pl.tlinkowski.unij.bundle.eclipse_jdk8)):
+4.  Eclipse Collections on JDK 8 ([`pl.tlinkowski.unij.bundle.eclipse_jdk8`](subprojects/bundles/pl.tlinkowski.unij.bundle.eclipse_jdk8)):
     -   [`pl.tlinkowski.unij.service.collect.eclipse`](subprojects/bindings/collect/pl.tlinkowski.unij.service.collect.eclipse)
     -   [`pl.tlinkowski.unij.service.misc.jdk8`](subprojects/bindings/misc/pl.tlinkowski.unij.service.misc.jdk8)
 
@@ -539,9 +538,9 @@ If you're looking for a backport of Java 9+ to Java 8, you can use the following
 
 3.  **Java Platform Module System**: [Gradle Modules Plugin](https://github.com/java9-modularity/gradle-modules-plugin)
 
-    -   Gradle Modules Plugin provides support for JPMS (`module-info.java`) not only to standard JDK 9+ projects,
-        but also to JDK 8 projects, thanks to its special
-        [mixed-release mode](https://github.com/java9-modularity/gradle-modules-plugin#compilation-to-a-specific-java-release)
+    -   Gradle Modules Plugin provides support for JPMS (`module-info.java`) not only to JDK 9+ projects (standard mode)
+        but also to JDK 8 projects (special
+        [mixed mode](https://github.com/java9-modularity/gradle-modules-plugin#compilation-to-a-specific-java-release))
 
 Together, UniJ, Jabel, and Gradle Modules Plugin may provide you with pretty good "Java 9+"-like experience
 while still targeting / being on JDK 8. 

@@ -1,5 +1,15 @@
 # Releases
 
+## Version 0.1.1
+
+Release date: 16/09/2019.
+
+### Bug Fixes
+
+-   [#53](https://github.com/tlinkowski/UniJ/issues/53): Can't sync to Maven Central
+
+---
+
 ## Version 0.1.0
 
 Release date: 15/09/2019.

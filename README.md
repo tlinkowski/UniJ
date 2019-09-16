@@ -522,6 +522,30 @@ You can verify this by running a JMH benchmark
 where calls to `UniLists` (with a JDK 11 binding) are compared to direct JDK 11 API calls. The exact results can be
 found [here](docs/UniListsBenchmark-results.txt).
 
+## Backport of Java 9+ to Java 8
+
+If you're looking for a backport of Java 9+ to Java 8, you can use the following for:
+
+1.  new **APIs**: [UniJ](http://unij.tlinkowski.pl)
+
+    -   UniJ JDK 8 bundle ([`pl.tlinkowski.unij.bundle.jdk8`](subprojects/bundles/pl.tlinkowski.unij.bundle.jdk8))
+        is *effectively* a backport of **some** of the JDK 9+ APIs to JDK 8
+        (see [End Users Stuck on JDK 8](#end-users-stuck-on-jdk-8) for details)
+
+2.  new **language features**: [Jabel](https://github.com/bsideup/jabel)
+
+    -   Jabel is an annotation processor that lets you use **some** language features of Java 9+
+        while still targeting JDK 8
+
+3.  **Java Platform Module System**: [Gradle Modules Plugin](https://github.com/java9-modularity/gradle-modules-plugin)
+
+    -   Gradle Modules Plugin provides support for JPMS (`module-info.java`) not only to standard JDK 9+ projects,
+        but also to JDK 8 projects, thanks to its special
+        [mixed-release mode](https://github.com/java9-modularity/gradle-modules-plugin#compilation-to-a-specific-java-release)
+
+Together, UniJ, Jabel, and Gradle Modules Plugin may provide you with pretty good "Java 9+"-like experience
+while still targeting / being on JDK 8. 
+
 ## Requirements
 
 Usage: JDK 8+.

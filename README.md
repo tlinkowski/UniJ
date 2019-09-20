@@ -10,6 +10,8 @@
 [![Semantic Versioning](https://img.shields.io/badge/-semantic%20versioning-333333)](https://semver.org/)
 [![Automated Release Notes by gren](https://img.shields.io/badge/%F0%9F%A4%96-release%20notes-00B2EE)](https://github-tools.github.io/github-release-notes/)
 
+## Introduction
+
 UniJ is a **facade** for:
 
 1.  unmodifiable [`List`](https://docs.oracle.com/javase/10/docs/api/java/util/List.html#unmodifiable)/[`Set`](https://docs.oracle.com/javase/10/docs/api/java/util/Set.html#unmodifiable)/[`Map`](https://docs.oracle.com/javase/10/docs/api/java/util/Map.html#unmodifiable)
@@ -29,9 +31,14 @@ UniJ is a **facade** for:
     List<Integer> list = Stream.of(1, 2, 3, 4).collect(UniCollectors.filtering(i -> i > 2, UniCollectors.toUnmodifiableList())); // ⇒ [3, 4] 
     ```
 
-**Note**: UniJ is meant only as a **facade for the official JDK APIs**. UniJ will **not** introduce any APIs of
+With respect to the above, UniJ is also a partial:
+
+-   [backport of JDK 9+ to JDK 8](#backport-of-java-9-to-java-8)
+-   [proxy for Guava and Eclipse Collections](#collection-factory-api-bindings)
+
+**Note**: UniJ is meant only as a facade for the **official JDK APIs**. UniJ will **not** introduce any APIs of
 its own design (it may only introduce APIs that directly correspond to APIs in the latest stable release of the JDK;
-currently, it's [JDK 12](https://openjdk.java.net/projects/jdk/12/)).
+currently, it's [JDK 13](https://openjdk.java.net/projects/jdk/13/)).
 
 ## Analogy
 

@@ -12,37 +12,116 @@
 
 ## Introduction
 
-UniJ is a **facade** for:
+UniJ is a JDK 8 **facade** for:
 
 1.  unmodifiable [`List`](https://docs.oracle.com/javase/10/docs/api/java/util/List.html#unmodifiable)/[`Set`](https://docs.oracle.com/javase/10/docs/api/java/util/Set.html#unmodifiable)/[`Map`](https://docs.oracle.com/javase/10/docs/api/java/util/Map.html#unmodifiable)
-    factory methods introduced in JDK 9+
+    factory methods (equivalent to those introduced in JDK 9+)
 
-    ```java
-    List<Integer> list = UniLists.of(1, 2, 1); // ⇒ [1, 2, 1]
-    Set<Integer> set = UniSets.copyOf(list); // ⇒ [1, 2]
-    Map<Integer, String> map = UniMaps.of(1, "a", 2, "b"); // ⇒ [1: a, 2: b]
-    ```
+2.  some new [`Collector`](https://docs.oracle.com/javase/10/docs/api/java/util/stream/Collectors.html) providers
+    (equivalent to those introduced in JDK 9+)
 
-2.  some new [`Collector`](https://docs.oracle.com/javase/10/docs/api/java/util/stream/Collectors.html)s introduced in
-    JDK 9+
-
-    ```java
-    Set<String> set = Stream.of("a", "a", "b").collect(UniCollectors.toUnmodifiableSet()); // ⇒ [a, b]
-    List<Integer> list = Stream.of(1, 2, 3, 4).collect(UniCollectors.filtering(i -> i > 2, UniCollectors.toUnmodifiableList())); // ⇒ [3, 4] 
-    ```
-
-With respect to the above, UniJ is also a partial:
-
--   [backport of JDK 9+ to JDK 8](#backport-of-java-9-to-java-8)
--   [proxy for Guava and Eclipse Collections](#collection-factory-api-bindings)
-
-**Note**: UniJ is meant only as a facade for the **official JDK APIs**. UniJ will **not** introduce any APIs of
-its own design (it may only introduce APIs that directly correspond to APIs in the latest stable release of the JDK;
-currently, it's [JDK 13](https://openjdk.java.net/projects/jdk/13/)).
-
-## Analogy
+### Analogy
 
 > UniJ is to new parts of JDK 9+ API what [SLF4J](https://www.slf4j.org/) is to logging API — a **facade**.
+
+### Quick Example
+
+<details open>
+<summary>JDK 9+</summary>
+
+```java
+Set<Integer> set = Set.of(1, 2);
+List<Integer> list = List.of(1, 2, 1);
+Map<Integer, String> map = Map.of(1, "a", 2, "b");
+
+Set.copyOf(list); // ⇒ [1, 2]
+Set.of(1, 2, 1); // throws "duplicate element" exception
+Set.of(1, 2, null); // throws null-pointer exception
+```
+
+</details>
+
+<details open>
+<summary>UniJ (JDK 8+)</summary>
+
+```java
+Set<Integer> set = UniSets.of(1, 2);
+List<Integer> list = UniLists.of(1, 2, 1);
+Map<Integer, String> map = UniMaps.of(1, "a", 2, "b");
+
+UniSets.copyOf(list); // ⇒ [1, 2]
+UniSets.of(1, 2, 1); // throws "duplicate element" exception
+UniSets.of(1, 2, null); // throws null-pointer exception
+```
+
+</details>
+
+### Notes
+
+1.  UniJ is also a partial:
+    -   [backport of JDK 9+ to JDK 8](#backport-of-java-9-to-java-8)
+    -   [proxy for Guava and Eclipse Collections](#collection-factory-api-bindings)
+
+2.  UniJ is meant **only** as a facade for the **official JDK APIs**. UniJ will **not** introduce any
+    APIs of its own design (it may only introduce APIs that directly correspond to APIs in the latest stable release
+    of the JDK; currently, it's [JDK 13](https://openjdk.java.net/projects/jdk/13/)).
+
+## Method Summary
+
+<table>
+
+  <tr>
+    <th colspan="2">JDK 9+</th><th colspan="2">UniJ (JDK 8+)</th>
+  </tr>
+
+  <tr>
+    <td align="center"><em>type</em></td>
+    <td align="center" colspan="2"><em>static method name</em></td>
+    <td align="center"><em>type</em></td>
+  </tr>
+
+  <tr>
+    <td align="center">
+      <a href="https://docs.oracle.com/javase/10/docs/api/java/util/List.html#method.summary"><code>List</code></a><br>
+      <a href="https://docs.oracle.com/javase/10/docs/api/java/util/Set.html#method.summary"><code>Set</code></a><br>
+    </td>
+    <td align="center" colspan="2"><code>of</code>, <code>copyOf</code></td>
+    <td align="center">
+      <a href="https://static.javadoc.io/pl.tlinkowski.unij/pl.tlinkowski.unij.api/0.1.1/pl.tlinkowski.unij.api/pl/tlinkowski/unij/api/UniLists.html#method.summary"><code>UniLists</code></a><br>
+      <a href="https://static.javadoc.io/pl.tlinkowski.unij/pl.tlinkowski.unij.api/0.1.1/pl.tlinkowski.unij.api/pl/tlinkowski/unij/api/UniSets.html#method.summary"><code>UniSets</code></a><br>
+    </td>
+  </tr>
+
+  <tr>
+    <td align="center">
+      <a href="https://docs.oracle.com/javase/10/docs/api/java/util/Map.html#method.summary"><code>Map</code></a>
+    </td>
+    <td align="center" colspan="2">
+      <code>of</code>, <code>copyOf</code>,<br>
+      <code>entry</code>, <code>ofEntries</code>
+    </td>
+    <td align="center">
+      <a href="https://static.javadoc.io/pl.tlinkowski.unij/pl.tlinkowski.unij.api/0.1.1/pl.tlinkowski.unij.api/pl/tlinkowski/unij/api/UniMaps.html#method.summary"><code>UniMaps</code></a>
+    </td>
+  </tr>
+
+  <tr>
+    <td align="center">
+      <a href="https://docs.oracle.com/javase/10/docs/api/java/util/stream/Collectors.html#method.summary"><code>Collectors</code></a>
+    </td>
+    <td align="center" colspan="2">
+      <code>toUnmodifiableList</code><br>
+      <code>toUnmodifiableSet</code><br>
+      <code>toUnmodifiableMap</code><br>
+      <code>filtering</code><br>
+      <code>flatMapping</code>
+    </td>
+    <td align="center">
+      <a href="https://static.javadoc.io/pl.tlinkowski.unij/pl.tlinkowski.unij.api/0.1.1/pl.tlinkowski.unij.api/pl/tlinkowski/unij/api/UniCollectors.html#method.summary"><code>UniCollectors</code></a>
+    </td>
+  </tr>
+
+</table>
 
 ## Usage
 

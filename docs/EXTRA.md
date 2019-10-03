@@ -34,7 +34,7 @@ Table of Contents:
 -   [`pl.tlinkowski.unij.test`](../subprojects/pl.tlinkowski.unij.test)
     (for [custom bindings](../README.md#custom-bindings))
 
-### Performance
+## Performance
 
 If you wonder how UniJ's indirection (= its two extra layers: [User API](../README.md#user-api)
 and [Service API](../README.md#service-api)) affects performance, the answer is short: **it effectively doesn't**.
@@ -46,7 +46,7 @@ You can verify this by running a JMH benchmark
 where calls to `UniLists` (with a JDK 11 binding) are compared to direct JDK 11 API calls. The exact results can be
 found [here](UniListsBenchmark-results.txt).
 
-### Kotlin Interoperability
+## Kotlin Interoperability
 
 This library is highly interoperable with [Kotlin](https://kotlinlang.org/) thanks to being annotated with regard to:
 
@@ -55,7 +55,7 @@ This library is highly interoperable with [Kotlin](https://kotlinlang.org/) than
 
 using annotations provided by [Basic Java Annotations](https://github.com/tlinkowski/basic-annotations) library.
 
-### Backport of Java 9+ to Java 8
+## Backport of Java 9+ to Java 8
 
 If you're looking for a backport of Java 9+ to Java 8, you can use the following for:
 

@@ -20,6 +20,14 @@ UniJ is a JDK 8 **facade** for:
 2.  some new [`Collector`](https://docs.oracle.com/javase/10/docs/api/java/util/stream/Collectors.html) providers
     (equivalent to those introduced in JDK 9+)
 
+UniJ is similar to [SLF4J](https://www.slf4j.org/) (Simple Logging Facade for Java) in that it provides an API that
+can be implemented in many different ways and then be injected at runtime as a
+[Java service](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/ServiceLoader.html).
+
+UniJ consists of three key parts described further on: its **API**, its **bindings**, and its **bundles**.
+
+*Note*: if you look for a specific UniJ project, consult [UniJ project layout](docs/EXTRA.md#project-layout).
+
 ### Analogy
 
 > UniJ is to new parts of JDK 9+ API what [SLF4J](https://www.slf4j.org/) is to logging API — a **facade**.
@@ -58,13 +66,13 @@ UniSets.of(1, 2, null); // throws null-pointer exception
 
 ### Notes
 
-1.  UniJ is also a partial:
-    -   [backport of JDK 9+ to JDK 8](#backport-of-java-9-to-java-8)
-    -   [proxy for Guava and Eclipse Collections](#collection-factory-api-bindings)
+1.  UniJ is meant **only** as a facade for the **official JDK APIs**. UniJ will **not** introduce any
+    APIs of its own design. UniJ may **only** introduce new APIs that directly correspond to APIs in the latest stable
+    release of the JDK (currently, it's [JDK 13](https://openjdk.java.net/projects/jdk/13/)).
 
-2.  UniJ is meant **only** as a facade for the **official JDK APIs**. UniJ will **not** introduce any
-    APIs of its own design (it may only introduce APIs that directly correspond to APIs in the latest stable release
-    of the JDK; currently, it's [JDK 13](https://openjdk.java.net/projects/jdk/13/)).
+2.  UniJ is also a partial:
+    -   [backport of JDK 9+ to JDK 8](docs/EXTRA.md#backport-of-java-9-to-java-8)
+    -   [proxy for Guava and Eclipse Collections](#collection-factory-api-bindings)
 
 ## Method Summary
 
@@ -123,327 +131,106 @@ UniSets.of(1, 2, null); // throws null-pointer exception
 
 </table>
 
-## Usage
-
-### End User Usage
-
-<details open>
-<summary>Gradle (Kotlin DSL)</summary>
-
-```kotlin
-implementation(group = "pl.tlinkowski.unij", name = "pl.tlinkowski.unij.bundle.___", version = "x.y.z")
-```
-
-</details>
-
-<details>
-<summary>Gradle (Groovy DSL)</summary>
-
-```groovy
-implementation group: 'pl.tlinkowski.unij', name: 'pl.tlinkowski.unij.bundle.___', version: 'x.y.z'
-```
-
-</details>
-
-<details>
-<summary>Maven</summary>
-
-```xml
-<dependency>
-  <groupId>pl.tlinkowski.unij</groupId>
-  <artifactId>pl.tlinkowski.unij.bundle.___</artifactId>
-  <version>x.y.z</version>
-</dependency>
-```
-
-</details>
-
-<details open>
-<summary>JPMS (<code>module-info.java</code>)</summary>
-
-```java
-requires pl.tlinkowski.unij.bundle.___;
-```
-
-</details>
-
-where `___` can be one of: `jdk8`, `jdk11`, `guava_jdk8`, or `eclipse_jdk8` (see [Bundles](#bundles) for details). 
-
-### Library Usage
-
-### Non-Transitive Library Usage
-
-<details open>
-<summary>Gradle (Kotlin DSL)</summary>
-
-```kotlin
-implementation(group = "pl.tlinkowski.unij", name = "pl.tlinkowski.unij.api", version = "x.y.z")
-```
-
-</details>
-
-<details>
-<summary>Gradle (Groovy DSL)</summary>
-
-```groovy
-implementation group: 'pl.tlinkowski.unij', name: 'pl.tlinkowski.unij.api', version: 'x.y.z'
-```
-
-</details>
-
-<details open>
-<summary>JPMS (<code>module-info.java</code>)</summary>
-
-```java
-requires pl.tlinkowski.unij.api;
-```
-
-</details>
-
-### Transitive Library Usage
-
-<details open>
-<summary>Gradle (Kotlin DSL)</summary>
-
-```kotlin
-api(group = "pl.tlinkowski.unij", name = "pl.tlinkowski.unij.api", version = "x.y.z")
-```
-
-</details>
-
-<details>
-<summary>Gradle (Groovy DSL)</summary>
-
-```groovy
-api group: 'pl.tlinkowski.unij', name: 'pl.tlinkowski.unij.api', version: 'x.y.z'
-```
-
-</details>
-
-<details>
-<summary>Maven</summary>
-
-```xml
-<dependency>
-  <groupId>pl.tlinkowski.unij</groupId>
-  <artifactId>pl.tlinkowski.unij.api</artifactId>
-  <version>x.y.z</version>
-</dependency>
-```
-
-</details>
-
-<details open>
-<summary>JPMS (<code>module-info.java</code>)</summary>
-
-```java
-requires transitive pl.tlinkowski.unij.api;
-```
-
-</details>
-
 ## Motivation
 
-This library has been primarily designed for:
+This library has been designed primarily for:
 
-1.  [End users stuck on JDK 8](#end-users-stuck-on-jdk-8)
-2.  [Library maintainers targeting JDK 8](#library-maintainers-targeting-jdk-8)
+1.  [End Users Stuck on JDK 8](#end-users-stuck-on-jdk-8)
+2.  [Libraries Targeting JDK 8](#libraries-targeting-jdk-8)
 
 ### End Users Stuck on JDK 8
 
-If you're stuck on JDK 8, you can't use JDK 9's
-[`List.of()`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/List.html#of()) and friends.
+If you're stuck on JDK 8, you can't use JDK 9+'s [new methods](#method-summary) like `List.of`, etc.
 
-What can you do?
+However, by adding a dependency on a UniJ bundle of your choosing (plus some optional extra dependencies),
+you can enjoy a JDK 11-like API on JDK 8!
 
-1.  Depend on [Guava](https://github.com/google/guava) or [Eclipse Collections](https://www.eclipse.org/collections/)
-    and program to their proprietary APIs.
+**See**:
+-   [Usage for End Users](docs/USAGE.md#implementation-usage-for-end-users)
+-   [Q&A for End Users](docs/Q-and-A.md#end-user-qa)
+-   [sample end-user projects](subprojects/samples/enduser)
 
-2.  Or depend on **UniJ** and program to its [JDK-like API](#user-api).
+### Libraries Targeting JDK 8
 
-The problem with option 1 is that you get somewhat far from the JDK 9+ API and its [specification](#specification).
-If you decide to upgrade to e.g. JDK 11 in the future, replacing their collections with JDK 11 ones will **not** be
-straightforward.
+If you maintain a library targeting JDK 8, you can't use JDK 9+'s [new methods](#method-summary) like `List.of`, etc.
 
-With option 2, there's no such problem. Just add a dependency on a UniJ bundle of your choosing
-(see [End User Usage](#end-user-usage) for detailed instructions) and enjoy the JDK 9+ API on JDK 8!
-(note: you may also need to add certain [external dependencies](#external-dependencies))
+However, by adding a dependency on UniJ [User API](#user-api), you can program to JDK 11-like API!
 
-In the future, if you want to switch from UniJ to JDK 11, you'll either:
+*Note*: your users will have to provide implementations of the above-mentioned API
+(as per [Usage for End Users](docs/USAGE.md#implementation-usage-for-end-users)).
 
--   change the dependency to [`pl.tlinkowski.unij.bundle.jdk11`](subprojects/bundles/pl.tlinkowski.unij.bundle.jdk11)
--   or remove UniJ altogether (will be a simple matter of replacing all occurrences of `UniLists` with `List`, etc.)
-
-**Example**: See [sample end-user projects](subprojects/samples/enduser).
-
-### Library Maintainers Targeting JDK 8
-
-If you're a library maintainer targeting JDK 8, you also can't use JDK 9's
-[`List.of()`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/List.html#of()) and friends.
-Instead, you're probably using:
-
-1.  some [`ArrayList`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/ArrayList.html)s
-    and wrapping them using [`Collections.unmodifiableList`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Collections.html#unmodifiableList(java.util.List))
-
-2.  or some external library providing immutable `List`s, like [Guava](https://github.com/google/guava)
-    or [Eclipse Collections](https://www.eclipse.org/collections/)
-
-The problems with these options are as follows:
-
-1.  If your users themselves use JDK 9's, Guava's or Eclipse's `Collection`s:
-    -   you're wasting potential by not using the best `Collection` implementations available
-    -   you're introducing inconsistency regarding which `Collection` implementations are used in your users' app/library
-
-2.  This would be a really bad option, because — by bundling with an external library — you'd impose a heavy dependency on
-    your users.
-
-To sum up, as a library maintainer, the *choice* of `Collection` implementations **shouldn't be yours**. It's the same
-as with logging - you shouldn't choose the logging *backend*, and should only program to a **facade** like
-[SLF4J](https://www.slf4j.org/). That's *precisely* what UniJ lets you do with respect to `Collection` factory methods.
-
-You have two options here:
-
-1.  Add a [non-transitive](#non-transitive-library-usage) or a [transitive](#transitive-library-usage)
-    dependency on the extremely lightweight [`pl.tlinkowski.unij.api`](subprojects/api/pl.tlinkowski.unij.api)
-    and instruct your users to:
-
-    -   add an intransitive dependency on [UniJ bindings](#bindings)
-        ([`Collection` API factory methods](#collection-factory-api-bindings) + [miscellaneous API](#miscellaneous-api-bindings))
-        or a [UniJ bundle](#bundles) of their choosing (see [End User Usage](#end-user-usage))
-
-    -   (optionally) add a runtime-only dependency on an [SFL4J binding](https://www.slf4j.org/manual.html#swapping)
-        of their choosing (UniJ [depends on SLF4J](#slf4j))
-
-2.  Add a dependency on the still quite lightweight [`pl.tlinkowski.unij.bundle.jdk8`](subprojects/bundles/pl.tlinkowski.unij.bundle.jdk8)
-    and instruct your users to:
-
-    -   (optionally) *override* the default JDK 8 bindings by depending on some other bindings (UniJ supports multiple
-        competing [bindings](#bindings) at runtime, with the JDK 8 bindings having the lowest priority)
-
-    -   (optionally) add a runtime-only dependency on an [SFL4J binding](https://www.slf4j.org/manual.html#swapping)
-
-Option 1 ensures there are no redundant dependencies on the classpath/modulepath, while
-option 2 requires less dependencies to be *explicitly* added by the user if they're on JDK 8.
-
-**Example**: See [sample library-related projects](subprojects/samples/lib) (option 1).
+**See**:
+-   [Usage for Library Providers](docs/USAGE.md#api-usage-for-library-providers)
+-   [Q&A for Library Providers](docs/Q-and-A.md#library-provider-qa)
+-   [sample library projects](subprojects/samples/lib)
 
 ## API
 
 UniJ has two kind of [APIs](subprojects/api):
 -   [User API](#user-api): utility classes (this is what the user interacts with)
--   [Service API](#service-api): interfaces (this is what the binding provider implements)
+-   [Service API](#service-api): interfaces (this is what the service provider implements)
 
 The call chain looks as follows:
 ```text
-end user ⟷ User API ⟷ Service API ⟷ binding provider
+end user ⟷ User API ⟷ Service API ⟷ service provider
 ```
 
-In other words, the end user is oblivious of the [Service API](#service-api), and the binding provider is oblivious of
-the [User API](#user-api).
-
-UniJ is somewhat similar to [SLF4J](https://www.slf4j.org/) (Simple Logging Facade for Java) in that it provides an
-API that can be implemented in many different ways and then injected at runtime as a
-[Java service](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/ServiceLoader.html).
+In other words, the end user is oblivious of the [Service API](#service-api),
+and the service provider is oblivious of the [User API](#user-api).
 
 ### User API
 
 The User API is defined in [`pl.tlinkowski.unij.api`](subprojects/api/pl.tlinkowski.unij.api) and consists of the
-following utility classes:
+following utility classes: `UniLists`, `UniSets`, `UniMaps` and `UniCollectors`
+(see [Method Summary](#method-summary) for details).
 
--   [`UniLists`](subprojects/api/pl.tlinkowski.unij.api/src/main/java/pl/tlinkowski/unij/api/UniLists.java)
-    (equivalent to [`List`](https://docs.oracle.com/javase/10/docs/api/java/util/List.html#unmodifiable)'s
-    static factory methods)
-
-    -   example usage in
-        [`UniListsSpec`](subprojects/api/pl.tlinkowski.unij.api/src/test/groovy/pl/tlinkowski/unij/api/UniListsSpec.groovy)
-
--   [`UniSets`](subprojects/api/pl.tlinkowski.unij.api/src/main/java/pl/tlinkowski/unij/api/UniSets.java)
-    (equivalent to [`Set`](https://docs.oracle.com/javase/10/docs/api/java/util/Set.html#unmodifiable)'s
-    static factory methods)
-
-    -   example usage in
-        [`UniSetsSpec`](subprojects/api/pl.tlinkowski.unij.api/src/test/groovy/pl/tlinkowski/unij/api/UniListsSpec.groovy)
-
--   [`UniMaps`](subprojects/api/pl.tlinkowski.unij.api/src/main/java/pl/tlinkowski/unij/api/UniMaps.java) 
-    (equivalent to [`Map`](https://docs.oracle.com/javase/10/docs/api/java/util/Map.html#unmodifiable)'s
-    static factory methods)
-
-    -   example usage in
-        [`UniMapsSpec`](subprojects/api/pl.tlinkowski.unij.api/src/test/groovy/pl/tlinkowski/unij/api/UniListsSpec.groovy)
-
--   [`UniCollectors`](subprojects/api/pl.tlinkowski.unij.api/src/main/java/pl/tlinkowski/unij/api/UniCollectors.java)
-    (equivalent to [`Collectors`](https://docs.oracle.com/javase/10/docs/api/java/util/stream/Collectors.html)
-    utility class)
-
-    -   example usage in
-        [`UniCollectorsSpec`](subprojects/api/pl.tlinkowski.unij.api/src/test/groovy/pl/tlinkowski/unij/api/UniListsSpec.groovy)
-
-The API of these classes has strict equivalence to the corresponding JDK API in terms of:
--   `null` treatment (no `null`s allowed)
--   duplicate handling (e.g. no duplicates allowed in `of` methods of `UniSets` and `UniMaps`)
--   consistency (e.g. only one empty collection instance)
-
-Details of this equivalence can be found in [Specification](#specification) section.
+This API has strict equivalence to the corresponding JDK API (see [API Specification](#api-specification) for details).
 
 ### Service API
 
-*Disclaimer: As an end user, you **don't** need to be concerned with this API. Read on **only if** you want to
-implement your own UniJ bindings or want to understand how UniJ works internally.*
+*Disclaimer: As an end user, you **don't** need to be concerned with this API.
 
-UniJ service API is defined in [`pl.tlinkowski.unij.service.api`](subprojects/api/pl.tlinkowski.unij.service.api)
+UniJ Service API is defined in [`pl.tlinkowski.unij.service.api`](subprojects/api/pl.tlinkowski.unij.service.api)
 and consists of the following interfaces:
 
--   `collect`:
+-   `Collection` factories:
     [`UnmodifiableListFactory`](subprojects/api/pl.tlinkowski.unij.service.api/src/main/java/pl/tlinkowski/unij/service/api/collect/UnmodifiableListFactory.java),
     [`UnmodifiableSetFactory`](subprojects/api/pl.tlinkowski.unij.service.api/src/main/java/pl/tlinkowski/unij/service/api/collect/UnmodifiableSetFactory.java),
     [`UnmodifiableMapFactory`](subprojects/api/pl.tlinkowski.unij.service.api/src/main/java/pl/tlinkowski/unij/service/api/collect/UnmodifiableMapFactory.java)
 
--   `misc`:
+-   miscellaneous:
     [`MiscellaneousApiProvider`](subprojects/api/pl.tlinkowski.unij.service.api/src/main/java/pl/tlinkowski/unij/service/api/misc/MiscellaneousApiProvider.java)
 
-A module providing implementations of one or more of these interfaces constitutes a **binding**.
+A module providing implementations of one or more of these interfaces constitutes a [binding](#bindings).
 
-UniJ provides many predefined bindings, but custom bindings are also possible (see [Bindings](#bindings) for details).
+### API Specification
 
-### Why two APIs
+UniJ APIs come with a detailed specification for the [Service API](#service-api) interfaces. The specification is based
+on the contract of the original JDK API (expressed mostly in JavaDoc), and tries to follow it as close as possible.
 
-Why are there two APIs in UniJ? So that:
+The focal points of the specification are:
+-   `null` treatment (no `null`s allowed)
+-   duplicate handling (e.g. no duplicates allowed in `of` methods of `UniSets` and `UniMaps`)
+-   consistency (e.g. only one empty collection instance)
 
-1.  for the user, we can exactly mirror the JDK API (equivalent class names, static methods), e.g.:
-    -   `List.of()` ⟷ `UniLists.of()`
-    -   `Collectors.toUnmodifiableList()` ⟷ `UniCollectors.toUnmodifiableList()`
-
-2.  for the binding provider, we can expose an interface with all the related method to be implemented *together*, e.g.:
-    -   `UnmodifiableListFactory.of()`
-    -   `UnmodifiableListFactory.collector()`
-
-## Specification
-
-UniJ APIs come with a detailed specification expressed as [Spock](http://spockframework.org/) tests for the
-[Service API](#service-api) interfaces.
-
-The specification is based on the contract of the original JDK API (expressed mostly in JavaDoc), and tries to follow
-this contract as close as possible.
-
-The specification is expressed as the following test classes defined
+The specification is fully expressed as the following [Spock](http://spockframework.org/) test classes defined
 [`pl.tlinkowski.unij.test`](subprojects/pl.tlinkowski.unij.test):
 
--   `collect`:
+-   `Collection` factories:
     [`UnmodifiableListFactorySpec`](subprojects/pl.tlinkowski.unij.test/src/main/groovy/pl/tlinkowski/unij/test/service/collect/UnmodifiableListFactorySpec.groovy),
     [`UnmodifiableSetFactorySpec`](subprojects/pl.tlinkowski.unij.test/src/main/groovy/pl/tlinkowski/unij/test/service/collect/UnmodifiableSetFactorySpec.groovy),
     [`UnmodifiableMapFactorySpec`](subprojects/pl.tlinkowski.unij.test/src/main/groovy/pl/tlinkowski/unij/test/service/collect/UnmodifiableMapFactorySpec.groovy)
 
--   `misc`:
+-   miscellaneous:
     [`MiscellaneousApiProviderSpec`](subprojects/pl.tlinkowski.unij.test/src/main/groovy/pl/tlinkowski/unij/test/service/misc/MiscellaneousApiProviderSpec.groovy)
 
-Read the specs linked above to learn in detail which contract UniJ follows.
+Read the source of the Spock tests linked above to see what *every* UniJ binding guarantees.
 
 ## Bindings
 
-A binding is an implementation of the [Service API](#service-api) available at runtime. If multiple bindings with
-the same functionality are present on the runtime classpath/modulepath, the one with the top
-[priority](subprojects/api/pl.tlinkowski.unij.service.api/src/main/java/pl/tlinkowski/unij/service/api/UniJService.java)
-(lowest number) will be selected.
+A binding is simply a library with implementation(s) of the [Service API](#service-api).
+
+Note that [UniJ supports multiple bindings of the same type at runtime](docs/Q-and-A.md#multiple-bindings-at-runtime). 
 
 ### Predefined Bindings
 
@@ -456,23 +243,31 @@ UniJ currently provides four types of `Collection` factory API bindings:
 
 1.  JDK 10 ([`pl.tlinkowski.unij.service.collect.jdk10`](subprojects/bindings/collect/pl.tlinkowski.unij.service.collect.jdk10)):
     simply forwards all calls to the JDK
+    
+    -   example: [`Jdk10UnmodifiableListFactory`](subprojects/bindings/collect/pl.tlinkowski.unij.service.collect.jdk10/src/main/java/pl/tlinkowski/unij/service/collect/jdk10/Jdk10UnmodifiableListFactory.java)
 
 2.  JDK 8 ([`pl.tlinkowski.unij.service.collect.jdk8`](subprojects/bindings/collect/pl.tlinkowski.unij.service.collect.jdk8)):
     provides regular mutable JDK 8 collections wrapped using [`Collections.unmodifiableList/Set/Map`](https://docs.oracle.com/javase/8/docs/api/java/util/Collections.html#unmodifiableList-java.util.List-)
+    
+    -   example: [`Jdk8UnmodifiableListFactory`](subprojects/bindings/collect/pl.tlinkowski.unij.service.collect.jdk8/src/main/java/pl/tlinkowski/unij/service/collect/jdk8/Jdk8UnmodifiableListFactory.java)
 
 3.  [Guava](https://github.com/google/guava) ([`pl.tlinkowski.unij.service.collect.guava`](subprojects/bindings/collect/pl.tlinkowski.unij.service.collect.guava)):
     provides Guava's [`ImmutableList`](https://guava.dev/releases/28.0-jre/api/docs/com/google/common/collect/ImmutableList.html)/[`ImmutableSet`](https://guava.dev/releases/28.0-jre/api/docs/com/google/common/collect/ImmutableSet.html)/[`ImmutableMap`](https://guava.dev/releases/28.0-jre/api/docs/com/google/common/collect/ImmutableMap.html)
     implementations
 
-    -   Guava is a compile-only dependency for this binding
-        (see [Guava / Eclipse Collections](#guava--eclipse-collections) for details)
+    -   example: [`GuavaUnmodifiableListFactory`](subprojects/bindings/collect/pl.tlinkowski.unij.service.collect.guava/src/main/java/pl/tlinkowski/unij/service/collect/guava/GuavaUnmodifiableListFactory.java)
+
+    -   note: Guava is a compile-only dependency for this binding
+        (see [Guava / Eclipse Collections](docs/USAGE.md#guava--eclipse-collections) for details)
 
 4.  [Eclipse Collections](https://www.eclipse.org/collections/) ([`pl.tlinkowski.unij.service.collect.eclipse`](subprojects/bindings/collect/pl.tlinkowski.unij.service.collect.eclipse)):
     provides Eclipse's [`ImmutableList`](https://www.eclipse.org/collections/javadoc/10.0.0/org/eclipse/collections/api/list/ImmutableList.html)/[`ImmutableSet`](https://www.eclipse.org/collections/javadoc/10.0.0/org/eclipse/collections/api/set/ImmutableSet.html)/[`ImmutableMap`](https://www.eclipse.org/collections/javadoc/10.0.0/org/eclipse/collections/api/map/ImmutableMap.html)
     implementations
 
-    -   Eclipse Collections is a compile-only dependency for this binding
-        (see [Guava / Eclipse Collections](#guava--eclipse-collections) for details)
+    -   example: [`EclipseUnmodifiableListFactory`](subprojects/bindings/collect/pl.tlinkowski.unij.service.collect.eclipse/src/main/java/pl/tlinkowski/unij/service/collect/eclipse/EclipseUnmodifiableListFactory.java)
+
+    -   note: Eclipse Collections is a compile-only dependency for this binding
+        (see [Guava / Eclipse Collections](docs/USAGE.md#guava--eclipse-collections) for details)
 
 #### Miscellaneous API Bindings
 
@@ -481,44 +276,16 @@ UniJ currently provides two types of miscellaneous API bindings:
 1.  JDK 11 ([`pl.tlinkowski.unij.service.misc.jdk11`](subprojects/bindings/misc/pl.tlinkowski.unij.service.misc.jdk11)):
     simply forwards all calls to the JDK
 
+    -   example: [`Jdk11MiscellaneousApiProvider`](subprojects/bindings/misc/pl.tlinkowski.unij.service.misc.jdk11/src/main/java/pl/tlinkowski/unij/service/misc/jdk11/Jdk11MiscellaneousApiProvider.java)
+
 2.  JDK 8 ([`pl.tlinkowski.unij.service.misc.jdk8`](subprojects/bindings/misc/pl.tlinkowski.unij.service.misc.jdk8)):
     provides custom implementations based on the ones in JDK 11
 
+    -   example: [`Jdk8MiscellaneousApiProvider`](subprojects/bindings/misc/pl.tlinkowski.unij.service.misc.jdk8/src/main/java/pl/tlinkowski/unij/service/misc/jdk8/Jdk8MiscellaneousApiProvider.java)
+
 ### Custom Bindings
 
-You can provide custom bindings by:
-
--   implementing an interface from the [Service API](#service-api)
-
--   annotating it with a special [`@UniJService`](subprojects/api/pl.tlinkowski.unij.service.api/src/main/java/pl/tlinkowski/unij/service/api/UniJService.java)
-    annotation
-
--   providing a `module-info.java` entry (for JDK 9+) and/or a `META-INF` entry (for JDK 8; I recommend Google's
-    [`@AutoService`](https://github.com/google/auto/tree/master/service) for it)
-
-Example:
-
-```java
-@UniJService(priority = 1)
-@AutoService(UnmodifiableListFactory.class)
-public class CustomUnmodifiableListFactory implements UnmodifiableListFactory {
-  // ...
-}
-```
-
-When providing a custom service implementation, one should also create the following Spock test for it:
-
-```groovy
-class CustomUnmodifiableListFactorySpec extends UnmodifiableListFactorySpec {
-
-  def setupSpec() {
-    factory = new CustomUnmodifiableListFactory()
-  }
-}
-```
-
-A test dependency on [`pl.tlinkowski.unij.test`](subprojects/pl.tlinkowski.unij.test)
-is needed for it.
+See [Custom Service Provider Q&A](docs/Q-and-A.md#custom-service-provider-qa).
 
 ## Bundles
 
@@ -532,104 +299,37 @@ A UniJ bundle is a module having no source (save for its `module-info.java`) and
 
 Currently, UniJ provides the following four [bundles](subprojects/bundles):
 
-1.  JDK 11 ([`pl.tlinkowski.unij.bundle.jdk11`](subprojects/bundles/pl.tlinkowski.unij.bundle.jdk11)):
+1.  JDK 11 ([`pl.tlinkowski.unij.bundle.jdk11`](subprojects/bundles/pl.tlinkowski.unij.bundle.jdk11)), which consists of:
     -   [`pl.tlinkowski.unij.service.collect.jdk10`](subprojects/bindings/collect/pl.tlinkowski.unij.service.collect.jdk10)
     -   [`pl.tlinkowski.unij.service.misc.jdk11`](subprojects/bindings/misc/pl.tlinkowski.unij.service.misc.jdk11)
 
-2.  pure JDK 8 ([`pl.tlinkowski.unij.bundle.jdk8`](subprojects/bundles/pl.tlinkowski.unij.bundle.jdk8)):
+2.  pure JDK 8 ([`pl.tlinkowski.unij.bundle.jdk8`](subprojects/bundles/pl.tlinkowski.unij.bundle.jdk8)), which consists of:
     -   [`pl.tlinkowski.unij.service.collect.jdk8`](subprojects/bindings/collect/pl.tlinkowski.unij.service.collect.jdk8)
     -   [`pl.tlinkowski.unij.service.misc.jdk8`](subprojects/bindings/misc/pl.tlinkowski.unij.service.misc.jdk8)
 
-3.  Guava on JDK 8 ([`pl.tlinkowski.unij.bundle.guava_jdk8`](subprojects/bundles/pl.tlinkowski.unij.bundle.guava_jdk8)):
+3.  Guava on JDK 8 ([`pl.tlinkowski.unij.bundle.guava_jdk8`](subprojects/bundles/pl.tlinkowski.unij.bundle.guava_jdk8)), which consists of:
     -   [`pl.tlinkowski.unij.service.collect.guava`](subprojects/bindings/collect/pl.tlinkowski.unij.service.collect.guava)
     -   [`pl.tlinkowski.unij.service.misc.jdk8`](subprojects/bindings/misc/pl.tlinkowski.unij.service.misc.jdk8)
 
-4.  Eclipse Collections on JDK 8 ([`pl.tlinkowski.unij.bundle.eclipse_jdk8`](subprojects/bundles/pl.tlinkowski.unij.bundle.eclipse_jdk8)):
+4.  Eclipse Collections on JDK 8 ([`pl.tlinkowski.unij.bundle.eclipse_jdk8`](subprojects/bundles/pl.tlinkowski.unij.bundle.eclipse_jdk8)), which consists of:
     -   [`pl.tlinkowski.unij.service.collect.eclipse`](subprojects/bindings/collect/pl.tlinkowski.unij.service.collect.eclipse)
     -   [`pl.tlinkowski.unij.service.misc.jdk8`](subprojects/bindings/misc/pl.tlinkowski.unij.service.misc.jdk8)
 
-## External Dependencies
+## Usage
 
-### SLF4J
+See [Usage](docs/USAGE.md) document.
 
-UniJ [User API](#user-api) has an `implementation` dependency on [SLF4J](https://www.slf4j.org/) API to let you have
-insight into which implementation it chooses for each of its [Service API](#service-api) interfaces.
+## Extra Information
 
-As a result, if you use UniJ, you should also add a `runtimeOnly` dependency on one of
-[its bindings](https://www.slf4j.org/manual.html#swapping).
-Otherwise, you'll see the following message at runtime:
+See [Extra Information](docs/EXTRA.md) document.
 
-> SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
->
-> SLF4J: Defaulting to no-operation (NOP) logger implementation
->
-> SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+## Questions & Answers
 
-### Guava / Eclipse Collections
+See [Q&A](docs/Q-and-A.md) document.
 
-The dependencies on [Guava](https://github.com/google/guava) and
-[Eclipse Collections](https://www.eclipse.org/collections/) (present only in modules with `guava` and `eclipse` in
-their name, respectively) are `compileOnly` dependencies.
+## Changelog
 
-Thanks to this, dependency on UniJ won't affect the version of Guava / Eclipse Collections you want to use, since
-you have to declare this dependency explicitly.
-
-Depending on your use case, do the following:
-
--   implicit use (only through UniJ): add a `runtimeOnly` dependency on Guava / Eclipse Collections
-
--   explicit use (access to the entire library):
-    -   non-transitive: add an `implementation` dependency + `requires` entry to `module-info.java`
-    -   transitive: add an `api` dependency + `requires transitive` entry to `module-info.java`
-
-Minimal supported versions are:
--   Guava: [23.2](https://github.com/google/guava/releases/tag/v23.2)
--   Eclipse Collections: [9.0.0](https://github.com/eclipse/eclipse-collections/releases/tag/9.0.0)
-
-## Kotlin Interoperability
-
-This library is highly interoperable with [Kotlin](https://kotlinlang.org/) thanks to being annotated with regard to:
-
--   nullability ([`@NonNullPackage`](https://github.com/tlinkowski/basic-annotations/blob/master/subprojects/pl.tlinkowski.annotation.basic/src/main/java/pl/tlinkowski/annotation/basic/NonNullPackage.java))
--   mutability ([`@ReadOnly`](https://github.com/JetBrains/kotlin/blob/master/libraries/tools/kotlin-annotations-jvm/src/kotlin/annotations/jvm/ReadOnly.java))
-
-using annotations provided by [Basic Java Annotations](https://github.com/tlinkowski/basic-annotations) library.
-
-## Performance
-
-If you wonder how UniJ's indirection (= its two extra layers: [User API](#user-api) and [Service API](#service-api))
-affects performance, the answer is short: **it effectively doesn't**.
-
-It turns out the JIT compiler simply optimizes all the indirection away.
-
-You can verify this by running a JMH benchmark
-([`UniListsBenchmark`](subprojects/api/pl.tlinkowski.unij.api/src/jmh/java/pl/tlinkowski/unij/api/UniListsBenchmark.java))
-where calls to `UniLists` (with a JDK 11 binding) are compared to direct JDK 11 API calls. The exact results can be
-found [here](docs/UniListsBenchmark-results.txt).
-
-## Backport of Java 9+ to Java 8
-
-If you're looking for a backport of Java 9+ to Java 8, you can use the following for:
-
-1.  new **APIs**: [UniJ](http://unij.tlinkowski.pl)
-
-    -   UniJ JDK 8 bundle ([`pl.tlinkowski.unij.bundle.jdk8`](subprojects/bundles/pl.tlinkowski.unij.bundle.jdk8))
-        is *effectively* a backport of **some** of the JDK 9+ APIs to JDK 8
-        (see [End Users Stuck on JDK 8](#end-users-stuck-on-jdk-8) for details)
-
-2.  new **language features**: [Jabel](https://github.com/bsideup/jabel)
-
-    -   Jabel is an annotation processor that lets you use **some** language features of Java 9+
-        while still targeting JDK 8
-
-3.  **Java Platform Module System**: [Gradle Modules Plugin](https://github.com/java9-modularity/gradle-modules-plugin)
-
-    -   Gradle Modules Plugin provides support for JPMS (`module-info.java`) not only to JDK 9+ projects (standard mode)
-        but also to JDK 8 projects (special
-        [mixed mode](https://github.com/java9-modularity/gradle-modules-plugin#compilation-to-a-specific-java-release))
-
-Together, UniJ, Jabel, and Gradle Modules Plugin may provide you with pretty good "Java 9+"-like experience
-while still targeting / being on JDK 8. 
+See [Changelog](CHANGELOG.md) document.
 
 ## Requirements
 

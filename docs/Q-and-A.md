@@ -52,11 +52,11 @@ In the example above,
 **Q**:
 Why not simply use [`ArrayList`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/ArrayList.html)s
 wrapped with
-[`Collections.unmodifiableList`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Collections.html#unmodifiableList(java.util.List),
+[`Collections.unmodifiableList`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Collections.html#unmodifiableList(java.util.List)),
 etc. instead of UniJ?
 
 **A**:
-You can do it if it doesn't bother you. To me, it's too verbose (low readability), and hence more error-prone.
+You can do it if you find it convenient. To me, it's too verbose (low readability), and hence more error-prone.
 Besides, it's not [null-safe](../README.md#api-specification), not as efficient (UniJ's JDK 8 binding uses
 `Arrays.asList` instead of `ArrayList`), and doesn't allow for easy migration once you upgrade to JDK 11+.
 
@@ -69,7 +69,7 @@ Why not depend on an external library providing immutable `List`s instead of on 
 **A**:
 If you program to Guava's / Eclipse Colletions' proprietary APIs, you get rather far from the JDK 9+ API and
 its [specification](../README.md#api-specification). Once you decide to upgrade to JDK 11+, migrating to JDK's
-collections will **not** be straightforward due to API differences. UniJ solves this problem.
+collections will **not** be straightforward due to API differences.
 
 ### UniJ Dependency on JDK 11+
 
@@ -89,11 +89,11 @@ with `List`, etc.). Alternatively (if you don't have time for that), you can jus
 **Q**:
 Why not simply use [`ArrayList`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/ArrayList.html)s
 wrapped with
-[`Collections.unmodifiableList`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Collections.html#unmodifiableList(java.util.List),
+[`Collections.unmodifiableList`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Collections.html#unmodifiableList(java.util.List)),
 etc. instead of UniJ?
      
 **A**:
-See [here](#arraylist--collectionsunmodifiablelist-for-end-user). Moreover, if your users themselves use JDK 9's,
+See [this end-user Q&A](#arraylist--collectionsunmodifiablelist-for-end-user). Moreover, if your users themselves use JDK 9's,
 Guava's or Eclipse's `Collection`s:
 
 -   you'd waste potential by not using the best `Collection` implementations available
@@ -106,7 +106,7 @@ Why not depend on an external library providing immutable `List`s instead of on 
 [Guava](https://github.com/google/guava) or [Eclipse Collections](https://www.eclipse.org/collections/))?
 
 **A**:
-See [here](#guava--eclipse-collections-for-end-user). Moreover, by bundling with an external library, you'd
+See [this end-user Q&A](#guava--eclipse-collections-for-end-user). Moreover, by bundling with an external library, you'd
 impose a *heavy* (potentially unwanted) dependency on your users. On the other hand, bundling with extremely
 lightweight UniJ API shouldn't cause any problems.
 
@@ -116,8 +116,8 @@ lightweight UniJ API shouldn't cause any problems.
 Why bother with a `Collection` factory method facade (like UniJ) for a library?
 
 **A**:
-As a library maintainer, the *choice* of `Collection` implementations **shouldn't be yours**. It's the same as with
-logging - you shouldn't choose the logging *backend*, and should only program to a **facade** like
+As a library maintainer, the *choice* of `Collection` implementations *shouldn't be yours*. It's the same as with
+logging — you shouldn't choose the logging *backend*, and should only program to a **facade** like
 [SLF4J](https://www.slf4j.org/). That's *precisely* what UniJ lets you do with respect to `Collection` factory methods.
 
 ### How to Use UniJ in a Library
@@ -128,20 +128,20 @@ How can I use UniJ in my library?
 **A**:
 You can choose one of the below artifacts as a dependency for your library:
 
-1.   UniJ User API ([`pl.tlinkowski.unij.api`](../subprojects/api/pl.tlinkowski.unij.api))
+1.   *(recommended)* UniJ User API ([`pl.tlinkowski.unij.api`](../subprojects/api/pl.tlinkowski.unij.api))
 
      -   pros: extremely lightweight (API only); no redundant dependencies
 
-     -   cons: your users **must** add a dependency on a bundle / bindings of their choosing
+     -   cons: your users **must** add a dependency on a UniJ bundle / bindings of their choosing
      
-2.   UniJ JDK 8 bundle ([`pl.tlinkowski.unij.bundle.jdk8`](../subprojects/bundles/pl.tlinkowski.unij.bundle.jdk8))
+2.   *(alternative)* UniJ JDK 8 bundle ([`pl.tlinkowski.unij.bundle.jdk8`](../subprojects/bundles/pl.tlinkowski.unij.bundle.jdk8))
 
-     -   pros: your users **don't have to** add a dependency on any bundle / bindings
+     -   pros: your users **don't have to** add a dependency on any UniJ bundle / bindings
          (they **may** do so to [override](#multiple-bindings-at-runtime) the JDK 8 bindings, though)
 
      -   cons: heavier than API only; may result in redundant dependencies if the user overrides some bindings
 
-Here's what needs to be done by *you* and *your users* to apply each option:
+Here's what needs to be done by *you* and *your users* to use each option:
 
 1.  UniJ User API:
     -   *you* follow [Usage for Library Providers](USAGE.md#api-usage-for-library-providers)
@@ -151,7 +151,7 @@ Here's what needs to be done by *you* and *your users* to apply each option:
     -   *you* follow [Basic Implementation Usage: Bundles](USAGE.md#basic-implementation-usage-bundles)
     -   you inform *your users* they *may* follow [Usage for End Users](USAGE.md#implementation-usage-for-end-users)
 
-In any case, *your users* may need to add certain [external dependencies](USAGE.md#external-dependencies-for-end-users).
+In both cases, *your users* may need to add certain [external dependencies](USAGE.md#external-dependencies-for-end-users).
 
 ## Custom Service Provider Q&A
 

@@ -129,11 +129,11 @@ where:
 -   `{C}` can be one of: `jdk8`, `jdk10`, `guava`, or `eclipse`
     (see [`Collection` Factory API Bindings](../README.md#collection-factory-api-bindings) for details)
 
--   `{M}` can either `jdk8` or `jdk11`
+-   `{M}` can be either `jdk8` or `jdk11`
     (see [Miscellaneous API Bindings](../README.md#miscellaneous-api-bindings) for details)
 
 Note that, instead of any of the [predefined bindings](../README.md#predefined-bindings) mentioned above,
-you can create and depend on a [custom binding](../README.md#custom-bindings).
+you can create and depend on a [custom binding](Q-and-A.md#custom-service-provider-qa).
 
 ### External Dependencies (for End Users)
 
@@ -163,12 +163,12 @@ you have to declare this dependency explicitly.
 
 Depending on your use case, do the following:
 
--   you use Guava / Eclipse Collections *implicitly* (only through UniJ):
+-   if you want to use Guava / Eclipse Collections *implicitly* (= access to `Collection` implementations through UniJ only):
     -   add a `runtimeOnly` dependency on Guava / Eclipse Collections
 
--   you use Guava / Eclipse Collections *explicitly* (you need access to the entire library):
-    -   non-transitive: add an `implementation` dependency + `requires` entry to `module-info.java`
-    -   transitive: add an `api` dependency + `requires transitive` entry to `module-info.java`
+-   if you want to use Guava / Eclipse Collections *explicitly* (= access to the entire API of the library):
+    -   *(non-transitive)* add an `implementation` dependency + `requires` entry to `module-info.java`
+    -   *(transitive)* add an `api` dependency + `requires transitive` entry to `module-info.java`
 
 Minimal supported versions are:
 -   Guava: [23.2](https://github.com/google/guava/releases/tag/v23.2)

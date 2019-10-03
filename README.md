@@ -188,7 +188,7 @@ This API has strict equivalence to the corresponding JDK API (see [API Specifica
 
 ### Service API
 
-*Disclaimer: As an end user, you **don't** need to be concerned with this API.
+*Disclaimer: As an end user, you **don't** need to be concerned with this API.*
 
 UniJ Service API is defined in [`pl.tlinkowski.unij.service.api`](subprojects/api/pl.tlinkowski.unij.service.api)
 and consists of the following interfaces:
@@ -241,28 +241,33 @@ UniJ comes with a number of predefined bindings, which can all be found under
 
 UniJ currently provides four types of `Collection` factory API bindings:
 
-1.  JDK 10 ([`pl.tlinkowski.unij.service.collect.jdk10`](subprojects/bindings/collect/pl.tlinkowski.unij.service.collect.jdk10)):
-    simply forwards all calls to the JDK
-    
+1.  **JDK 10** ([`pl.tlinkowski.unij.service.collect.jdk10`](subprojects/bindings/collect/pl.tlinkowski.unij.service.collect.jdk10))
+
+    -   simply forwards all calls to the JDK
+
     -   example: [`Jdk10UnmodifiableListFactory`](subprojects/bindings/collect/pl.tlinkowski.unij.service.collect.jdk10/src/main/java/pl/tlinkowski/unij/service/collect/jdk10/Jdk10UnmodifiableListFactory.java)
 
-2.  JDK 8 ([`pl.tlinkowski.unij.service.collect.jdk8`](subprojects/bindings/collect/pl.tlinkowski.unij.service.collect.jdk8)):
-    provides regular mutable JDK 8 collections wrapped using [`Collections.unmodifiableList/Set/Map`](https://docs.oracle.com/javase/8/docs/api/java/util/Collections.html#unmodifiableList-java.util.List-)
-    
+2.  **JDK 8** ([`pl.tlinkowski.unij.service.collect.jdk8`](subprojects/bindings/collect/pl.tlinkowski.unij.service.collect.jdk8))
+
+    -   provides regular mutable JDK 8 collections wrapped using
+        [`Collections.unmodifiableList/Set/Map`](https://docs.oracle.com/javase/8/docs/api/java/util/Collections.html#unmodifiableList-java.util.List-)
+
     -   example: [`Jdk8UnmodifiableListFactory`](subprojects/bindings/collect/pl.tlinkowski.unij.service.collect.jdk8/src/main/java/pl/tlinkowski/unij/service/collect/jdk8/Jdk8UnmodifiableListFactory.java)
 
-3.  [Guava](https://github.com/google/guava) ([`pl.tlinkowski.unij.service.collect.guava`](subprojects/bindings/collect/pl.tlinkowski.unij.service.collect.guava)):
-    provides Guava's [`ImmutableList`](https://guava.dev/releases/28.0-jre/api/docs/com/google/common/collect/ImmutableList.html)/[`ImmutableSet`](https://guava.dev/releases/28.0-jre/api/docs/com/google/common/collect/ImmutableSet.html)/[`ImmutableMap`](https://guava.dev/releases/28.0-jre/api/docs/com/google/common/collect/ImmutableMap.html)
-    implementations
+3.  [**Guava**](https://github.com/google/guava) ([`pl.tlinkowski.unij.service.collect.guava`](subprojects/bindings/collect/pl.tlinkowski.unij.service.collect.guava))
+
+    -   provides Guava's [`ImmutableList`](https://guava.dev/releases/28.0-jre/api/docs/com/google/common/collect/ImmutableList.html)/[`ImmutableSet`](https://guava.dev/releases/28.0-jre/api/docs/com/google/common/collect/ImmutableSet.html)/[`ImmutableMap`](https://guava.dev/releases/28.0-jre/api/docs/com/google/common/collect/ImmutableMap.html)
+        implementations
 
     -   example: [`GuavaUnmodifiableListFactory`](subprojects/bindings/collect/pl.tlinkowski.unij.service.collect.guava/src/main/java/pl/tlinkowski/unij/service/collect/guava/GuavaUnmodifiableListFactory.java)
 
     -   note: Guava is a compile-only dependency for this binding
         (see [Guava / Eclipse Collections](docs/USAGE.md#guava--eclipse-collections) for details)
 
-4.  [Eclipse Collections](https://www.eclipse.org/collections/) ([`pl.tlinkowski.unij.service.collect.eclipse`](subprojects/bindings/collect/pl.tlinkowski.unij.service.collect.eclipse)):
-    provides Eclipse's [`ImmutableList`](https://www.eclipse.org/collections/javadoc/10.0.0/org/eclipse/collections/api/list/ImmutableList.html)/[`ImmutableSet`](https://www.eclipse.org/collections/javadoc/10.0.0/org/eclipse/collections/api/set/ImmutableSet.html)/[`ImmutableMap`](https://www.eclipse.org/collections/javadoc/10.0.0/org/eclipse/collections/api/map/ImmutableMap.html)
-    implementations
+4.  [**Eclipse Collections**](https://www.eclipse.org/collections/) ([`pl.tlinkowski.unij.service.collect.eclipse`](subprojects/bindings/collect/pl.tlinkowski.unij.service.collect.eclipse))
+
+    -   provides Eclipse's [`ImmutableList`](https://www.eclipse.org/collections/javadoc/10.0.0/org/eclipse/collections/api/list/ImmutableList.html)/[`ImmutableSet`](https://www.eclipse.org/collections/javadoc/10.0.0/org/eclipse/collections/api/set/ImmutableSet.html)/[`ImmutableMap`](https://www.eclipse.org/collections/javadoc/10.0.0/org/eclipse/collections/api/map/ImmutableMap.html)
+        implementations
 
     -   example: [`EclipseUnmodifiableListFactory`](subprojects/bindings/collect/pl.tlinkowski.unij.service.collect.eclipse/src/main/java/pl/tlinkowski/unij/service/collect/eclipse/EclipseUnmodifiableListFactory.java)
 
@@ -273,13 +278,15 @@ UniJ currently provides four types of `Collection` factory API bindings:
 
 UniJ currently provides two types of miscellaneous API bindings:
 
-1.  JDK 11 ([`pl.tlinkowski.unij.service.misc.jdk11`](subprojects/bindings/misc/pl.tlinkowski.unij.service.misc.jdk11)):
-    simply forwards all calls to the JDK
+1.  **JDK 11** ([`pl.tlinkowski.unij.service.misc.jdk11`](subprojects/bindings/misc/pl.tlinkowski.unij.service.misc.jdk11))
+
+    -   simply forwards all calls to the JDK
 
     -   example: [`Jdk11MiscellaneousApiProvider`](subprojects/bindings/misc/pl.tlinkowski.unij.service.misc.jdk11/src/main/java/pl/tlinkowski/unij/service/misc/jdk11/Jdk11MiscellaneousApiProvider.java)
 
-2.  JDK 8 ([`pl.tlinkowski.unij.service.misc.jdk8`](subprojects/bindings/misc/pl.tlinkowski.unij.service.misc.jdk8)):
-    provides custom implementations based on the ones in JDK 11
+2.  **JDK 8** ([`pl.tlinkowski.unij.service.misc.jdk8`](subprojects/bindings/misc/pl.tlinkowski.unij.service.misc.jdk8))
+
+    -   provides custom implementations based on the ones in JDK 11
 
     -   example: [`Jdk8MiscellaneousApiProvider`](subprojects/bindings/misc/pl.tlinkowski.unij.service.misc.jdk8/src/main/java/pl/tlinkowski/unij/service/misc/jdk8/Jdk8MiscellaneousApiProvider.java)
 
@@ -299,19 +306,19 @@ A UniJ bundle is a module having no source (save for its `module-info.java`) and
 
 Currently, UniJ provides the following four [bundles](subprojects/bundles):
 
-1.  JDK 11 ([`pl.tlinkowski.unij.bundle.jdk11`](subprojects/bundles/pl.tlinkowski.unij.bundle.jdk11)), which consists of:
+1.  **JDK 11** bundle ([`pl.tlinkowski.unij.bundle.jdk11`](subprojects/bundles/pl.tlinkowski.unij.bundle.jdk11)), made of:
     -   [`pl.tlinkowski.unij.service.collect.jdk10`](subprojects/bindings/collect/pl.tlinkowski.unij.service.collect.jdk10)
     -   [`pl.tlinkowski.unij.service.misc.jdk11`](subprojects/bindings/misc/pl.tlinkowski.unij.service.misc.jdk11)
 
-2.  pure JDK 8 ([`pl.tlinkowski.unij.bundle.jdk8`](subprojects/bundles/pl.tlinkowski.unij.bundle.jdk8)), which consists of:
+2.  **pure JDK 8** bundle ([`pl.tlinkowski.unij.bundle.jdk8`](subprojects/bundles/pl.tlinkowski.unij.bundle.jdk8)), made of:
     -   [`pl.tlinkowski.unij.service.collect.jdk8`](subprojects/bindings/collect/pl.tlinkowski.unij.service.collect.jdk8)
     -   [`pl.tlinkowski.unij.service.misc.jdk8`](subprojects/bindings/misc/pl.tlinkowski.unij.service.misc.jdk8)
 
-3.  Guava on JDK 8 ([`pl.tlinkowski.unij.bundle.guava_jdk8`](subprojects/bundles/pl.tlinkowski.unij.bundle.guava_jdk8)), which consists of:
+3.  **Guava on JDK 8** bundle ([`pl.tlinkowski.unij.bundle.guava_jdk8`](subprojects/bundles/pl.tlinkowski.unij.bundle.guava_jdk8)), made of:
     -   [`pl.tlinkowski.unij.service.collect.guava`](subprojects/bindings/collect/pl.tlinkowski.unij.service.collect.guava)
     -   [`pl.tlinkowski.unij.service.misc.jdk8`](subprojects/bindings/misc/pl.tlinkowski.unij.service.misc.jdk8)
 
-4.  Eclipse Collections on JDK 8 ([`pl.tlinkowski.unij.bundle.eclipse_jdk8`](subprojects/bundles/pl.tlinkowski.unij.bundle.eclipse_jdk8)), which consists of:
+4.  **Eclipse Collections on JDK 8** bundle ([`pl.tlinkowski.unij.bundle.eclipse_jdk8`](subprojects/bundles/pl.tlinkowski.unij.bundle.eclipse_jdk8)), made of:
     -   [`pl.tlinkowski.unij.service.collect.eclipse`](subprojects/bindings/collect/pl.tlinkowski.unij.service.collect.eclipse)
     -   [`pl.tlinkowski.unij.service.misc.jdk8`](subprojects/bindings/misc/pl.tlinkowski.unij.service.misc.jdk8)
 

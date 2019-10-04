@@ -144,12 +144,12 @@ You can choose one of the below artifacts as a dependency for your library:
 Here's what needs to be done by *you* and *your users* to use each option:
 
 1.  UniJ User API:
-    -   *you* follow [Usage for Library Providers](USAGE.md#api-usage-for-library-providers)
-    -   you ask *your users* to follow [Usage for End Users](USAGE.md#implementation-usage-for-end-users)
+    -   *you* follow [Usage for Library Providers](USAGE.md#user-api-for-library-providers)
+    -   you ask *your users* to follow [Usage for End Users](USAGE.md#implementation-for-end-users)
 
 2.  UniJ JDK 8 bundle:
     -   *you* follow [Basic Implementation Usage: Bundles](USAGE.md#basic-implementation-usage-bundles)
-    -   you inform *your users* they *may* follow [Usage for End Users](USAGE.md#implementation-usage-for-end-users)
+    -   you inform *your users* they *may* follow [Usage for End Users](USAGE.md#implementation-for-end-users)
 
 In both cases, *your users* may need to add certain [external dependencies](USAGE.md#external-dependencies-for-end-users).
 
@@ -162,6 +162,9 @@ How can I create a custom UniJ service implementation and provide it as a bindin
 
 **A**:
 You can create a custom UniJ binding by:
+
+-   adding proper dependencies to your project
+    (see [Usage for Custom Binding Providers](USAGE.md#service-api-for-custom-binding-providers))
 
 -   implementing an interface from the [Service API](../README.md#service-api)
 
@@ -182,8 +185,7 @@ public class CustomUnmodifiableListFactory implements UnmodifiableListFactory {
 ```
 
 You should also create the following Spock specification to ensure that your service implementation adheres to the
-[UniJ specification](../README.md#api-specification)
-(a test dependency on [`pl.tlinkowski.unij.test`](../subprojects/pl.tlinkowski.unij.test) is needed for it):
+[UniJ specification](../README.md#api-specification):
 
 ```groovy
 class CustomUnmodifiableListFactorySpec extends UnmodifiableListFactorySpec {

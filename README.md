@@ -146,7 +146,7 @@ However, by adding a dependency on a UniJ bundle of your choosing (plus some opt
 you can enjoy a JDK 11-like API on JDK 8!
 
 **See**:
--   [Usage for End Users](docs/USAGE.md#implementation-usage-for-end-users)
+-   [Usage for End Users](docs/USAGE.md#implementation-for-end-users)
 -   [Q&A for End Users](docs/Q-and-A.md#end-user-qa)
 -   [sample end-user projects](subprojects/samples/enduser)
 
@@ -157,10 +157,10 @@ If you maintain a library targeting JDK 8, you can't use JDK 9+'s [new methods](
 However, by adding a dependency on UniJ [User API](#user-api), you can program to JDK 11-like API!
 
 *Note*: your users will have to provide implementations of the above-mentioned API
-(as per [Usage for End Users](docs/USAGE.md#implementation-usage-for-end-users)).
+(as per [Usage for End Users](docs/USAGE.md#implementation-for-end-users)).
 
 **See**:
--   [Usage for Library Providers](docs/USAGE.md#api-usage-for-library-providers)
+-   [Usage for Library Providers](docs/USAGE.md#user-api-for-library-providers)
 -   [Q&A for Library Providers](docs/Q-and-A.md#library-provider-qa)
 -   [sample library projects](subprojects/samples/lib)
 
@@ -292,7 +292,12 @@ UniJ currently provides two types of miscellaneous API bindings:
 
 ### Custom Bindings
 
-See [Custom Service Provider Q&A](docs/Q-and-A.md#custom-service-provider-qa).
+Instead of any of the [predefined bindings](#predefined-bindings) mentioned above,
+you can create and depend on a *custom binding*.
+
+**See**:
+-   [Usage for Custom Binding Providers](docs/USAGE.md#service-api-for-custom-binding-providers)
+-   [Q&A for Custom Binding Providers](docs/Q-and-A.md#custom-service-provider-qa)
 
 ## Bundles
 

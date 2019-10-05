@@ -42,13 +42,11 @@ config {
 }
 
 subprojects {
-  apply {
-    // https://docs.gradle.org/current/userguide/java_library_plugin.html
-    plugin(JavaLibraryPlugin::class)
+  // https://docs.gradle.org/current/userguide/java_library_plugin.html
+  apply<JavaLibraryPlugin>()
 
-    // https://github.com/melix/jmh-gradle-plugin
-    plugin(JMHPlugin::class)
-  }
+  // https://github.com/melix/jmh-gradle-plugin
+  apply<JMHPlugin>()
 
   //region CONFIGURATION PROPERTIES
   val api by configurations

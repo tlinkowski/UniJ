@@ -8,6 +8,8 @@ Table of Contents:
 -   [User API (for Library Providers)](#user-api-for-library-providers)
 -   [Service API (for Custom Binding Providers)](#service-api-for-custom-binding-providers)
 
+*Note*: UniJ resides in [Maven Central](https://search.maven.org/search?q=g:pl.tlinkowski.unij).
+
 ## Implementation (for End Users)
 
 An end user can provide UniJ implementation in two ways:

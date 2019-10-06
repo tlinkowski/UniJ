@@ -20,7 +20,8 @@ UniJ is a JDK 8 **facade** for:
 2.  some new [`Collector`](https://docs.oracle.com/javase/10/docs/api/java/util/stream/Collectors.html) providers
     (equivalent to those introduced in JDK 9+)
 
-UniJ is similar to [SLF4J](https://www.slf4j.org/) (Simple Logging Facade for Java) in that it provides an API that
+UniJ provides a facade for above-mentioned methods in a similar way that [SLF4J](https://www.slf4j.org/)
+(Simple Logging Facade for Java) provides a facade for logging. In both cases, there is an API that
 can be implemented in many different ways and then be injected at runtime as a
 [Java service](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/ServiceLoader.html).
 
@@ -175,8 +176,8 @@ The call chain looks as follows:
 end user ⟷ User API ⟷ Service API ⟷ service provider
 ```
 
-In other words, the end user is oblivious of the [Service API](#service-api),
-and the service provider is oblivious of the [User API](#user-api).
+In other words, the end user isn't aware of the [Service API](#service-api),
+and the service provider isn't aware of the [User API](#user-api).
 
 ### User API
 

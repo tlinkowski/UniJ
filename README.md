@@ -12,7 +12,7 @@
 
 ## Introduction
 
-UniJ is a JDK 8 **facade** for:
+UniJ targets JDK 8 and is a **facade** of:
 
 1.  unmodifiable [`List`](https://docs.oracle.com/javase/10/docs/api/java/util/List.html#unmodifiable)/[`Set`](https://docs.oracle.com/javase/10/docs/api/java/util/Set.html#unmodifiable)/[`Map`](https://docs.oracle.com/javase/10/docs/api/java/util/Map.html#unmodifiable)
     factory methods (equivalent to those introduced in JDK 9+)
@@ -20,8 +20,8 @@ UniJ is a JDK 8 **facade** for:
 2.  some new [`Collector`](https://docs.oracle.com/javase/10/docs/api/java/util/stream/Collectors.html) providers
     (equivalent to those introduced in JDK 9+)
 
-UniJ provides a facade for above-mentioned methods in a similar way that [SLF4J](https://www.slf4j.org/)
-(Simple Logging Facade for Java) provides a facade for logging. In both cases, there is an API that
+UniJ provides a facade of above-mentioned methods in a similar way that [SLF4J](https://www.slf4j.org/)
+(Simple Logging Facade for Java) provides a facade of logging. In both cases, there is an API that
 can be implemented in many different ways and then be injected at runtime as a
 [Java service](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/ServiceLoader.html).
 

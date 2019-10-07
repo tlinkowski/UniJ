@@ -67,7 +67,7 @@ UniSets.of(1, 2, null); // throws null-pointer exception
 
 ### Notes
 
-1.  UniJ is meant **only** as a facade for the **official JDK APIs**. UniJ will **not** introduce any
+1.  UniJ is meant **only** as a facade of the **official JDK APIs**. UniJ will **not** introduce any
     APIs of its own design. UniJ may **only** introduce new APIs that directly correspond to APIs in the latest stable
     release of the JDK (currently, it's [JDK 13](https://openjdk.java.net/projects/jdk/13/)).
 

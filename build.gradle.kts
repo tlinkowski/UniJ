@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: Apache-2.0
  *
- * Copyright 2018-2019 Tomasz Linkowski.
+ * Copyright 2018-2021 Tomasz Linkowski.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -146,5 +146,9 @@ subprojects {
      * 4) TEMP dir (can be set using System properties through "java.io.tmpdir")
      */
     jvmArgsAppend = listOf("-Djmh.separateClasspathJAR=true") // https://bugs.openjdk.java.net/browse/CODETOOLS-7902106
+  }
+
+  tasks.withType<Jar> {
+      duplicatesStrategy = DuplicatesStrategy.EXCLUDE
   }
 }

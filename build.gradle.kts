@@ -147,4 +147,13 @@ subprojects {
      */
     jvmArgsAppend = listOf("-Djmh.separateClasspathJAR=true") // https://bugs.openjdk.java.net/browse/CODETOOLS-7902106
   }
+
+  //region DIRTY FIX FOR https://github.com/tlinkowski/UniJ/issues/55
+  afterEvaluate {
+    tasks.findByName("compileModuleInfoJava")?.doLast {
+      // for some reason, all other classes get recompiled as Java 9 files - we don't want them
+      delete("build/classes/module-info/pl")
+    }
+  }
+  //endregion
 }

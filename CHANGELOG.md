@@ -1,5 +1,15 @@
 # Releases
 
+## Version 0.1.3
+
+Release date: 28/01/2021.
+
+### Bug Fixes
+
+-   [#55](https://github.com/tlinkowski/UniJ/issues/55): Strange error - 52 vs 53 when run on GitHub Actions
+
+---
+
 ## Version 0.1.1
 
 Release date: 16/09/2019.
